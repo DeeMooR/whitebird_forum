@@ -1,0 +1,8 @@
+.signIn {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .signIn__wrapper {
+    flex: 1;
+  }
+}

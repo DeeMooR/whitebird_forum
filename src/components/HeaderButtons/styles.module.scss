@@ -1,0 +1,17 @@
+.headerButtons {
+  display: flex;
+  gap: 10px;
+  .headerButtons__signIn {
+
+  }
+  img {
+    padding: 5px;
+    border: 1px solid transparent;
+    transition: all 0.15s ease-in-out 0s;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid var(--white-transparent);
+      border-radius: 7px;
+    }
+  }
+}

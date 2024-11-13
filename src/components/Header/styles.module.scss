@@ -1,0 +1,30 @@
+.header {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  height: 70px;
+  width: 100%;
+  background: var(--blue);
+  z-index: 10;
+  .header__wrapper {
+    position: relative;
+    justify-content: space-between;
+    max-width: 1340px;
+    .header__navigation {
+      position: absolute;
+      display: flex;
+      gap: 45px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      a {
+        color: var(--white);
+        transition: all 0.15s ease-in-out 0s;
+        &:hover {
+          color: var(--white-hover)
+        }
+      }
+    }
+  }
+}

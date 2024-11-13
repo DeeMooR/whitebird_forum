@@ -1,12 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 /*--------- CONST ----------*/
 :root {
-  --font-main: 'Inter';
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont;
   
   --white: #FFFFFF;
-  --background: #F8FBFD;
-  --black: #1E1E28;
-  --blue: #0069FF;
+  --white-hover: #e3e3e3;
   --white-transparent: rgba(255, 255, 255, 0.6);
+  --black: #1E1E28;
+  --grey: #8f9db1;
+  --black-transparent: rgba(0, 0, 0, 0.1);
+  --background: #F8FBFD;
+  --blue: #0069FF;
+  --blue-light: #2279f4;
   
   --input: #FAFAFA;
   --disabled: #a8a8a8;
@@ -33,7 +39,7 @@ nav,footer,header,aside{display: block;}
 html,body{
 	height: 100%;
 	width: 100%;
-	font-size: 16px;
+	font-size: 18px;
   font-weight: 400;
   font-family: var(--font-main);
   background-color: var(--background);
@@ -58,4 +64,44 @@ body {
   /* overflow-y: scroll; */
 }
 
+#root {
+  height: 100%;
+}
+
 /*--------- STYLES ---------*/
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  max-width: 1120px;
+  padding: 0 20px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  font-size: 14px;
+  padding: 0 24px;
+  color: var(--white);
+  background-color: var(--blue);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  text-transform: uppercase;
+  transition: all 0.15s ease-in-out 0s;
+}
+button:disabled {
+  background-color: var(--disabled);
+  cursor: not-allowed;
+}
+button:hover:not(:disabled) {
+  background-color: var(--blue-light);
+}
+
+.btnBorder {
+  border: 1px solid var(--white-transparent);
+}
