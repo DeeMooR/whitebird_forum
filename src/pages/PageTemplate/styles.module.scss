@@ -5,10 +5,21 @@
   height: 100%;
   .pageTemplate__wrapper {
     flex: 1;
-    margin: 120px 0 0 0;
-  }
-  .isCenter {
-    justify-content: center;
-    margin: 70px 0 0 0;
+    margin: 100px 0 30px 0;
+    .pageTemplate__crumbs {
+      display: inline-block;
+      font-size: 13px;
+      color: var(--disabled);
+      margin: 0 0 5px 0;
+      cursor: pointer;
+    }
+    .pageTemplate__content {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+    }
+    .isCenter {
+      align-items: center;
+    }
   }
 }

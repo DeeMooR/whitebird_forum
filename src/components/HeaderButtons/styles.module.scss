@@ -1,11 +1,9 @@
 .headerButtons {
   display: flex;
   gap: 10px;
-  .headerButtons__signIn {
-
-  }
+  .headerButtons__btnSignIn {}
   img {
-    padding: 5px;
+    padding: 7px;
     border: 1px solid transparent;
     transition: all 0.15s ease-in-out 0s;
     cursor: pointer;

@@ -3,11 +3,12 @@
 /*--------- CONST ----------*/
 :root {
   --font-main: 'Inter', -apple-system, BlinkMacSystemFont;
+  --font-numbers: toster-text, Helvetica;
   
   --white: #FFFFFF;
   --white-hover: #e3e3e3;
   --white-transparent: rgba(255, 255, 255, 0.6);
-  --black: #1E1E28;
+  --black: #282828;
   --grey: #8f9db1;
   --black-transparent: rgba(0, 0, 0, 0.1);
   --background: #F8FBFD;
@@ -73,8 +74,6 @@ body {
 .wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 100%;
   width: 100%;
   max-width: 1120px;
   padding: 0 20px;

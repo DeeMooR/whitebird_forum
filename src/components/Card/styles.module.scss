@@ -1,0 +1,41 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--black-transparent);
+  .card__star {
+    cursor: pointer;
+  }
+  .card__info {
+    flex: 1;
+    .card__author {
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .card__title {
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 1.2em;
+      &:hover {
+        color: var(--blue-light);
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+  .card__comments {
+    padding: 0 0 0 30px;
+    color: var(--grey);
+    .comments__counter {
+      font-family: var(--font-numbers);
+      font-size: 17px;
+      font-weight: 700;
+      text-align: center;
+      margin: 0 0 3px 0;
+    }
+    .comments__text {
+      font-size: 13px;
+    }
+  }
+}

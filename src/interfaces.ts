@@ -12,3 +12,10 @@ export interface IUser {
 export interface ISignIn {
   email: string
 }
+
+export interface IPost {
+  id: number,
+  userId: number,
+  title: string,
+  body: string,
+}
