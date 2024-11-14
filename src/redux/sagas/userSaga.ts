@@ -9,7 +9,9 @@ interface ISignInSaga {
 
 function* signInSaga({ payload }: ISignInSaga) {
   try {
-    const users: IUser[] = yield axiosInstance.get(endpoints.users, { params: { email: payload }}).then(({ data }) => data);
+    const users: IUser[] = yield axiosInstance.get(endpoints.users, { params: { email: payload }}).then(({ data }) =>
+      data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
+    );
     if (users.length === 1) yield put(signInSuccess(users[0]));
     else yield put(signInFailure('Пользователь не существует'));
   } catch (error) {

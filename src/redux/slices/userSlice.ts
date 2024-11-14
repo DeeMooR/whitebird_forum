@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ADMIN_ID } from "src/config";
+import { ADMIN_EMAIL } from "src/config";
 import { IUserState } from "../interfaces";
 
 const initialState: IUserState = {
@@ -34,7 +34,7 @@ export const userSlice = createSlice({
     signInSuccess: (state, { payload }) => {
       state.isLoading = false;
       state.user = payload;
-      if (payload.id === ADMIN_ID) {
+      if (payload.email === ADMIN_EMAIL) {
         state.role = 'admin';
         state.successMessage = 'Вы успешно авторизованы как АДМИН'
       } else {

@@ -3,6 +3,7 @@ import { IForumState } from "../interfaces";
 
 const initialState: IForumState = {
   posts: [],
+  users: [],
   isLoading: false,
   errorMessage: null,
   successMessage: null,
@@ -26,7 +27,8 @@ export const forumSlice = createSlice({
     getPosts: (state) => setLoading(state),
     getPostsSuccess: (state, { payload }) => {
       state.isLoading = false;
-      state.posts = payload;
+      state.posts = payload.posts;
+      state.users = payload.users;
     },
     getPostsFailure: (state) => {
       state.isLoading = false;
@@ -42,6 +44,16 @@ export const forumSlice = createSlice({
       state.isLoading = false;
       state.errorMessage = 'Ошибка загрузки постов';
     },
+
+    // getPostsComments: (state, { payload }) => setLoading(state),
+    // getPostsCommentsSuccess: (state, { payload }) => {
+    //   state.isLoading = false;
+    //   state.posts = payload;
+    // },
+    // getPostsCommentsFailure: (state) => {
+    //   state.isLoading = false;
+    //   state.errorMessage = 'Ошибка загрузки постов';
+    // },
   }
 })
 

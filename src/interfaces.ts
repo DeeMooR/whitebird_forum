@@ -23,3 +23,11 @@ export interface IPost {
   title: string,
   body: string,
 }
+
+export interface IPostForum {
+  id: number,
+  userId: number,
+  title: string,
+  body: string,
+  comments_number: number | null,
+}
