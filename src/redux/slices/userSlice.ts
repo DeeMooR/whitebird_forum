@@ -25,6 +25,11 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
   reducers: {
+    clearUserMessages: (state) => {
+      state.successMessage = null;
+      state.errorMessage = null;
+    },
+
     signIn: (state, { payload }) => setLoading(state),
     signInSuccess: (state, { payload }) => {
       state.isLoading = false;
@@ -36,9 +41,9 @@ export const userSlice = createSlice({
         state.role = 'user';
       }
     },
-    signInFailure: (state) => {
+    signInFailure: (state, { payload }) => {
       state.isLoading = false;
-      state.errorMessage = 'Ошибка входа в аккаунт';
+      state.errorMessage = payload;
     },
 
     logout: (state) => {
@@ -49,6 +54,7 @@ export const userSlice = createSlice({
 })
 
 export const {
+  clearUserMessages,
   signIn,
   signInSuccess,
   signInFailure

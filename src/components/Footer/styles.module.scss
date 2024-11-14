@@ -1,6 +1,8 @@
 .footer {
+  width: 100%;
   .footer__wrapper {
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     max-width: 1340px;
     padding: 16px 0 12px 0;

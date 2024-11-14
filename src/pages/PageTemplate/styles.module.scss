@@ -1,0 +1,14 @@
+.pageTemplate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  .pageTemplate__wrapper {
+    flex: 1;
+    margin: 120px 0 0 0;
+  }
+  .isCenter {
+    justify-content: center;
+    margin: 70px 0 0 0;
+  }
+}

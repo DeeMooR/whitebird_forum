@@ -72,7 +72,7 @@ body {
 
 .wrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   height: 100%;
   width: 100%;
@@ -84,13 +84,13 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  font-size: 14px;
+  height: 45px;
+  font-size: 15px;
   padding: 0 24px;
   color: var(--white);
   background-color: var(--blue);
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 7px;
   text-transform: uppercase;
   transition: all 0.15s ease-in-out 0s;
 }
@@ -101,7 +101,29 @@ button:disabled {
 button:hover:not(:disabled) {
   background-color: var(--blue-light);
 }
-
 .btnBorder {
   border: 1px solid var(--white-transparent);
+}
+.btnSmall {
+  height: 40px;
+  font-size: 14px;
+}
+
+input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  padding: 0 24px;
+  background-color: var(--input);
+  border: 1px solid var(--blue-light);
+  border-radius: 7px;
+}
+input:focus {
+  border: 1px solid var(--blue);
+}
+input:disabled {
+  background-color: var(--disabled-light);
+  cursor: not-allowed;
 }

@@ -1,0 +1,27 @@
+.inputBlock {
+  position: relative;
+  width: 100%;
+  .inputBlock__title {
+    font-size: 14px;
+    margin: 0 0 3px 0;
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+  input {
+    &.warning {
+      border: 1px solid var(--warning);
+    }
+  }
+  .error {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    margin: 3px 0 0 3px;
+    span {
+      font-size: 11px;
+      line-height: 1;
+      margin: 0 0 0 7px;
+    }
+  }
+}

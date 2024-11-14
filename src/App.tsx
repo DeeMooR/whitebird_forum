@@ -1,8 +1,12 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ForumPage, SignInPage }  from './pages';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from './redux/selectors';
 
 const App = () => {
+  const { role } = useSelector(getUserSelector);
+
   return (
     <>
     <Routes>

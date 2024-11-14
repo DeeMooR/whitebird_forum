@@ -7,9 +7,9 @@ function* signInSaga({ payload: email }: { payload: string }) {
   try {
     const users: IUser[] = yield axiosInstance.get(endpoints.users, { params: { email }}).then(({ data }) => data);
     if (users.length === 1) yield put(signInSuccess(users[0]));
-    else yield put(signInFailure());
+    else yield put(signInFailure('Пользователь не существует'));
   } catch (error) {
-    yield put(signInFailure());
+    yield put(signInFailure('Ошибка входа в аккаунт'));
   }
 }
 

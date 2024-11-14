@@ -9,6 +9,7 @@
   z-index: 10;
   .header__wrapper {
     position: relative;
+    flex-direction: row;
     justify-content: space-between;
     max-width: 1340px;
     .header__navigation {

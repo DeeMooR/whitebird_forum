@@ -7,6 +7,7 @@ import favoriteIcon from './icons/favorite.svg';
 import favoriteFillIcon from './icons/favoriteFill.svg';
 import favoriteWhiteIcon from './icons/favorite_white.svg';
 import accountIcon from './icons/account.svg';
+import warningIcon from './icons/warning.svg';
 import radioSelectedIcon from './icons/radioSelected.svg';
 import radioUnselectedIcon from './icons/radioUnselected.svg';
 
@@ -20,6 +21,7 @@ export {
   favoriteFillIcon,
   favoriteWhiteIcon,
   accountIcon,
+  warningIcon,
   radioSelectedIcon,
   radioUnselectedIcon,
 }

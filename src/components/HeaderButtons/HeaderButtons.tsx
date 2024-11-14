@@ -22,7 +22,7 @@ export const HeaderButtons = () => {
     navigate('/account');
   }
   
-  const btnSignInStyle = cn('btnBorder', cls.headerButtons__signIn);
+  const btnSignInStyle = cn('btnBorder', 'btnSmall', cls.headerButtons__signIn);
   
   return (
     <div className={cls.headerButtons}>
