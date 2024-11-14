@@ -13,6 +13,10 @@ export interface ISignIn {
   email: string
 }
 
+export interface ISearch {
+  search: string
+}
+
 export interface IPost {
   id: number,
   userId: number,

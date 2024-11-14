@@ -3,9 +3,13 @@ import { signIn, signInSuccess, signInFailure } from '../slices';
 import { axiosInstance, endpoints } from '../api';
 import { IUser } from 'src/interfaces';
 
-function* signInSaga({ payload: email }: { payload: string }) {
+interface ISignInSaga {
+  payload: string;
+}
+
+function* signInSaga({ payload }: ISignInSaga) {
   try {
-    const users: IUser[] = yield axiosInstance.get(endpoints.users, { params: { email }}).then(({ data }) => data);
+    const users: IUser[] = yield axiosInstance.get(endpoints.users, { params: { email: payload }}).then(({ data }) => data);
     if (users.length === 1) yield put(signInSuccess(users[0]));
     else yield put(signInFailure('Пользователь не существует'));
   } catch (error) {

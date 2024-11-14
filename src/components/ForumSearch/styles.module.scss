@@ -1,0 +1,10 @@
+.forumSearch {
+  display: flex;
+  gap: 20px;
+  .forumSearch__btnSent {
+    input {
+      height: 45px;
+      width: 250px;
+    }
+  }
+}

@@ -18,7 +18,9 @@ export const Input:FC<IInput> = ({id, register, type, title, placeholder, disabl
   
   return (
     <div className={cls.inputBlock}>
-      <p className={cls.inputBlock__title}>{title}</p>
+      {title &&
+        <p className={cls.inputBlock__title}>{title}</p>
+      }
       <input 
         id={id}
         {...register(id)}

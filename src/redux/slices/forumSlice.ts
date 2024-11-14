@@ -32,6 +32,16 @@ export const forumSlice = createSlice({
       state.isLoading = false;
       state.errorMessage = 'Ошибка загрузки постов';
     },
+
+    getPostsByUser: (state, { payload }) => setLoading(state),
+    getPostsByUserSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.posts = payload;
+    },
+    getPostsByUserFailure: (state) => {
+      state.isLoading = false;
+      state.errorMessage = 'Ошибка загрузки постов';
+    },
   }
 })
 
@@ -39,7 +49,10 @@ export const {
   clearForumMessages,
   getPosts,
   getPostsSuccess,
-  getPostsFailure
+  getPostsFailure,
+  getPostsByUser,
+  getPostsByUserSuccess,
+  getPostsByUserFailure
 } = forumSlice.actions;
 
 export const forumReducer = forumSlice.reducer;
