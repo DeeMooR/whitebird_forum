@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUsersMessages, getUsers } from 'src/redux/slices';
 import { getUsersSelector } from 'src/redux/selectors';
@@ -10,6 +10,7 @@ import cls from './styles.module.scss';
 export const UsersPage = () => {
   const dispatch = useDispatch();
   const { users, isLoading, errorMessage } = useSelector(getUsersSelector);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     document.body.style.overflowY = "scroll";

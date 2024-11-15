@@ -34,7 +34,7 @@ export const Search:FC<ISearch> = ({ data }) => {
         id='search'
         register={register}
         type="text"
-        placeholder='username, email'
+        placeholder='никнейм, email'
         classNameInput='inputSearch'
       />
       <button type="submit" className={cls.search__btnSent}>Поиск</button>

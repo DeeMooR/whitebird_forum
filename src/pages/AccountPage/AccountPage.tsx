@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,11 +10,13 @@ import { Input, Loading, Notification } from 'src/UI';
 import { accountInputs } from 'src/config';
 import cn from 'classnames';
 import cls from './styles.module.scss';
+import { ModalConfirm } from 'src/components';
 
 export const AccountPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, role, isLoading, errorMessage } = useSelector(getUserSelector);
+  const [modalDelete, setModalDelete] = useState(false);
 
   const {
     register,
@@ -81,14 +83,15 @@ export const AccountPage = () => {
                 ))}
               </div>
               <div className={cls.account__buttons}>
-                <button type='button' className={cn(cls.account__btnDelete, 'btnSmall', 'btnDelete')} onClick={handleDelete}>Удалить</button>
-                <button type='submit' className={cn(cls.account__btnUpdate, 'btnSmall')} disabled={!isDirty}>Изменить</button>
+                <button type='button' className={cn(cls.account__btnDelete, 'btnSmall', 'btnDelete')} onClick={() => setModalDelete(true)}>Удалить</button>
+                <button type='button' className={cn(cls.account__btnUpdate, 'btnSmall')} disabled={!isDirty}>Изменить</button>
                 <button type='button' className={cn(cls.account__btnExit, 'btnSmall')} onClick={handleExit}>Выйти</button>
               </div>
             </form>
           )}
         </div>
       </div>
+      {modalDelete && <ModalConfirm action='delete_account' clickApply={handleDelete} closeModal={() => setModalDelete(false)} />}
       {errorMessage && <Notification type='error' message={errorMessage} clearMessage={clearMessages} />}
     </PageTemplate>
   )

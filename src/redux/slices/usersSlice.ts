@@ -42,6 +42,16 @@ export const usersSlice = createSlice({
       state.isLoading = false;
       state.errorMessage = 'Ошибка загрузки пользователей';
     },
+
+    deleteUserByAdmin: (state, { payload }) => setLoading(state),
+    deleteUserByAdminSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.users = state.users.filter((user) => user.id !== payload);
+    },
+    deleteUserByAdminFailure: (state) => {
+      state.isLoading = false;
+      state.errorMessage = 'Ошибка удаления пользователя';
+    },
   }
 })
 
@@ -52,7 +62,10 @@ export const {
   getUsersFailure,
   getUserByUserData,
   getUserByUserDataSuccess,
-  getUserByUserDataFailure
+  getUserByUserDataFailure,
+  deleteUserByAdmin,
+  deleteUserByAdminSuccess,
+  deleteUserByAdminFailure
 } = usersSlice.actions;
 
 export const usersReducer = usersSlice.reducer;

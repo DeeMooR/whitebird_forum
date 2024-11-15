@@ -1,11 +1,16 @@
 import { takeLatest, put } from 'redux-saga/effects';
-import { getUsers, getUsersSuccess, getUsersFailure, getUserByUserData, getUserByUserDataSuccess, getUserByUserDataFailure } from '../slices';
+import { getUsers, getUsersSuccess, getUsersFailure, getUserByUserData, getUserByUserDataSuccess, getUserByUserDataFailure, deleteUserByAdminSuccess, deleteUserByAdminFailure, deleteUserByAdmin } from '../slices';
 import { axiosInstance, endpoints } from '../api';
 import { IUser } from 'src/interfaces';
 
 interface IGetUserByUserDataSaga {
   payload: string;
 }
+
+interface IDeleteUserByAdminSaga {
+  payload: number;
+}
+
 
 function* getUsersSaga() {
   try {
@@ -34,9 +39,19 @@ function* getUserByUserDataSaga({ payload }: IGetUserByUserDataSaga) {
   }
 }
 
+function* deleteUserByAdminSaga({ payload: id }: IDeleteUserByAdminSaga) {
+  try {
+    yield axiosInstance.delete(`${endpoints.users}/${id}`);
+    yield put(deleteUserByAdminSuccess(id));
+  } catch (error) {
+    yield put(deleteUserByAdminFailure());
+  }
+}
+
 function* usersSaga() {
   yield takeLatest(getUsers, getUsersSaga);
   yield takeLatest(getUserByUserData, getUserByUserDataSaga);
+  yield takeLatest(deleteUserByAdmin, deleteUserByAdminSaga);
 }
 
 export default usersSaga;

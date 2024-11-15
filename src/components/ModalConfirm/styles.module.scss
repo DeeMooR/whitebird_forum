@@ -1,0 +1,15 @@
+.modalConfirm {
+  h3 {
+    font-weight: 400;
+    text-align: center;
+    margin: 0 0 27px 0;
+  }
+  .modalConfirm__buttons {
+    display: flex;
+    gap: 30px;
+    button {
+      border-radius: 5px;
+      transition: all 0.2s ease-in-out 0s;
+    }
+  }
+}
