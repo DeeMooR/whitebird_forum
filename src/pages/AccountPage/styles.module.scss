@@ -1,0 +1,40 @@
+.account {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  .account__title {
+    text-align: center;
+    margin: 0 0 30px 0;
+  }
+  .account__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    .account__form {
+      flex: 1;
+      .account__subtitle {
+        margin: 0 0 10px 0;
+      }
+      .account__fields {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px 24px;
+        margin: 0 0 24px 0;
+        .account__field {
+          width: calc(50% - 12px);
+        }
+      }
+      .account__buttons {
+        display: flex;
+        .account__btnDelete {
+          margin: 0 15px 0 0;
+        } 
+        .account__btnUpdate {}
+        .account__btnExit {
+          margin-left: auto;
+        }
+      }
+    }
+  }
+}

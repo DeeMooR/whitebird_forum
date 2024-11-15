@@ -31,6 +31,7 @@ export const ForumSearch = () => {
         register={register}
         type="text"
         placeholder='username, email'
+        classNameInput='inputSearch'
       />
       <button type="submit" className={cls.forumSearch__btnSent}>Поиск</button>
     </form>

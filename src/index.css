@@ -104,8 +104,14 @@ button:hover:not(:disabled) {
   border: 1px solid var(--white-transparent);
 }
 .btnSmall {
-  height: 40px;
-  font-size: 14px;
+  height: 36px;
+  font-size: 13px;
+}
+.btnDelete {
+  background-color: var(--error);
+}
+.btnDelete:hover:not(:disabled) {
+  background-color: var(--delete);
 }
 
 input {

@@ -1,4 +1,5 @@
 import React, { FC, ReactNode } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'src/redux/selectors';
 import { clearUserMessages } from 'src/redux/slices';
@@ -6,7 +7,6 @@ import { Footer, Header } from 'src/components';
 import { Notification } from 'src/UI';
 import cn from 'classnames';
 import cls from './styles.module.scss';
-import { useNavigate } from 'react-router-dom';
 
 interface IPageTemplate {
   children: ReactNode;

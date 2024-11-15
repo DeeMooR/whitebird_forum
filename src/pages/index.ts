@@ -1,3 +1,4 @@
+export * from './PageTemplate/PageTemplate';
 export * from './ForumPage/ForumPage';
 export * from './SignInPage/SignInPage';
-export * from './PageTemplate/PageTemplate';
+export * from './AccountPage/AccountPage';

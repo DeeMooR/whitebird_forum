@@ -4,10 +4,12 @@ import { IUserState } from "../interfaces";
 
 const initialState: IUserState = {
   user: {
-    id: null, 
-    name: null,
-    username: null,
-    email: null
+    id: undefined, 
+    name: undefined,
+    username: undefined,
+    email: undefined,
+    address: undefined,
+    phone: undefined,
   },
   role: 'unauthorized',
   isLoading: false,
@@ -29,6 +31,10 @@ export const userSlice = createSlice({
       state.successMessage = null;
       state.errorMessage = null;
     },
+    logout: (state) => {
+      state.user = initialState.user;
+      state.role = 'unauthorized';
+    },
 
     signIn: (state, { payload }) => setLoading(state),
     signInSuccess: (state, { payload }) => {
@@ -46,18 +52,43 @@ export const userSlice = createSlice({
       state.errorMessage = payload;
     },
 
-    logout: (state) => {
+    updateUser: (state, { payload }) => setLoading(state),
+    updateUserSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.user = payload;
+      state.successMessage = 'Данные успешно изменены';
+    },
+    updateUserFailure: (state) => {
+      state.isLoading = false;
+      state.errorMessage = 'Ошибка изменения данных';
+    },
+
+    deleteUser: (state, { payload }) => setLoading(state),
+    deleteUserSuccess: (state) => {
+      state.isLoading = false;
       state.user = initialState.user;
       state.role = 'unauthorized';
+      state.successMessage = 'Пользователь успешно удалён';
+    },
+    deleteUserFailure: (state) => {
+      state.isLoading = false;
+      state.errorMessage = 'Ошибка удаления пользователя';
     },
   }
 })
 
 export const {
   clearUserMessages,
+  logout,
   signIn,
   signInSuccess,
-  signInFailure
+  signInFailure,
+  updateUser,
+  updateUserSuccess,
+  updateUserFailure,
+  deleteUser,
+  deleteUserSuccess,
+  deleteUserFailure
 } = userSlice.actions;
 
 export const userReducer = userSlice.reducer;

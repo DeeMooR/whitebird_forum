@@ -1,5 +1,11 @@
+import { UseFormRegister } from "react-hook-form";
+
 export type Nullable<T> = {
   [P in keyof T]: T[P] | null;
+};
+
+export type Undefinable<T> = {
+  [P in keyof T]: T[P] | undefined;
 };
 
 export interface IUser {
@@ -7,6 +13,20 @@ export interface IUser {
   name: string,
   username: string,
   email: string
+}
+
+export interface IFullUser extends IUser {
+  phone: string,
+  address: {
+    street: string,
+    suite: string,
+    city: string,
+    zipcode: string,
+    geo: {
+      lat: string,
+      lng: string,
+    }
+  },
 }
 
 export interface ISignIn {
@@ -24,10 +44,19 @@ export interface IPost {
   body: string,
 }
 
-export interface IPostForum {
-  id: number,
-  userId: number,
-  title: string,
-  body: string,
+export interface IPostForum extends IPost {
   comments_number: number | null,
 }
+
+export interface IInput {
+  id: string;
+  register: UseFormRegister<any>;
+  type: 'text' | 'password' | 'email' | 'tel';
+  title?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  error?: string;
+  classNameInput?: string;
+}
+
+export interface IAccountInput extends Omit<IInput, 'register'> {};
