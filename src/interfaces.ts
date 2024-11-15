@@ -33,7 +33,7 @@ export interface ISignIn {
   email: string
 }
 
-export interface ISearch {
+export interface ISearchForm {
   search: string
 }
 

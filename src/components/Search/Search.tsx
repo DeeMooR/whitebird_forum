@@ -1,31 +1,35 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { getPosts, getPostsByUser } from 'src/redux/slices';
-import { ISearch } from 'src/interfaces';
+import { ISearchForm } from 'src/interfaces';
 import { Input } from 'src/UI';
+import { getSearchAction } from './config';
 import cls from './styles.module.scss';
 
-export const ForumSearch = () => {
+interface ISearch {
+  data: 'users' | 'posts'
+}
+
+export const Search:FC<ISearch> = ({ data }) => {
   const dispatch = useDispatch();
   const [previousSearch, setPreviousSearch] = useState('');
 
   const {
     register,
     handleSubmit,
-  } = useForm<ISearch>({
+  } = useForm<ISearchForm>({
     mode: 'onChange',
   });
 
-  const onSubmit = ({ search }: ISearch) => {
+  const onSubmit = ({ search }: ISearchForm) => {
     if (!search && previousSearch === '') return;
-    const action = search ? getPostsByUser(search) : getPosts();
+    const action = getSearchAction[data](search)
     dispatch(action);
     setPreviousSearch(search);
   }
 
   return (
-    <form className={cls.forumSearch} onSubmit={handleSubmit(onSubmit)}>
+    <form className={cls.search} onSubmit={handleSubmit(onSubmit)}>
       <Input
         id='search'
         register={register}
@@ -33,7 +37,7 @@ export const ForumSearch = () => {
         placeholder='username, email'
         classNameInput='inputSearch'
       />
-      <button type="submit" className={cls.forumSearch__btnSent}>Поиск</button>
+      <button type="submit" className={cls.search__btnSent}>Поиск</button>
     </form>
   )
 }

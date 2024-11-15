@@ -1,0 +1,13 @@
+.usersPage {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  .usersPage__title {
+    margin: 0 0 20px 0;
+  }
+  .usersPage__search {}
+  .usersPage__loading {
+    flex: 1;
+  }
+}

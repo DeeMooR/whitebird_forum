@@ -1,0 +1,36 @@
+.users {
+  font-size: 16px;
+  margin: 28px 0 40px 0;
+  .users__table {
+    .table__line {
+      display: grid;
+      align-items: center;
+      gap: 20px;
+      height: 52px;
+      padding: 0 20px;
+      grid-template-columns: 5fr 7fr 10fr 27px 27px;
+      p {
+        display: flex;
+        align-items: center;
+      }
+      img {
+        display: flex;
+        align-items: center;
+        padding: 3px;
+        cursor: pointer;
+      }
+    }
+    .table__header {
+      border-radius: 5px;
+      background-color: var(--blue);
+      color: var(--white);
+    }
+    .table__row {
+      border-bottom: 1px solid var(--black-transparent);
+    }
+  }
+  .users__empty {
+    text-align: center;
+    padding: 12px 0 0 0;
+  }
+}

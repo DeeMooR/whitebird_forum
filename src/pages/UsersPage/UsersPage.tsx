@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { clearForumMessages, getPosts } from 'src/redux/slices';
-import { getForumSelector } from 'src/redux/selectors';
-import { ForumPosts, Search } from 'src/components';
+import { clearUsersMessages, getUsers } from 'src/redux/slices';
+import { getUsersSelector } from 'src/redux/selectors';
+import { Search, Users } from 'src/components';
 import { PageTemplate } from 'src/pages'
 import { Loading, Notification } from 'src/UI'
 import cls from './styles.module.scss';
 
-export const ForumPage = () => {
+export const UsersPage = () => {
   const dispatch = useDispatch();
-  const { posts, isLoading, errorMessage } = useSelector(getForumSelector);
+  const { users, isLoading, errorMessage } = useSelector(getUsersSelector);
 
   useEffect(() => {
     document.body.style.overflowY = "scroll";
@@ -17,24 +17,24 @@ export const ForumPage = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getPosts());
+    dispatch(getUsers());
   }, [dispatch])
 
-  const clearMessages = () => dispatch(clearForumMessages());
+  const clearMessages = () => dispatch(clearUsersMessages());
 
   return (
-    <PageTemplate notShowCrumbs>
-      <div className={cls.forumPage}>
-        <h1 className={cls.forumPage__title}>Все статьи</h1>
-        <div className={cls.forumPage__search}>
-          <Search data='posts' />
+    <PageTemplate>
+      <div className={cls.usersPage}>
+        <h1 className={cls.usersPage__title}>Пользователи</h1>
+        <div className={cls.usersPage__search}>
+          <Search data='users' />
         </div>
         {isLoading ? (
-          <div className={cls.forumPage__loading}>
+          <div className={cls.usersPage__loading}>
             <Loading />
           </div>
         ) : (
-          <ForumPosts posts={posts} />
+          <Users users={users} />
         )}
       </div>
       {errorMessage && <Notification type='error' message={errorMessage} clearMessage={clearMessages} />}

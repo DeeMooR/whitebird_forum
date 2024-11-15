@@ -34,6 +34,7 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.user = initialState.user;
       state.role = 'unauthorized';
+      localStorage.removeItem('userEmail');
     },
 
     signIn: (state, { payload }) => setLoading(state),
@@ -46,6 +47,7 @@ export const userSlice = createSlice({
       } else {
         state.role = 'user';
       }
+      localStorage.setItem('userEmail', payload.email);
     },
     signInFailure: (state, { payload }) => {
       state.isLoading = false;
@@ -69,6 +71,7 @@ export const userSlice = createSlice({
       state.user = initialState.user;
       state.role = 'unauthorized';
       state.successMessage = 'Пользователь успешно удалён';
+      localStorage.removeItem('userEmail');
     },
     deleteUserFailure: (state) => {
       state.isLoading = false;
