@@ -2,13 +2,13 @@ import React, { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getForumSelector, getUserSelector } from 'src/redux/selectors';
 import { favoriteFillIcon, favoriteIcon } from 'src/assets';
-import { IPostForum } from 'src/interfaces';
+import { IPost } from 'src/interfaces';
 import cls from './styles.module.scss';
 import { getUsernameById } from 'src/config';
 import { updateUserFavoritePosts } from 'src/redux/slices';
 
 interface ICard {
-  post: IPostForum
+  post: IPost
 }
 
 export const Card:FC<ICard> = ({post }) => {

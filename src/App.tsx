@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { AccountPage, ForumPage, SignInPage, UsersPage }  from './pages';
+import { AccountPage, ForumPage, SignInPage, UsersPage, FavoritePostsPage, MyPostsPage }  from './pages';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from './redux/selectors';
 import { clearUserFavoritePosts, setUserFavoritePosts, signIn } from './redux/slices';
@@ -24,6 +24,8 @@ const App = () => {
     <Routes>
       <Route path='/forum' element={<ForumPage />} />
       {/* <Route path='/forum/:id' element={<PostPage />} /> */}
+      <Route path='/favorites' element={<FavoritePostsPage />} />
+      <Route path='/myPosts' element={<MyPostsPage />} />
       <Route path='/users' element={<UsersPage />} />
       <Route path='/sign-in' element={<SignInPage />} />
       <Route path='/account' element={<AccountPage />} />

@@ -12,18 +12,13 @@ export const ForumPage = () => {
   const { posts, isLoading, errorMessage } = useSelector(getForumSelector);
 
   useEffect(() => {
-    document.body.style.overflowY = "scroll";
-    return () => {document.body.style.overflowY = "auto"};
-  }, []);
-
-  useEffect(() => {
     dispatch(getPosts());
   }, [dispatch])
 
   const clearMessages = () => dispatch(clearForumMessages());
 
   return (
-    <PageTemplate notShowCrumbs>
+    <PageTemplate notShowCrumbs showScroll>
       <div className={cls.forumPage}>
         <h1 className={cls.forumPage__title}>Все статьи</h1>
         <div className={cls.forumPage__search}>

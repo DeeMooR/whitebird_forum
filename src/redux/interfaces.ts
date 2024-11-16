@@ -1,5 +1,5 @@
 import { roleType } from "src/config";
-import { IPostForum, IFullUser, Undefinable, IUser } from "src/interfaces";
+import { IPost, IFullUser, Undefinable, IUser } from "src/interfaces";
 
 export type StateType = {
   user: IUserState;
@@ -17,7 +17,8 @@ export interface IUserState {
 }
 
 export interface IForumState {
-  posts: IPostForum[];
+  posts: IPost[];
+  myPosts: IPost[];
   users: IUser[];
   isLoading: boolean;
   errorMessage: string | null;

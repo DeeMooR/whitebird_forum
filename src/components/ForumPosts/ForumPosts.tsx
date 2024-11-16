@@ -1,11 +1,11 @@
 import React, { FC, useState } from 'react'
-import { IPostForum } from 'src/interfaces';
+import { IPost } from 'src/interfaces';
 import { STEP_POSTS } from 'src/config';
 import { Card } from 'src/components';
 import cls from './styles.module.scss';
 
 interface IForumPosts {
-  posts: IPostForum[]
+  posts: IPost[]
 }
 
 export const ForumPosts:FC<IForumPosts> = ({ posts }) => {

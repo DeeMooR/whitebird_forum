@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IForumState } from "../interfaces";
-import { getFavoritePosts } from "src/config";
 
 const initialState: IForumState = {
   posts: [],
+  myPosts: [],
   users: [],
   isLoading: false,
   errorMessage: null,
@@ -36,6 +36,17 @@ export const forumSlice = createSlice({
       state.errorMessage = 'Ошибка загрузки постов';
     },
 
+    getMyPosts: (state, { payload }) => setLoading(state),
+    getMyPostsSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.myPosts = payload.myPosts;
+      state.users = payload.users;
+    },
+    getMyPostsFailure: (state) => {
+      state.isLoading = false;
+      state.errorMessage = 'Ошибка загрузки постов';
+    },
+
     getPostsByUser: (state, { payload }) => setLoading(state),
     getPostsByUserSuccess: (state, { payload }) => {
       state.isLoading = false;
@@ -63,6 +74,9 @@ export const {
   getPosts,
   getPostsSuccess,
   getPostsFailure,
+  getMyPosts,
+  getMyPostsSuccess,
+  getMyPostsFailure,
   getPostsByUser,
   getPostsByUserSuccess,
   getPostsByUserFailure

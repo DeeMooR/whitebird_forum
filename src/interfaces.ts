@@ -42,9 +42,6 @@ export interface IPost {
   userId: number,
   title: string,
   body: string,
-}
-
-export interface IPostForum extends IPost {
   comments_number: number | null,
 }
 

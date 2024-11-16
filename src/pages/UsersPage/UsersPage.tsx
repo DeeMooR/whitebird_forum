@@ -10,12 +10,6 @@ import cls from './styles.module.scss';
 export const UsersPage = () => {
   const dispatch = useDispatch();
   const { users, isLoading, successMessage, errorMessage } = useSelector(getUsersSelector);
-  const [modal, setModal] = useState(false);
-
-  useEffect(() => {
-    document.body.style.overflowY = "scroll";
-    return () => {document.body.style.overflowY = "auto"};
-  }, []);
 
   useEffect(() => {
     dispatch(getUsers());
@@ -24,7 +18,7 @@ export const UsersPage = () => {
   const clearMessages = () => dispatch(clearUsersMessages());
 
   return (
-    <PageTemplate>
+    <PageTemplate showScroll>
       <div className={cls.usersPage}>
         <h1 className={cls.usersPage__title}>Пользователи</h1>
         <div className={cls.usersPage__search}>

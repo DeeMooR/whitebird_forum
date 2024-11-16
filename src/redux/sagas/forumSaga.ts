@@ -1,7 +1,11 @@
 import { takeLatest, put } from 'redux-saga/effects';
-import { getPosts, getPostsSuccess, getPostsFailure, getPostsByUser, getPostsByUserSuccess, getPostsByUserFailure } from '../slices';
+import { getPosts, getPostsSuccess, getPostsFailure, getPostsByUser, getPostsByUserSuccess, getPostsByUserFailure, getMyPosts, getMyPostsSuccess, getMyPostsFailure } from '../slices';
 import { axiosInstance, endpoints } from '../api';
-import { IPostForum, IUser } from 'src/interfaces';
+import { IPost, IUser } from 'src/interfaces';
+
+interface IGetMyPostsSaga {
+  payload: string;
+}
 
 interface IGetPostsByUserSaga {
   payload: string;
@@ -9,7 +13,7 @@ interface IGetPostsByUserSaga {
 
 function* getPostsSaga() {
   try {
-    const posts: IPostForum[] = yield axiosInstance.get(endpoints.posts).then(({ data }) => data);
+    const posts: IPost[] = yield axiosInstance.get(endpoints.posts).then(({ data }) => data);
     const users: IUser[] = yield axiosInstance.get(endpoints.users).then(({ data }) =>
       data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
     );
@@ -19,9 +23,21 @@ function* getPostsSaga() {
   }
 }
 
+function* getMyPostsSaga({ payload: userId }: IGetMyPostsSaga) {
+  try {
+    const myPosts: IPost[] = yield axiosInstance.get(endpoints.posts, { params: { userId }}).then(({ data }) => data);
+    const users: IUser[] = yield axiosInstance.get(endpoints.users).then(({ data }) =>
+      data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
+    );
+    yield put(getMyPostsSuccess({myPosts, users}));
+  } catch (error) {
+    yield put(getMyPostsFailure());
+  }
+}
+
 function* getPostsByUserSaga({ payload }: IGetPostsByUserSaga) {
   try {
-    let posts: IPostForum[] = [];
+    let posts: IPost[] = [];
     let users: IUser[] = yield axiosInstance.get(endpoints.users, { params: { username: payload }}).then(({ data }) =>
       data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
     );
@@ -42,6 +58,7 @@ function* getPostsByUserSaga({ payload }: IGetPostsByUserSaga) {
 
 function* forumSaga() {
   yield takeLatest(getPosts, getPostsSaga);
+  yield takeLatest(getMyPosts, getMyPostsSaga);
   yield takeLatest(getPostsByUser, getPostsByUserSaga);
 }
 

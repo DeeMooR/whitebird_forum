@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC, ReactNode, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'src/redux/selectors';
@@ -12,12 +12,20 @@ interface IPageTemplate {
   children: ReactNode;
   isCenter?: boolean;
   notShowCrumbs?: boolean;
+  showScroll?: boolean;
 }
 
-export const PageTemplate:FC<IPageTemplate> = ({ children, isCenter, notShowCrumbs }) => {
+export const PageTemplate:FC<IPageTemplate> = ({ children, isCenter, notShowCrumbs, showScroll }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { successMessage } = useSelector(getUserSelector);
+
+  useEffect(() => {
+    if (showScroll) {
+      document.body.style.overflowY = "scroll";
+      return () => {document.body.style.overflowY = "auto"};
+    }
+  }, []);
 
   const clearMessages = () => dispatch(clearUserMessages());
   
