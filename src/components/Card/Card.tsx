@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getForumSelector, getUserSelector } from 'src/redux/selectors';
+import { getPostsSelector, getUserSelector } from 'src/redux/selectors';
 import { favoriteFillIcon, favoriteIcon } from 'src/assets';
 import { IPost } from 'src/interfaces';
 import cls from './styles.module.scss';
@@ -14,7 +14,7 @@ interface ICard {
 export const Card:FC<ICard> = ({post }) => {
   const dispatch = useDispatch();
   const { favoritePosts, role } = useSelector(getUserSelector);
-  const { users } = useSelector(getForumSelector);
+  const { users } = useSelector(getPostsSelector);
   const { id, userId, title, comments_number } = post;
   const username = getUsernameById(users, userId);
 

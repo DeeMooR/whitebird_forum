@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IForumState } from "../interfaces";
+import { IPostsState } from "../interfaces";
 
-const initialState: IForumState = {
+const initialState: IPostsState = {
   posts: [],
   myPosts: [],
   users: [],
@@ -10,17 +10,17 @@ const initialState: IForumState = {
   successMessage: null,
 }
 
-const setLoading = (state: IForumState) => {
+const setLoading = (state: IPostsState) => {
   state.isLoading = true;
   state.successMessage = null;
   state.errorMessage = null;
 }
  
-export const forumSlice = createSlice({
-  name: 'forum',
+export const postsSlice = createSlice({
+  name: 'posts',
   initialState: initialState,
   reducers: {
-    clearForumMessages: (state) => {
+    clearPostsMessages: (state) => {
       state.successMessage = null;
       state.errorMessage = null;
     },
@@ -70,7 +70,7 @@ export const forumSlice = createSlice({
 })
 
 export const {
-  clearForumMessages,
+  clearPostsMessages,
   getPosts,
   getPostsSuccess,
   getPostsFailure,
@@ -80,6 +80,6 @@ export const {
   getPostsByUser,
   getPostsByUserSuccess,
   getPostsByUserFailure
-} = forumSlice.actions;
+} = postsSlice.actions;
 
-export const forumReducer = forumSlice.reducer;
+export const postsReducer = postsSlice.reducer;

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { clearForumMessages, getMyPosts } from 'src/redux/slices';
-import { getForumSelector, getUserSelector } from 'src/redux/selectors';
+import { clearPostsMessages, getMyPosts } from 'src/redux/slices';
+import { getPostsSelector, getUserSelector } from 'src/redux/selectors';
 import { Notification } from 'src/UI';
 import { PageTemplate } from 'src/pages'
 import { ListOfPosts } from 'src/components';
@@ -11,7 +11,7 @@ import cls from './styles.module.scss';
 export const MyPostsPage = () => {
   const dispatch = useDispatch();
   const { user } = useSelector(getUserSelector);
-  const { myPosts, errorMessage } = useSelector(getForumSelector);
+  const { myPosts, errorMessage } = useSelector(getPostsSelector);
 
   useEffect(() => {
     console.log(user.id)
@@ -22,7 +22,7 @@ export const MyPostsPage = () => {
     console.log('addPost')
   }
 
-  const clearMessages = () => dispatch(clearForumMessages());
+  const clearMessages = () => dispatch(clearPostsMessages());
 
   return (
     <PageTemplate showScroll>

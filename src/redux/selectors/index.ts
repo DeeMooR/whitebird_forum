@@ -1,3 +1,3 @@
 export * from './userSelector';
-export * from './forumSelector';
+export * from './postsSelector';
 export * from './usersSelector';

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import { userReducer, forumReducer, usersReducer } from './slices';
+import { userReducer, postsReducer, usersReducer } from './slices';
 
 const rootReducer = combineReducers({
   user: userReducer,
-  forum: forumReducer, 
+  posts: postsReducer, 
   users: usersReducer,
 });
 

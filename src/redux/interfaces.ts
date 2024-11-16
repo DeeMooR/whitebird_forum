@@ -3,7 +3,7 @@ import { IPost, IFullUser, Undefinable, IUser } from "src/interfaces";
 
 export type StateType = {
   user: IUserState;
-  forum: IForumState;
+  posts: IPostsState;
   users: IUsersState;
 };
 
@@ -16,7 +16,7 @@ export interface IUserState {
   successMessage: string | null;
 }
 
-export interface IForumState {
+export interface IPostsState {
   posts: IPost[];
   myPosts: IPost[];
   users: IUser[];

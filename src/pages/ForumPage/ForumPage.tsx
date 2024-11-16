@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { clearForumMessages, getPosts } from 'src/redux/slices';
-import { getForumSelector } from 'src/redux/selectors';
+import { clearPostsMessages, getPosts } from 'src/redux/slices';
+import { getPostsSelector } from 'src/redux/selectors';
 import { ListOfPosts, Search } from 'src/components';
 import { PageTemplate } from 'src/pages'
 import { Notification } from 'src/UI'
@@ -9,13 +9,13 @@ import cls from './styles.module.scss';
 
 export const ForumPage = () => {
   const dispatch = useDispatch();
-  const { posts, isLoading, errorMessage } = useSelector(getForumSelector);
+  const { posts, isLoading, errorMessage } = useSelector(getPostsSelector);
 
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch])
 
-  const clearMessages = () => dispatch(clearForumMessages());
+  const clearMessages = () => dispatch(clearPostsMessages());
 
   return (
     <PageTemplate notShowCrumbs showScroll>

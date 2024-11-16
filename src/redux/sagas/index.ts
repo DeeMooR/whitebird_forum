@@ -1,3 +1,3 @@
 export * from './userSaga';
-export * from './forumSaga';
+export * from './postsSaga';
 export * from './usersSaga';

@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { getForumSelector } from 'src/redux/selectors';
+import { getPostsSelector } from 'src/redux/selectors';
 import { IPost } from 'src/interfaces';
 import { Card } from 'src/components';
 import { Loading } from 'src/UI';
@@ -15,7 +15,7 @@ interface IListOfPosts {
 
 export const ListOfPosts:FC<IListOfPosts> = ({posts, emptyText, withLimit}) => {
   const [limit, setLimit] = useState(withLimit ? STEP_POSTS : null);
-  const { isLoading } = useSelector(getForumSelector);
+  const { isLoading } = useSelector(getPostsSelector);
 
   const handleShowMore = () => {
     setLimit((prev) => prev! + STEP_POSTS)
