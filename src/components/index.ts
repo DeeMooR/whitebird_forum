@@ -8,3 +8,4 @@ export * from './ForumPosts/ForumPosts';
 export * from './Users/Users';
 export * from './ModalTemplate/ModalTemplate';
 export * from './ModalConfirm/ModalConfirm';
+export * from './ModalChangeUser/ModalChangeUser';

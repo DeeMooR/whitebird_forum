@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ADMIN_EMAIL } from "src/config";
+import { ADMIN_EMAIL, getFavoritePosts } from "src/config";
 import { IUserState } from "../interfaces";
 
 const initialState: IUserState = {
@@ -11,6 +11,7 @@ const initialState: IUserState = {
     address: undefined,
     phone: undefined,
   },
+  favoritePosts: [],
   role: 'unauthorized',
   isLoading: false,
   errorMessage: null,
@@ -30,6 +31,18 @@ export const userSlice = createSlice({
     clearUserMessages: (state) => {
       state.successMessage = null;
       state.errorMessage = null;
+    },
+    setUserFavoritePosts: (state) => {
+      state.favoritePosts = getFavoritePosts(state.user.id);
+    },
+    updateUserFavoritePosts: (state, { payload: postId }) => {
+      const postIds = state.favoritePosts;
+      state.favoritePosts = postIds.includes(postId) 
+        ? postIds.filter(id => id !== postId)
+        : [...postIds, postId];
+    },
+    clearUserFavoritePosts: (state) => {
+      state.favoritePosts = [];
     },
     logout: (state) => {
       state.user = initialState.user;
@@ -82,6 +95,9 @@ export const userSlice = createSlice({
 
 export const {
   clearUserMessages,
+  setUserFavoritePosts,
+  updateUserFavoritePosts,
+  clearUserFavoritePosts,
   logout,
   signIn,
   signInSuccess,

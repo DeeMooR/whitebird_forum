@@ -2,7 +2,7 @@ import React from 'react'
 import cn from 'classnames';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { accountIcon, favoriteWhiteIcon } from 'src/assets';
+import { accountIcon, favoriteWhiteIcon, myPostsIcon } from 'src/assets';
 import { getUserSelector } from 'src/redux/selectors';
 import cls from './styles.module.scss';
 
@@ -18,6 +18,10 @@ export const HeaderButtons = () => {
     navigate('/favorites');
   }
 
+  const handleClickMyPosts = () => {
+    navigate('/myPosts');
+  }
+
   const handleClickAccount = () => {
     navigate('/account');
   }
@@ -31,6 +35,7 @@ export const HeaderButtons = () => {
       ) : (
         <>
           <img src={favoriteWhiteIcon} onClick={handleClickFavorite} alt="favourite" />
+          <img src={myPostsIcon} className={cls.btnMyPosts} onClick={handleClickMyPosts} alt="myPosts" />
           <img src={accountIcon} onClick={handleClickAccount} alt="account" />
         </>
       )}

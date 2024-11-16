@@ -9,6 +9,7 @@ export type StateType = {
 
 export interface IUserState {
   user: Undefinable<IFullUser>;
+  favoritePosts: number[];
   role: roleType,
   isLoading: boolean;
   errorMessage: string | null;

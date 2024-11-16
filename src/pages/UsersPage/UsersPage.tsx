@@ -9,7 +9,7 @@ import cls from './styles.module.scss';
 
 export const UsersPage = () => {
   const dispatch = useDispatch();
-  const { users, isLoading, errorMessage } = useSelector(getUsersSelector);
+  const { users, isLoading, successMessage, errorMessage } = useSelector(getUsersSelector);
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -38,6 +38,7 @@ export const UsersPage = () => {
           <Users users={users} />
         )}
       </div>
+      {successMessage && <Notification type='success' message={successMessage} clearMessage={clearMessages} />}
       {errorMessage && <Notification type='error' message={errorMessage} clearMessage={clearMessages} />}
     </PageTemplate>
   )

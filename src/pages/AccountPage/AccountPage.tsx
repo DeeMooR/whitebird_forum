@@ -3,14 +3,14 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'src/redux/selectors';
-import { clearUserMessages, deleteUser, logout, signIn, updateUser } from 'src/redux/slices';
+import { clearUserMessages, deleteUser, logout, updateUser } from 'src/redux/slices';
+import { ModalConfirm } from 'src/components';
 import { PageTemplate } from 'src/pages';
 import { IFullUser } from 'src/interfaces';
 import { Input, Loading, Notification } from 'src/UI';
 import { accountInputs } from 'src/config';
 import cn from 'classnames';
 import cls from './styles.module.scss';
-import { ModalConfirm } from 'src/components';
 
 export const AccountPage = () => {
   const navigate = useNavigate();

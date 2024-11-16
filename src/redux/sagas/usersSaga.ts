@@ -1,5 +1,5 @@
 import { takeLatest, put } from 'redux-saga/effects';
-import { getUsers, getUsersSuccess, getUsersFailure, getUserByUserData, getUserByUserDataSuccess, getUserByUserDataFailure, deleteUserByAdminSuccess, deleteUserByAdminFailure, deleteUserByAdmin } from '../slices';
+import { getUsers, getUsersSuccess, getUsersFailure, getUserByUserData, getUserByUserDataSuccess, getUserByUserDataFailure, deleteUserByAdminSuccess, deleteUserByAdminFailure, deleteUserByAdmin, changeUserByAdmin, changeUserByAdminSuccess, changeUserByAdminFailure } from '../slices';
 import { axiosInstance, endpoints } from '../api';
 import { IUser } from 'src/interfaces';
 
@@ -10,6 +10,11 @@ interface IGetUserByUserDataSaga {
 interface IDeleteUserByAdminSaga {
   payload: number;
 }
+
+interface IChangeUserByAdminSaga {
+  payload: IUser;
+}
+
 
 
 function* getUsersSaga() {
@@ -48,10 +53,24 @@ function* deleteUserByAdminSaga({ payload: id }: IDeleteUserByAdminSaga) {
   }
 }
 
+function* changeUserByAdminSaga({ payload }: IChangeUserByAdminSaga) {
+  try {
+    const { id, ...user } = payload;
+    const changedUser: IUser = yield axiosInstance.patch(`${endpoints.users}/${id}`, user).then(({ data }) => {
+      const { id, name, username, email } = data;
+      return { id, name, username, email };
+    })
+    yield put(changeUserByAdminSuccess(changedUser));
+  } catch (error) {
+    yield put(changeUserByAdminFailure());
+  }
+}
+
 function* usersSaga() {
   yield takeLatest(getUsers, getUsersSaga);
   yield takeLatest(getUserByUserData, getUserByUserDataSaga);
   yield takeLatest(deleteUserByAdmin, deleteUserByAdminSaga);
+  yield takeLatest(changeUserByAdmin, changeUserByAdminSaga);
 }
 
 export default usersSaga;

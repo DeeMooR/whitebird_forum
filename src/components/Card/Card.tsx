@@ -1,26 +1,35 @@
 import React, { FC } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getForumSelector, getUserSelector } from 'src/redux/selectors';
-import { favoriteIcon } from 'src/assets';
+import { favoriteFillIcon, favoriteIcon } from 'src/assets';
 import { IPostForum } from 'src/interfaces';
 import cls from './styles.module.scss';
 import { getUsernameById } from 'src/config';
+import { updateUserFavoritePosts } from 'src/redux/slices';
 
 interface ICard {
   post: IPostForum
 }
 
 export const Card:FC<ICard> = ({post }) => {
-  const { userId, title, comments_number } = post;
-  const { role } = useSelector(getUserSelector);
+  const dispatch = useDispatch();
+  const { favoritePosts, role } = useSelector(getUserSelector);
   const { users } = useSelector(getForumSelector);
+  const { id, userId, title, comments_number } = post;
   const username = getUsernameById(users, userId);
+
+  const handleClickFavorite = () => {
+    dispatch(updateUserFavoritePosts(id));
+  }
 
   return (
     <div className={cls.card}>
       {role !== 'unauthorized' &&
         <div className={cls.card__star}>
-          <img src={favoriteIcon} alt="favorite" />
+          {favoritePosts.includes(id)
+            ? <img src={favoriteFillIcon} onClick={handleClickFavorite} alt="favoriteFill" />
+            : <img src={favoriteIcon} onClick={handleClickFavorite} alt="favorite" />
+          }
         </div>
       }
       <div className={cls.card__info}>

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IForumState } from "../interfaces";
+import { getFavoritePosts } from "src/config";
 
 const initialState: IForumState = {
   posts: [],

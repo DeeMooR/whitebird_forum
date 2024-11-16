@@ -1,7 +1,11 @@
 .headerButtons {
   display: flex;
-  gap: 10px;
+  gap: 7px;
   .headerButtons__btnSignIn {}
+  .btnMyPosts {
+    width: 39px;
+    height: 39px;
+  }
   img {
     padding: 7px;
     border: 1px solid transparent;

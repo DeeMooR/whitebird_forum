@@ -1,16 +1,23 @@
 import React, { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AccountPage, ForumPage, SignInPage, UsersPage }  from './pages';
-import { useDispatch } from 'react-redux';
-import { signIn } from './redux/slices';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserSelector } from './redux/selectors';
+import { clearUserFavoritePosts, setUserFavoritePosts, signIn } from './redux/slices';
 
 const App = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector(getUserSelector);
 
   useEffect(() => {
     const userEmail = localStorage.getItem('userEmail');
-    if (userEmail) dispatch(signIn(userEmail))
+    if (userEmail) dispatch(signIn(userEmail));
   }, [])
+
+  useEffect(() => {
+    if (user.id) dispatch(setUserFavoritePosts());
+    else dispatch(clearUserFavoritePosts());
+  }, [user])
 
   return (
     <>

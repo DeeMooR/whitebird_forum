@@ -10,6 +10,7 @@ import accountIcon from './icons/account.svg';
 import warningIcon from './icons/warning.svg';
 import radioSelectedIcon from './icons/radioSelected.svg';
 import radioUnselectedIcon from './icons/radioUnselected.svg';
+import myPostsIcon from './icons/myPosts.png';
 
 export {
   logoIcon,
@@ -24,4 +25,5 @@ export {
   warningIcon,
   radioSelectedIcon,
   radioUnselectedIcon,
+  myPostsIcon
 }

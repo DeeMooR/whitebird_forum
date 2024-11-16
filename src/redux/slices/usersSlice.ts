@@ -47,10 +47,24 @@ export const usersSlice = createSlice({
     deleteUserByAdminSuccess: (state, { payload }) => {
       state.isLoading = false;
       state.users = state.users.filter((user) => user.id !== payload);
+      state.successMessage = 'Пользователь успешно удалён';
     },
     deleteUserByAdminFailure: (state) => {
       state.isLoading = false;
       state.errorMessage = 'Ошибка удаления пользователя';
+    },
+    
+    changeUserByAdmin: (state, { payload }) => setLoading(state),
+    changeUserByAdminSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.users = state.users.map((user) => {
+        return (user.id === payload.id) ? payload : user;
+      });
+      state.successMessage = 'Данные пользователя успешно изменены';
+    },
+    changeUserByAdminFailure: (state) => {
+      state.isLoading = false;
+      state.errorMessage = 'Ошибка изменения данных пользователя';
     },
   }
 })
@@ -65,7 +79,10 @@ export const {
   getUserByUserDataFailure,
   deleteUserByAdmin,
   deleteUserByAdminSuccess,
-  deleteUserByAdminFailure
+  deleteUserByAdminFailure,
+  changeUserByAdmin,
+  changeUserByAdminSuccess,
+  changeUserByAdminFailure
 } = usersSlice.actions;
 
 export const usersReducer = usersSlice.reducer;

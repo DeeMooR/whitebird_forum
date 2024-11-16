@@ -1,0 +1,26 @@
+.modalChangeUser {
+  .modalChangeUser__title {
+    text-align: center;
+    margin: 0 0 27px 0;
+  }
+  .modalChangeUser__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 0 0 20px 0;
+  }
+  .modalChangeUser__buttons {
+    display: flex;
+    gap: 10px;
+    .btnCancel {
+      flex: 2;
+      background-color: var(--grey);
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    .btnChange {
+      flex: 5;
+    }
+  }
+}
