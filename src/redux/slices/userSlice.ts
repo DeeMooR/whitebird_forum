@@ -12,7 +12,7 @@ const initialState: IUserState = {
     phone: undefined,
   },
   favoritePosts: [],
-  role: 'unauthorized',
+  role: null,
   isLoading: false,
   errorMessage: null,
   successMessage: null,
@@ -64,6 +64,7 @@ export const userSlice = createSlice({
     },
     signInFailure: (state, { payload }) => {
       state.isLoading = false;
+      state.role = 'unauthorized';
       state.errorMessage = payload;
     },
 

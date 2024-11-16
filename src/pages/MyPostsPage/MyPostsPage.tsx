@@ -14,6 +14,7 @@ export const MyPostsPage = () => {
   const { myPosts, errorMessage } = useSelector(getForumSelector);
 
   useEffect(() => {
+    console.log(user.id)
     dispatch(getMyPosts(user.id));
   }, [dispatch])
   

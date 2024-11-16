@@ -1,9 +1,12 @@
 .listOfPosts {
+  height: 100%;
+  margin: 0 0 40px 0;
   .listOfPosts__loading {
-    flex: 1;
+    height: 100%;
   }
-  .listOfPosts__list {
-    margin: 0 0 40px 0;
+  .listOfPosts__list {}
+  .listOfPosts__btnShowMore {
+    margin: 25px auto 0;
   }
   .listOfPosts__empty {
     text-align: center;

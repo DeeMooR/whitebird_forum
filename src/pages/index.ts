@@ -1,6 +1,6 @@
 export * from './PageTemplate/PageTemplate';
-export * from './ForumPage/ForumPage';
 export * from './SignInPage/SignInPage';
+export * from './ForumPage/ForumPage';
 export * from './AccountPage/AccountPage';
 export * from './UsersPage/UsersPage';
 export * from './FavoritePostsPage/FavoritePostsPage';

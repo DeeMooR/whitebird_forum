@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { clearForumMessages, getPosts } from 'src/redux/slices';
 import { getForumSelector } from 'src/redux/selectors';
-import { ForumPosts, Search } from 'src/components';
+import { ListOfPosts, Search } from 'src/components';
 import { PageTemplate } from 'src/pages'
-import { Loading, Notification } from 'src/UI'
+import { Notification } from 'src/UI'
 import cls from './styles.module.scss';
 
 export const ForumPage = () => {
@@ -24,13 +24,11 @@ export const ForumPage = () => {
         <div className={cls.forumPage__search}>
           <Search data='posts' />
         </div>
-        {isLoading ? (
-          <div className={cls.forumPage__loading}>
-            <Loading />
-          </div>
-        ) : (
-          <ForumPosts posts={posts} />
-        )}
+        <ListOfPosts 
+          posts={posts}
+          emptyText='По выбранным критериям постов не найдено' 
+          withLimit
+        />
       </div>
       {errorMessage && <Notification type='error' message={errorMessage} clearMessage={clearMessages} />}
     </PageTemplate>

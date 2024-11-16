@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AccountPage, ForumPage, SignInPage, UsersPage, FavoritePostsPage, MyPostsPage }  from './pages';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,11 +7,14 @@ import { clearUserFavoritePosts, setUserFavoritePosts, signIn } from './redux/sl
 
 const App = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector(getUserSelector);
+  const { user, role } = useSelector(getUserSelector);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const userEmail = localStorage.getItem('userEmail');
-    if (userEmail) dispatch(signIn(userEmail));
+    const login = async () => {
+      if (userEmail) await dispatch(signIn(userEmail));
+    }
+    login();
   }, [])
 
   useEffect(() => {
@@ -19,20 +22,28 @@ const App = () => {
     else dispatch(clearUserFavoritePosts());
   }, [user])
 
-  return (
+  return role ? (
     <>
     <Routes>
       <Route path='/forum' element={<ForumPage />} />
       {/* <Route path='/forum/:id' element={<PostPage />} /> */}
-      <Route path='/favorites' element={<FavoritePostsPage />} />
-      <Route path='/myPosts' element={<MyPostsPage />} />
-      <Route path='/users' element={<UsersPage />} />
-      <Route path='/sign-in' element={<SignInPage />} />
-      <Route path='/account' element={<AccountPage />} />
+      {role === 'unauthorized' &&
+        <Route path='/sign-in' element={<SignInPage />} />
+      }
+      {role !== 'unauthorized' &&
+        <>
+        <Route path='/favorites' element={<FavoritePostsPage />} />
+        <Route path='/myPosts' element={<MyPostsPage />} />
+        <Route path='/account' element={<AccountPage />} />
+        </>
+      }
+      {role === 'admin' &&
+        <Route path='/users' element={<UsersPage />} />
+      }
       <Route path='*' element={<Navigate to="/forum" />} />
     </Routes>
     </>
-  );
+  ) : null;
 }
 
 export default App;
