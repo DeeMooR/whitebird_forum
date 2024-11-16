@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { deleteUserByAdmin } from 'src/redux/slices';
 import { basketIcon, pencilIcon } from 'src/assets';
-import { ModalChangeUser, ModalConfirm } from 'src/components';
+import { ModalConfirm, ModalManage } from 'src/components';
 import { IUser } from 'src/interfaces'
 import cn from 'classnames';
 import cls from './styles.module.scss';
@@ -42,7 +42,14 @@ export const Users:FC<IUsers> = ({ users }) => {
       ) : (
         <p className={cls.users__empty}>По выбранным критериям пользователей не найдено</p>
       )}
-      {modalChange && <ModalChangeUser user={modalChange} closeModal={() => setModalChange(null)} />}
+      {modalChange && 
+        <ModalManage 
+          obj={modalChange} 
+          type='user' 
+          title='Изменить пользователя?' 
+          closeModal={() => setModalChange(null)} 
+        />
+      }
       {modalDelete && <ModalConfirm action='delete_user' clickApply={deleteUser} closeModal={() => setModalDelete(null)} />}
     </div>
   )

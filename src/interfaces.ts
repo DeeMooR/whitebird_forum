@@ -45,7 +45,7 @@ export interface IPost {
   comments_number: number | null,
 }
 
-export interface IInput {
+export interface IInputBlock {
   id: string;
   register: UseFormRegister<any>;
   type: 'text' | 'password' | 'email' | 'tel';
@@ -56,4 +56,16 @@ export interface IInput {
   classNameInput?: string;
 }
 
-export interface IAccountInput extends Omit<IInput, 'register'> {};
+export interface IInput {
+  id: string;
+  type: 'text' | 'password' | 'email' | 'tel';
+  title?: string;
+  placeholder?: string;
+}
+
+export interface ITextarea {
+  id: string;
+  title?: string;
+  placeholder?: string;
+  max?: number;
+}

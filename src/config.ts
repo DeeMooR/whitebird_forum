@@ -1,4 +1,5 @@
-import { IAccountInput, IFullUser, IUser } from "./interfaces";
+import { UseFormSetError } from "react-hook-form";
+import { IInput, IUser } from "./interfaces";
 
 export type roleType = 'unauthorized' | 'user' | 'admin';
 
@@ -7,8 +8,8 @@ export const ADMIN_EMAIL = 'Sincere@april.biz';
 export const STEP_POSTS = 10;
 
 interface IAccountInputs {
-  main: IAccountInput[],
-  address: IAccountInput[]
+  main: IInput[],
+  address: IInput[]
 }
 
 export const accountInputs: IAccountInputs = {
@@ -40,25 +41,25 @@ export const accountInputs: IAccountInputs = {
   ],
   address: [
     {
-      id: 'address.city',
+      id: 'city',
       type: 'text',
       title: 'Город',
       placeholder: 'Город'
     },
     {
-      id: 'address.zipcode',
+      id: 'zipcode',
       type: 'text',
       title: 'Индекс',
       placeholder: 'Индекс'
     },
     {
-      id: 'address.street',
+      id: 'street',
       type: 'text',
       title: 'Улица',
       placeholder: 'Улица'
     },
     {
-      id: 'address.suite',
+      id: 'suite',
       type: 'text',
       title: 'Дом',
       placeholder: 'Дом'
@@ -146,3 +147,18 @@ export const getFavoritePosts = (userId: number | undefined) => {
   const user = favoritePosts.find(user => user.userId === userId);
   return user ? user.postIds : [];
 };
+
+export const checkEmptyValues = (data: Object, fieldsToСheck: string[], setError: UseFormSetError<any>) => {
+  const fields = Object.entries(data);
+  let isCorrect = true;
+ 
+  fields.filter(([key]) => fieldsToСheck.some(field => key.startsWith(field))).forEach(([key, value]) => {
+    if (value === null || value === undefined || value === '') {
+      console.log(key)
+      setError(`${key}`, { message: 'Обязательное поле' });
+      isCorrect = false;
+    }
+  });
+  
+  return isCorrect;
+}

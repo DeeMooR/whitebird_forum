@@ -14,6 +14,7 @@
       font-weight: 600;
     }
     .card__title {
+      display: inline;
       font-size: 21px;
       font-weight: 600;
       line-height: 1.2em;
@@ -36,6 +37,14 @@
     }
     .comments__text {
       font-size: 13px;
+    }
+  }
+  .card__buttons {
+    display: flex;
+    gap: 10px;
+    img {
+      padding: 3px;
+      cursor: pointer;
     }
   }
 }

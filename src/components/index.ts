@@ -7,5 +7,5 @@ export * from './Search/Search';
 export * from './Users/Users';
 export * from './ModalTemplate/ModalTemplate';
 export * from './ModalConfirm/ModalConfirm';
-export * from './ModalChangeUser/ModalChangeUser';
 export * from './ListOfPosts/ListOfPosts';
+export * from './ModalManage/ModalManage';

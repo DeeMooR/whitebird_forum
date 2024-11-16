@@ -5,7 +5,6 @@ import { getPostsSelector, getUserSelector } from 'src/redux/selectors';
 import { Notification } from 'src/UI';
 import { PageTemplate } from 'src/pages'
 import { ListOfPosts } from 'src/components';
-import cn from 'classnames';
 import cls from './styles.module.scss';
 
 export const MyPostsPage = () => {
@@ -29,11 +28,12 @@ export const MyPostsPage = () => {
       <div className={cls.myPosts}>
         <div className={cls.myPosts__top}>
           <h1 className={cls.myPosts__title}>Мои посты</h1>
-          <button className={cn(cls.myPosts__btnAdd, 'btnSmall')} onClick={handleAddPost}>Написать пост</button>
+          <button className='btnSmall' onClick={handleAddPost}>Написать пост</button>
         </div>
         <ListOfPosts 
           posts={myPosts} 
           emptyText='Ваш список постов пуст' 
+          showControls
         />
       </div>
       {errorMessage && <Notification type='error' message={errorMessage} clearMessage={clearMessages} />}

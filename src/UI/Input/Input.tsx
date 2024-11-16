@@ -1,10 +1,21 @@
 import React, { FC } from 'react'
+import { UseFormRegister } from 'react-hook-form';
 import { warningIcon } from 'src/assets';
-import { IInput } from 'src/interfaces';
 import cn from 'classnames';
 import cls from './styles.module.scss';
 
-export const Input:FC<IInput> = ({id, register, type, title, placeholder, disabled, error, classNameInput}) => {
+export interface IInputBlock {
+  id: string;
+  register: UseFormRegister<any>;
+  type: 'text' | 'password' | 'email' | 'tel';
+  title?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  error?: string;
+  classNameInput?: string;
+}
+
+export const Input:FC<IInputBlock> = ({id, register, type, title, placeholder, disabled, error, classNameInput}) => {
   const inputStyle = cn({
     [cls[classNameInput!]]: classNameInput,
     [cls.warning]: error,

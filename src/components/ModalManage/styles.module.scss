@@ -1,15 +1,15 @@
-.modalChangeUser {
-  .modalChangeUser__title {
+.modalManage {
+  .modalManage__title {
     text-align: center;
     margin: 0 0 27px 0;
   }
-  .modalChangeUser__fields {
+  .modalManage__fields {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin: 0 0 20px 0;
+    margin: 0 0 25px 0;
   }
-  .modalChangeUser__buttons {
+  .modalManage__buttons {
     display: flex;
     gap: 10px;
     .btnCancel {

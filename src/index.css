@@ -121,15 +121,26 @@ input {
   align-items: center;
   height: 50px;
   width: 100%;
-  padding: 0 24px;
+  padding: 0 18px;
   background-color: var(--input);
   border: 1px solid var(--blue-light);
   border-radius: 7px;
 }
-input:focus {
+textarea {
+  height: 104px;
+  width: 100%;
+  padding: 18px;
+  background-color: var(--input);
+  border: 1px solid var(--blue-light);
+  border-radius: 7px;
+  resize: none;
+}
+input:focus,
+textarea:focus {
   border: 1px solid var(--blue);
 }
-input:disabled {
+input:disabled,
+textarea:disabled {
   background-color: var(--disabled-light);
   cursor: not-allowed;
 }

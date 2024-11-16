@@ -1,25 +1,34 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostsSelector, getUserSelector } from 'src/redux/selectors';
-import { favoriteFillIcon, favoriteIcon } from 'src/assets';
+import { deletePost, updateUserFavoritePosts } from 'src/redux/slices';
+import { basketIcon, favoriteFillIcon, favoriteIcon, pencilIcon } from 'src/assets';
+import { ModalConfirm, ModalManage } from 'src/components';
+import { getUsernameById } from 'src/config';
 import { IPost } from 'src/interfaces';
 import cls from './styles.module.scss';
-import { getUsernameById } from 'src/config';
-import { updateUserFavoritePosts } from 'src/redux/slices';
 
 interface ICard {
-  post: IPost
+  post: IPost,
+  showControls?: boolean
 }
 
-export const Card:FC<ICard> = ({post }) => {
+export const Card:FC<ICard> = ({ post, showControls }) => {
   const dispatch = useDispatch();
-  const { favoritePosts, role } = useSelector(getUserSelector);
   const { users } = useSelector(getPostsSelector);
+  const { favoritePosts, role } = useSelector(getUserSelector);
+  const [modalUpdate, setModalUpdate] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
+
   const { id, userId, title, comments_number } = post;
   const username = getUsernameById(users, userId);
 
   const handleClickFavorite = () => {
     dispatch(updateUserFavoritePosts(id));
+  }
+
+  const handleDelete = () => {
+    dispatch(deletePost(post.id));
   }
 
   return (
@@ -40,6 +49,21 @@ export const Card:FC<ICard> = ({post }) => {
         <p className={cls.comments__counter}>{comments_number || 0}</p>
         <p className={cls.comments__text}>коммент</p>
       </div>
+      {showControls &&
+        <div className={cls.card__buttons}>
+          <img src={pencilIcon} onClick={() => setModalUpdate(true)} alt="pencil" />
+          <img src={basketIcon} onClick={() => setModalDelete(true)} alt="basket" />
+        </div>
+      }
+      {modalUpdate && 
+        <ModalManage 
+          obj={post} 
+          type='post' 
+          title='Изменить пост?' 
+          closeModal={() => setModalUpdate(false)} 
+        />
+      }
+      {modalDelete && <ModalConfirm action='delete_post' clickApply={handleDelete} closeModal={() => setModalDelete(false)} />}
     </div>
   )
 }

@@ -5,7 +5,10 @@
   max-width: 900px;
   .account__title {
     text-align: center;
-    margin: 0 0 30px 0;
+    margin: 0 0 10px 0;
+  }
+  .account__users {
+    margin-left: auto;
   }
   .account__content {
     display: flex;
@@ -20,7 +23,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 18px 24px;
-        margin: 0 0 24px 0;
+        margin: 0 0 26px 0;
         .account__field {
           width: calc(50% - 12px);
         }

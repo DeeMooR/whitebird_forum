@@ -57,6 +57,34 @@ export const postsSlice = createSlice({
       state.errorMessage = 'Ошибка загрузки постов';
     },
 
+    updatePost: (state, { payload }) => setLoading(state),
+    updatePostSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.posts = state.posts.map((post) => {
+        return (post.id === payload.id) ? payload : post;
+      });
+      state.myPosts = state.myPosts.map((post) => {
+        return (post.id === payload.id) ? payload : post;
+      });
+      state.successMessage = 'Пост успешно изменён';
+    },
+    updatePostFailure: (state) => {
+      state.isLoading = false;
+      state.errorMessage = 'Ошибка изменения поста';
+    },
+
+    deletePost: (state, { payload }) => setLoading(state),
+    deletePostSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.posts = state.posts.filter((post) => post.id !== payload);
+      state.myPosts = state.myPosts.filter((post) => post.id !== payload);
+      state.successMessage = 'Пост успешно удалён';
+    },
+    deletePostFailure: (state) => {
+      state.isLoading = false;
+      state.errorMessage = 'Ошибка удаления поста';
+    },
+
     // getPostsComments: (state, { payload }) => setLoading(state),
     // getPostsCommentsSuccess: (state, { payload }) => {
     //   state.isLoading = false;
@@ -79,7 +107,13 @@ export const {
   getMyPostsFailure,
   getPostsByUser,
   getPostsByUserSuccess,
-  getPostsByUserFailure
+  getPostsByUserFailure,
+  updatePost,
+  updatePostSuccess,
+  updatePostFailure,
+  deletePost,
+  deletePostSuccess,
+  deletePostFailure
 } = postsSlice.actions;
 
 export const postsReducer = postsSlice.reducer;

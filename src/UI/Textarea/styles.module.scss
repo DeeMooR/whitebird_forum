@@ -1,0 +1,33 @@
+.textareaBlock {
+  position: relative;
+  width: 100%;
+  .textareaBlock__title {
+    font-size: 13px;
+    margin: 0 0 2px 4px;
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+  .textarea {
+    &.warning {
+      border: 1px solid var(--warning);
+    }
+  }
+  .textareaBlock__count {
+    position: absolute;
+    bottom: 7px;
+    right: 20px;
+    font-size: 12px;
+  }
+  .error {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    margin: -1px 0 0 3px;
+    span {
+      font-size: 11px;
+      line-height: 1;
+      margin: 0 0 0 7px;
+    }
+  }
+}
