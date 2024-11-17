@@ -11,16 +11,20 @@ export const PostControls = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { post, user } = useSelector(getPostSelector);
-  const { favoritePosts } = useSelector(getUserSelector);
+  const { favoritePosts, role } = useSelector(getUserSelector);
   const { likeUserIds, dislikeUserIds } = useSelector(getControlsInPostSelector);
+  const isAuthorized = role !== 'unauthorized';
+
   const [modalUpdate, setModalUpdate] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
 
   const handleClickLike = () => {
+    if (!isAuthorized) return;
     dispatch(updatePostLikes(user?.id));
   }
 
   const handleClickDislike = () => {
+    if (!isAuthorized) return;
     dispatch(updatePostDislikes(user?.id));
   }
 
@@ -51,17 +55,21 @@ export const PostControls = () => {
           <p className={cls.feedback__counter}>{dislikeUserIds.length}</p>
         </div>
       </div>
-      <div className={cls.controls__favorite} onClick={handleClickFavorite}>
-        {post && favoritePosts.includes(post.id) 
-          ? <img src={favoriteFillIcon} alt="favoriteFill" />
-          : <img src={favoriteIcon} alt="favorite" />
-        }
-      </div>
-      {post?.userId === user?.id &&
-        <div className={cls.controls__manageContent}>
-          <img src={pencilIcon} onClick={() => setModalUpdate(true)} alt="pencil" />
-          <img src={basketIcon} onClick={() => setModalDelete(true)} alt="basket" />
+      {isAuthorized &&
+        <>
+        <div className={cls.controls__favorite} onClick={handleClickFavorite}>
+          {post && favoritePosts.includes(post.id) 
+            ? <img src={favoriteFillIcon} alt="favoriteFill" />
+            : <img src={favoriteIcon} alt="favorite" />
+          }
         </div>
+        {post?.userId === user?.id &&
+          <div className={cls.controls__manageContent}>
+            <img src={pencilIcon} onClick={() => setModalUpdate(true)} alt="pencil" />
+            <img src={basketIcon} onClick={() => setModalDelete(true)} alt="basket" />
+          </div>
+        }
+        </>
       }
       {modalUpdate && 
         <ModalManage 

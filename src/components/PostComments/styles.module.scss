@@ -11,4 +11,30 @@
       border: 1px solid var(--black);
     }
   }
+  .comment__creation {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    padding: 20px 0 0 0;
+    .comment__photo {
+      width: 40px;
+      height: 40px;
+    }
+    .comment__fields {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 18px;
+      &:first-child {
+        margin: 0 0 17px 0;
+      }
+      .comment__btnSend {
+        width: 150px;
+        margin-left: auto;
+      }
+    }
+  }
+  .comments__loading {
+    margin: 40px 0;
+  }
 }

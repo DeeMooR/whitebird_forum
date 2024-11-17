@@ -8,7 +8,7 @@
       text-transform: uppercase;
     }
   }
-  .textarea {
+  textarea {
     &.warning {
       border: 1px solid var(--warning);
     }
@@ -23,7 +23,7 @@
     position: absolute;
     display: flex;
     align-items: center;
-    margin: -1px 0 0 3px;
+    margin: 2px 0 0 3px;
     span {
       font-size: 11px;
       line-height: 1;

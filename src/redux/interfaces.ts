@@ -6,6 +6,7 @@ export type StateType = {
   users: IUsersState;
   posts: IPostsState;
   post: IPostState;
+  local: ILocalState;
 };
 
 export interface IUserState {
@@ -41,6 +42,14 @@ export interface IPostState {
     likeUserIds: number[],
     dislikeUserIds: number[],
   }
+  isLoading: boolean;
+  errorMessage: string | null;
+  successMessage: string | null;
+}
+
+export interface ILocalState {
+  comments: IComment[];
+  maxId: number,
   isLoading: boolean;
   errorMessage: string | null;
   successMessage: string | null;

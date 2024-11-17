@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { AccountPage, ForumPage, SignInPage, UsersPage, FavoritePostsPage, MyPostsPage, PostPage }  from './pages';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from './redux/selectors';
-import { clearUserFavoritePosts, setUserFavoritePosts, signIn } from './redux/slices';
+import { clearUserFavoritePosts, setUserFavoritePosts, signIn, setUserRole } from './redux/slices';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ const App = () => {
     const userEmail = localStorage.getItem('userEmail');
     const login = async () => {
       if (userEmail) await dispatch(signIn(userEmail));
+      else dispatch(setUserRole('unauthorized'));
     }
     login();
   }, [])

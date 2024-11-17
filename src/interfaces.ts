@@ -53,6 +53,8 @@ export interface IComment {
   body: string,
 }
 
+export interface INewComment extends Pick<IComment, 'name' | 'body'>{}
+
 export interface IInputBlock {
   id: string;
   register: UseFormRegister<any>;

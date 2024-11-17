@@ -1,17 +1,17 @@
 import React, { FC } from 'react'
 import { ModalTemplate } from 'src/components';
 import cls from './styles.module.scss';
-import { IInput, IPost, ITextarea, IUser } from 'src/interfaces';
+import { IComment, IInput, IPost, ITextarea, IUser } from 'src/interfaces';
 import { useForm } from 'react-hook-form';
 import { Input, Textarea } from 'src/UI';
 import { useDispatch } from 'react-redux';
-import { actionType, fieldsToCheck, getModalManageAction, idType, modalFields, modalManageText, objType } from './config';
+import { actionType, fieldsToCheck, getModalManageAction, idType, modalFields, modalManageText, objStructure, objType } from './config';
 import { checkEmptyValues } from 'src/config';
 
 interface IModalManage {
   id: idType,
-  obj?: IUser | IPost,
-  type: objType,
+  obj?: objType,
+  type: objStructure,
   action: actionType,
   closeModal: () => void
 }
@@ -25,12 +25,12 @@ export const ModalManage:FC<IModalManage> = ({id, obj, type, action, closeModal}
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<IUser | IPost>({
+  } = useForm<objType>({
     mode: 'onChange',
     defaultValues: obj || {}
   });
 
-  const onSubmit = (data: IUser | IPost) => {
+  const onSubmit = (data: objType) => {
     const isCorrect = checkEmptyValues(data, fieldsToCheck[type], setError);
     if (!isCorrect) return;
     const func = getModalManageAction[id](data);

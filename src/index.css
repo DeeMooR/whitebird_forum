@@ -130,6 +130,7 @@ textarea {
   height: 104px;
   width: 100%;
   padding: 18px;
+  margin: 0 0 -4px 0;
   background-color: var(--input);
   border: 1px solid var(--blue-light);
   border-radius: 7px;

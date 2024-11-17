@@ -1,5 +1,5 @@
-import { IInput, IPost, ITextarea, IUser } from "src/interfaces"
-import { changeUserByAdmin, createPost, updatePost, updatePostInPostPage } from "src/redux/slices";
+import { IComment, IInput, IPost, ITextarea, IUser } from "src/interfaces"
+import { changeUserByAdmin, createPost, updateComment, updatePost, updatePostInPostPage } from "src/redux/slices";
 
 interface IElement {
   element: 'input' | 'textarea',
@@ -9,10 +9,12 @@ interface IElement {
 interface IModalFields {
   user: IElement[],
   post: IElement[],
+  comment: IElement[]
 }
 
-export type objType = 'user' | 'post';
-export type idType = 'users_update' | 'posts_update' | 'posts_add' | 'post_update';
+export type objType = IUser | IPost | IComment;
+export type objStructure = 'user' | 'post' | 'comment';
+export type idType = 'users_update' | 'posts_update' | 'posts_add' | 'post_update' | 'comment_update';
 export type actionType = 'add' | 'update';
 
 export const modalFields: IModalFields = {
@@ -64,6 +66,25 @@ export const modalFields: IModalFields = {
       }
     }
   ],
+  comment: [
+    {
+      element: 'input',
+      data: {
+        id: 'name',
+        type: 'text',
+        title: 'Заголовок',
+        placeholder: 'Заголовок',
+      }
+    },
+    {
+      element: 'textarea',
+      data: {
+        id: 'body',
+        title: 'Текст',
+        placeholder: 'Текст',
+      }
+    }
+  ],
 }
 
 export const modalManageText = {
@@ -79,7 +100,7 @@ export const modalManageText = {
   },
   post: {
     add: {
-      title: 'Добавление поста',
+      title: 'Создание поста',
       btnText: 'Добавить'
     },
     update: {
@@ -87,16 +108,28 @@ export const modalManageText = {
       btnText: 'Изменить'
     },
   },
+  comment: {
+    add: {
+      title: 'Создание комментария',
+      btnText: 'Добавить'
+    },
+    update: {
+      title: 'Редактирование комментария',
+      btnText: 'Изменить'
+    },
+  },
 };
 
 export const getModalManageAction = {
-  users_update: (data: IUser | IPost) => changeUserByAdmin(data),
-  posts_update: (data: IUser | IPost) => updatePost(data),
-  posts_add: (data: IUser | IPost) => createPost(data),
-  post_update: (data: IUser | IPost) => updatePostInPostPage(data),
+  users_update: (data: objType) => changeUserByAdmin(data),
+  posts_update: (data: objType) => updatePost(data),
+  posts_add: (data: objType) => createPost(data),
+  post_update: (data: objType) => updatePostInPostPage(data),
+  comment_update: (data: objType) => updateComment(data),
 };
 
 export const fieldsToCheck = {
   user: ['username', 'name', 'email'],
-  post: ['title', 'body']
+  post: ['title', 'body'],
+  comment: ['name', 'body']
 };

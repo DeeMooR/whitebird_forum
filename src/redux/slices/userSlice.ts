@@ -42,6 +42,9 @@ export const userSlice = createSlice({
     clearUserFavoritePosts: (state) => {
       state.favoritePosts = [];
     },
+    setUserRole: (state, { payload }) => {
+      state.role = payload;
+    },
     logout: (state) => {
       state.user = initialState.user;
       state.role = 'unauthorized';
@@ -97,6 +100,7 @@ export const {
   setUserFavoritePosts,
   updateUserFavoritePosts,
   clearUserFavoritePosts,
+  setUserRole,
   logout,
   signIn,
   signInSuccess,
