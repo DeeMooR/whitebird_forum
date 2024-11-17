@@ -5,17 +5,18 @@ import { IInput, IPost, ITextarea, IUser } from 'src/interfaces';
 import { useForm } from 'react-hook-form';
 import { Input, Textarea } from 'src/UI';
 import { useDispatch } from 'react-redux';
-import { fieldsToCheck, getModalManageAction, modalFields, objType } from './config';
+import { fieldsToCheck, getModalManageAction, modalFields, objType, pageType } from './config';
 import { checkEmptyValues } from 'src/config';
 
 interface IModalManage {
   obj: IUser | IPost,
   type: objType,
+  page: pageType,
   title: string,
   closeModal: () => void
 }
 
-export const ModalManage:FC<IModalManage> = ({obj, type, title, closeModal}) => {
+export const ModalManage:FC<IModalManage> = ({obj, type, page, title, closeModal}) => {
   const dispatch = useDispatch();
 
   const {
@@ -31,8 +32,9 @@ export const ModalManage:FC<IModalManage> = ({obj, type, title, closeModal}) => 
   const onSubmit = (data: IUser | IPost) => {
     const isCorrect = checkEmptyValues(data, fieldsToCheck[type], setError);
     if (!isCorrect) return;
-    const action = getModalManageAction[type](data);
+    const action = getModalManageAction[page](data);
     dispatch(action);
+    closeModal();
   }
 
   return (

@@ -8,9 +8,14 @@ import favoriteFillIcon from './icons/favoriteFill.svg';
 import favoriteWhiteIcon from './icons/favorite_white.svg';
 import accountIcon from './icons/account.svg';
 import warningIcon from './icons/warning.svg';
-import radioSelectedIcon from './icons/radioSelected.svg';
-import radioUnselectedIcon from './icons/radioUnselected.svg';
 import myPostsIcon from './icons/myPosts.png';
+import likeIcon from './icons/like.svg';
+import likeFillIcon from './icons/likeFill.svg';
+import dislikeIcon from './icons/dislike.svg';
+import dislikeFillIcon from './icons/dislikeFill.svg';
+
+import userPhoto1Image from './images/userPhoto_1.png';
+import userPhoto2Image from './images/userPhoto_2.png';
 
 export {
   logoIcon,
@@ -23,7 +28,11 @@ export {
   favoriteWhiteIcon,
   accountIcon,
   warningIcon,
-  radioSelectedIcon,
-  radioUnselectedIcon,
-  myPostsIcon
+  myPostsIcon,
+  likeIcon,
+  likeFillIcon,
+  dislikeIcon,
+  dislikeFillIcon,
+  userPhoto1Image,
+  userPhoto2Image
 }

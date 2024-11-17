@@ -1,5 +1,6 @@
 import { UseFormSetError } from "react-hook-form";
 import { IInput, IUser } from "./interfaces";
+import { IControlsPost, controlsPosts } from "./controlsPostsData";
 
 export type roleType = 'unauthorized' | 'user' | 'admin';
 
@@ -161,4 +162,10 @@ export const checkEmptyValues = (data: Object, fieldsToСheck: string[], setErro
   });
   
   return isCorrect;
+}
+
+export const updateArrayIds = (array: number[], id: number) => {
+  return array.includes(id) 
+    ? array.filter(item => item !== id)
+    : [...array, id];
 }

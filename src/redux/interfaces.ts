@@ -1,16 +1,24 @@
 import { roleType } from "src/config";
-import { IPost, IFullUser, Undefinable, IUser } from "src/interfaces";
+import { IPost, IFullUser, Undefinable, IUser, IComments } from "src/interfaces";
 
 export type StateType = {
   user: IUserState;
-  posts: IPostsState;
   users: IUsersState;
+  posts: IPostsState;
+  post: IPostState;
 };
 
 export interface IUserState {
   user: Undefinable<IFullUser>;
   favoritePosts: number[];
   role: roleType | null,
+  isLoading: boolean;
+  errorMessage: string | null;
+  successMessage: string | null;
+}
+
+export interface IUsersState {
+  users: IUser[];
   isLoading: boolean;
   errorMessage: string | null;
   successMessage: string | null;
@@ -25,8 +33,14 @@ export interface IPostsState {
   successMessage: string | null;
 }
 
-export interface IUsersState {
-  users: IUser[];
+export interface IPostState {
+  post: IPost | null;
+  user: IUser | null;
+  comments: IComments[];
+  controls: {
+    likeUserIds: number[],
+    dislikeUserIds: number[],
+  }
   isLoading: boolean;
   errorMessage: string | null;
   successMessage: string | null;

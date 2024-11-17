@@ -9,3 +9,4 @@ export * from './ModalTemplate/ModalTemplate';
 export * from './ModalConfirm/ModalConfirm';
 export * from './ListOfPosts/ListOfPosts';
 export * from './ModalManage/ModalManage';
+export * from './PostControls/PostControls';

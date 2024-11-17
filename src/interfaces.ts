@@ -45,6 +45,14 @@ export interface IPost {
   comments_number: number | null,
 }
 
+export interface IComments {
+  id: number,
+  postId: number,
+  email: string,
+  name: string,
+  body: string,
+}
+
 export interface IInputBlock {
   id: string;
   register: UseFormRegister<any>;

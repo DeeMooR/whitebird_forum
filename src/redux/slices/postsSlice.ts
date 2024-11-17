@@ -20,6 +20,12 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState: initialState,
   reducers: {
+    setPostsSuccessMessage: (state, { payload }) => {
+      state.successMessage = payload;
+    },
+    setPostsErrorMessage: (state, { payload }) => {
+      state.errorMessage = payload;
+    },
     clearPostsMessages: (state) => {
       state.successMessage = null;
       state.errorMessage = null;
@@ -98,6 +104,8 @@ export const postsSlice = createSlice({
 })
 
 export const {
+  setPostsSuccessMessage,
+  setPostsErrorMessage,
   clearPostsMessages,
   getPosts,
   getPostsSuccess,

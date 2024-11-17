@@ -7,6 +7,7 @@ import { ModalConfirm, ModalManage } from 'src/components';
 import { getUsernameById } from 'src/config';
 import { IPost } from 'src/interfaces';
 import cls from './styles.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface ICard {
   post: IPost,
@@ -15,6 +16,7 @@ interface ICard {
 
 export const Card:FC<ICard> = ({ post, showControls }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { users } = useSelector(getPostsSelector);
   const { favoritePosts, role } = useSelector(getUserSelector);
   const [modalUpdate, setModalUpdate] = useState(false);
@@ -22,6 +24,10 @@ export const Card:FC<ICard> = ({ post, showControls }) => {
 
   const { id, userId, title, comments_number } = post;
   const username = getUsernameById(users, userId);
+
+  const handleClickPost = () => {
+    navigate(`/forum/${id}`);
+  }
 
   const handleClickFavorite = () => {
     dispatch(updateUserFavoritePosts(id));
@@ -43,7 +49,7 @@ export const Card:FC<ICard> = ({ post, showControls }) => {
       }
       <div className={cls.card__info}>
         <p className={cls.card__author}>{username}</p>
-        <p className={cls.card__title}>{title}</p>
+        <p className={cls.card__title} onClick={handleClickPost}>{title}</p>
       </div>
       <div className={cls.card__comments}>
         <p className={cls.comments__counter}>{comments_number || 0}</p>
@@ -58,7 +64,8 @@ export const Card:FC<ICard> = ({ post, showControls }) => {
       {modalUpdate && 
         <ModalManage 
           obj={post} 
-          type='post' 
+          type='post'
+          page='posts' 
           title='Изменить пост?' 
           closeModal={() => setModalUpdate(false)} 
         />

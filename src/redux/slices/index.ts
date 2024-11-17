@@ -1,3 +1,4 @@
 export * from './userSlice';
-export * from './postsSlice';
 export * from './usersSlice';
+export * from './postsSlice';
+export * from './postSlice';

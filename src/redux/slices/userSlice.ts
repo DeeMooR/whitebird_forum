@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ADMIN_EMAIL, getFavoritePosts } from "src/config";
+import { ADMIN_EMAIL, getFavoritePosts, updateArrayIds } from "src/config";
 import { IUserState } from "../interfaces";
 
 const initialState: IUserState = {
@@ -35,11 +35,9 @@ export const userSlice = createSlice({
     setUserFavoritePosts: (state) => {
       state.favoritePosts = getFavoritePosts(state.user.id);
     },
-    updateUserFavoritePosts: (state, { payload: postId }) => {
+    updateUserFavoritePosts: (state, { payload }) => {
       const postIds = state.favoritePosts;
-      state.favoritePosts = postIds.includes(postId) 
-        ? postIds.filter(id => id !== postId)
-        : [...postIds, postId];
+      state.favoritePosts = updateArrayIds(postIds, payload);
     },
     clearUserFavoritePosts: (state) => {
       state.favoritePosts = [];

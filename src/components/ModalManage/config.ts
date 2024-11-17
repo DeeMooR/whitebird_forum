@@ -1,5 +1,5 @@
 import { IInput, IPost, ITextarea, IUser } from "src/interfaces"
-import { changeUserByAdmin, updatePost } from "src/redux/slices";
+import { changeUserByAdmin, updatePost, updatePostInPostPage } from "src/redux/slices";
 
 interface IElement {
   element: 'input' | 'textarea',
@@ -12,6 +12,7 @@ interface IModalFields {
 }
 
 export type objType = 'user' | 'post';
+export type pageType = 'users' | 'posts' | 'post';
 
 export const modalFields: IModalFields = {
   user: [
@@ -65,8 +66,9 @@ export const modalFields: IModalFields = {
 }
 
 export const getModalManageAction = {
-  user: (data: IUser | IPost) => changeUserByAdmin(data),
-  post: (data: IUser | IPost) => updatePost(data)
+  users: (data: IUser | IPost) => changeUserByAdmin(data),
+  posts: (data: IUser | IPost) => updatePost(data),
+  post: (data: IUser | IPost) => updatePostInPostPage(data),
 };
 
 export const fieldsToCheck = {
