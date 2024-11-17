@@ -5,19 +5,20 @@ import { IInput, IPost, ITextarea, IUser } from 'src/interfaces';
 import { useForm } from 'react-hook-form';
 import { Input, Textarea } from 'src/UI';
 import { useDispatch } from 'react-redux';
-import { fieldsToCheck, getModalManageAction, modalFields, objType, pageType } from './config';
+import { actionType, fieldsToCheck, getModalManageAction, idType, modalFields, modalManageText, objType } from './config';
 import { checkEmptyValues } from 'src/config';
 
 interface IModalManage {
-  obj: IUser | IPost,
+  id: idType,
+  obj?: IUser | IPost,
   type: objType,
-  page: pageType,
-  title: string,
+  action: actionType,
   closeModal: () => void
 }
 
-export const ModalManage:FC<IModalManage> = ({obj, type, page, title, closeModal}) => {
+export const ModalManage:FC<IModalManage> = ({id, obj, type, action, closeModal}) => {
   const dispatch = useDispatch();
+  const { title, btnText } = modalManageText[type][action];
 
   const {
     register,
@@ -26,14 +27,14 @@ export const ModalManage:FC<IModalManage> = ({obj, type, page, title, closeModal
     formState: { errors },
   } = useForm<IUser | IPost>({
     mode: 'onChange',
-    defaultValues: obj
+    defaultValues: obj || {}
   });
 
   const onSubmit = (data: IUser | IPost) => {
     const isCorrect = checkEmptyValues(data, fieldsToCheck[type], setError);
     if (!isCorrect) return;
-    const action = getModalManageAction[page](data);
-    dispatch(action);
+    const func = getModalManageAction[id](data);
+    dispatch(func);
     closeModal();
   }
 
@@ -68,7 +69,7 @@ export const ModalManage:FC<IModalManage> = ({obj, type, page, title, closeModal
         </div>
         <div className={cls.modalManage__buttons}>
           <button type='button' className={cls.btnCancel} onClick={closeModal}>Отмена</button>
-          <button className={cls.btnChange}>Изменить</button>
+          <button className={cls.btnChange}>{btnText}</button>
         </div>
       </form>
     </ModalTemplate>

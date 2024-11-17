@@ -63,6 +63,18 @@ export const postsSlice = createSlice({
       state.errorMessage = 'Ошибка загрузки постов';
     },
 
+    createPost: (state, { payload }) => setLoading(state),
+    createPostSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.posts = [payload, ...state.posts];
+      state.myPosts = [payload, ...state.myPosts];
+      state.successMessage = 'Пост успешно создан';
+    },
+    createPostFailure: (state) => {
+      state.isLoading = false;
+      state.errorMessage = 'Ошибка создания поста';
+    },
+
     updatePost: (state, { payload }) => setLoading(state),
     updatePostSuccess: (state, { payload }) => {
       state.isLoading = false;
@@ -116,6 +128,9 @@ export const {
   getPostsByUser,
   getPostsByUserSuccess,
   getPostsByUserFailure,
+  createPost,
+  createPostSuccess,
+  createPostFailure,
   updatePost,
   updatePostSuccess,
   updatePostFailure,

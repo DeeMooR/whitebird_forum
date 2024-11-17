@@ -155,7 +155,6 @@ export const checkEmptyValues = (data: Object, fieldsToСheck: string[], setErro
  
   fields.filter(([key]) => fieldsToСheck.some(field => key.startsWith(field))).forEach(([key, value]) => {
     if (value === null || value === undefined || value === '') {
-      console.log(key)
       setError(`${key}`, { message: 'Обязательное поле' });
       isCorrect = false;
     }

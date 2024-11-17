@@ -1,7 +1,9 @@
-import { takeLatest, put } from 'redux-saga/effects';
-import { getPosts, getPostsSuccess, getPostsFailure, getPostsByUser, getPostsByUserSuccess, getPostsByUserFailure, getMyPosts, getMyPostsSuccess, getMyPostsFailure, updatePost, deletePost, updatePostSuccess, updatePostFailure, deletePostSuccess, deletePostFailure } from '../slices';
+import { takeLatest, put, select } from 'redux-saga/effects';
+import { getPosts, getPostsSuccess, getPostsFailure, getPostsByUser, getPostsByUserSuccess, getPostsByUserFailure, getMyPosts, getMyPostsSuccess, getMyPostsFailure, updatePost, deletePost, updatePostSuccess, updatePostFailure, deletePostSuccess, deletePostFailure, createPost, createPostSuccess, createPostFailure } from '../slices';
 import { axiosInstance, endpoints } from '../api';
 import { IPost, IUser } from 'src/interfaces';
+import { getUserSelector } from '../selectors';
+import { IUserState } from '../interfaces';
 
 interface IGetMyPostsSaga {
   payload: string;
@@ -11,11 +13,15 @@ interface IGetPostsByUserSaga {
   payload: string;
 }
 
-interface IUpdatePost {
+interface ICreatePostSaga {
+  payload: Pick<IPost, 'title' | 'body'>;
+}
+
+interface IUpdatePostSaga {
   payload: IPost;
 }
 
-interface IDeletePost {
+interface IDeletePostSaga {
   payload: number;
 }
 
@@ -64,7 +70,21 @@ function* getPostsByUserSaga({ payload }: IGetPostsByUserSaga) {
   }
 }
 
-function* updatePostSaga({ payload }: IUpdatePost) {
+function* createPostSaga({ payload }: ICreatePostSaga) {
+  try {
+    const { user }: IUserState = yield select(getUserSelector);
+    const post = {
+      userId: user.id,
+      ...payload
+    }
+    const newPost: IPost = yield axiosInstance.post(endpoints.posts, post).then(({ data }) => data);
+    yield put(createPostSuccess(newPost));
+  } catch (error) {
+    yield put(createPostFailure());
+  }
+}
+
+function* updatePostSaga({ payload }: IUpdatePostSaga) {
   try {
     const { id, comments_number, ...post } = payload;
     const changedPost: IPost = yield axiosInstance.patch(`${endpoints.posts}/${id}`, post).then(({ data }) => data);
@@ -74,7 +94,7 @@ function* updatePostSaga({ payload }: IUpdatePost) {
   }
 }
 
-function* deletePostSaga({ payload: id }: IDeletePost) {
+function* deletePostSaga({ payload: id }: IDeletePostSaga) {
   try {
     yield axiosInstance.delete(`${endpoints.posts}/${id}`);
     yield put(deletePostSuccess(id));
@@ -87,6 +107,7 @@ function* forumSaga() {
   yield takeLatest(getPosts, getPostsSaga);
   yield takeLatest(getMyPosts, getMyPostsSaga);
   yield takeLatest(getPostsByUser, getPostsByUserSaga);
+  yield takeLatest(createPost, createPostSaga);
   yield takeLatest(updatePost, updatePostSaga);
   yield takeLatest(deletePost, deletePostSaga);
 }

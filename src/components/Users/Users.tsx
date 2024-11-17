@@ -44,10 +44,10 @@ export const Users:FC<IUsers> = ({ users }) => {
       )}
       {modalChange && 
         <ModalManage 
+          id='users_update' 
           obj={modalChange} 
-          type='user' 
-          page='users'
-          title='Изменить пользователя?' 
+          type='user'
+          action='update' 
           closeModal={() => setModalChange(null)} 
         />
       }

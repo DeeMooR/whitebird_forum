@@ -63,10 +63,10 @@ export const Card:FC<ICard> = ({ post, showControls }) => {
       }
       {modalUpdate && 
         <ModalManage 
+          id='posts_update'
           obj={post} 
           type='post'
-          page='posts' 
-          title='Изменить пост?' 
+          action='update' 
           closeModal={() => setModalUpdate(false)} 
         />
       }

@@ -1,5 +1,5 @@
 import { IInput, IPost, ITextarea, IUser } from "src/interfaces"
-import { changeUserByAdmin, updatePost, updatePostInPostPage } from "src/redux/slices";
+import { changeUserByAdmin, createPost, updatePost, updatePostInPostPage } from "src/redux/slices";
 
 interface IElement {
   element: 'input' | 'textarea',
@@ -12,7 +12,8 @@ interface IModalFields {
 }
 
 export type objType = 'user' | 'post';
-export type pageType = 'users' | 'posts' | 'post';
+export type idType = 'users_update' | 'posts_update' | 'posts_add' | 'post_update';
+export type actionType = 'add' | 'update';
 
 export const modalFields: IModalFields = {
   user: [
@@ -65,10 +66,34 @@ export const modalFields: IModalFields = {
   ],
 }
 
+export const modalManageText = {
+  user: {
+    add: {
+      title: 'Добавление пользователя',
+      btnText: 'Добавить'
+    },
+    update: {
+      title: 'Редактирование пользователя',
+      btnText: 'Изменить'
+    },
+  },
+  post: {
+    add: {
+      title: 'Добавление поста',
+      btnText: 'Добавить'
+    },
+    update: {
+      title: 'Редактирование поста',
+      btnText: 'Изменить'
+    },
+  },
+};
+
 export const getModalManageAction = {
-  users: (data: IUser | IPost) => changeUserByAdmin(data),
-  posts: (data: IUser | IPost) => updatePost(data),
-  post: (data: IUser | IPost) => updatePostInPostPage(data),
+  users_update: (data: IUser | IPost) => changeUserByAdmin(data),
+  posts_update: (data: IUser | IPost) => updatePost(data),
+  posts_add: (data: IUser | IPost) => createPost(data),
+  post_update: (data: IUser | IPost) => updatePostInPostPage(data),
 };
 
 export const fieldsToCheck = {

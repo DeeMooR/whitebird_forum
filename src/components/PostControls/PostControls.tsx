@@ -65,10 +65,10 @@ export const PostControls = () => {
       }
       {modalUpdate && 
         <ModalManage 
+          id='post_update'
           obj={post!} 
           type='post'
-          page='post'
-          title='Изменить пост?' 
+          action='update' 
           closeModal={() => setModalUpdate(false)}
         />
       }
