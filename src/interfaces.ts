@@ -45,7 +45,7 @@ export interface IPost {
   comments_number: number | null,
 }
 
-export interface IComments {
+export interface IComment {
   id: number,
   postId: number,
   email: string,

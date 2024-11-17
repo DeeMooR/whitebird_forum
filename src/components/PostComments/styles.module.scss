@@ -1,0 +1,14 @@
+.comments {
+  .comments__header {
+    .header__text {
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin: 0 0 15px 0;
+    }
+    .header__line {
+      border: 1px solid var(--black);
+    }
+  }
+}

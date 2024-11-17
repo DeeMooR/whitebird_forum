@@ -24,12 +24,17 @@
     }
   }
   .post__info {
-    margin: 0 0 20px 0;
+    margin: 0 0 25px 0;
     .post__title {
       font-size: 30px;
       font-weight: 600;
       margin: 0 0 20px 0;
     }
-    .post__body {}
+    .post__body {
+      line-height: 1.4em;
+    }
+  }
+  .post__controls {
+    margin: 0 0 60px 0;
   }
 }

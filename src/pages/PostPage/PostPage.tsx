@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostSelector } from 'src/redux/selectors';
 import { clearPostState, getPost } from 'src/redux/slices';
-import { PostControls } from 'src/components';
+import { PostComments, PostControls } from 'src/components';
 import { PageTemplate } from 'src/pages'
 import { userPhoto1Image } from 'src/assets';
 import { Loading } from 'src/UI';
@@ -44,6 +44,9 @@ export const PostPage = () => {
           </div>
           <div className={cls.post__controls}>
             <PostControls />
+          </div>
+          <div className={cls.post__comments}>
+            <PostComments />
           </div>
           </>
         )}

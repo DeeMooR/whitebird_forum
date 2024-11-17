@@ -2,7 +2,7 @@ import { NavigateFunction } from 'react-router-dom';
 import { takeLatest, put } from 'redux-saga/effects';
 import { deletePostInPostPage, deletePostInPostPageFailure, deletePostInPostPageSuccess, getPost, getPostSuccess, setPostsErrorMessage, setPostsSuccessMessage, updatePostInPostPage, updatePostInPostPageFailure, updatePostInPostPageSuccess } from '../slices';
 import { axiosInstance, endpoints } from '../api';
-import { IComments, IPost, IUser } from 'src/interfaces';
+import { IComment, IPost, IUser } from 'src/interfaces';
 import { getControlsPost } from 'src/controlsPostsData';
 
 interface IGetPostSaga {
@@ -27,7 +27,7 @@ function* getPostSaga({ payload }: IGetPostSaga) {
   try {
     const { postId } = payload;
     const post: IPost = yield axiosInstance.get(endpoints.posts, { params: { id: postId }}).then(({ data }) => data[0]);
-    const comments: IComments[] = yield axiosInstance.get(endpoints.comments, { params: { postId }}).then(({ data }) => data);
+    const comments: IComment[] = yield axiosInstance.get(endpoints.comments, { params: { postId }}).then(({ data }) => data);
     const users: IUser[] = yield axiosInstance.get(endpoints.users, { params: { id: post.userId }}).then(({ data }) =>
       data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
     );

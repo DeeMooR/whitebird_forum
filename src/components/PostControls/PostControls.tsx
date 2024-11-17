@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getControlsInPostSelector, getPostSelector, getUserSelector } from 'src/redux/selectors';
-import { deletePost, deletePostInPostPage, updatePostDislikes, updatePostLikes, updateUserFavoritePosts } from 'src/redux/slices';
+import { deletePostInPostPage, updatePostDislikes, updatePostLikes, updateUserFavoritePosts } from 'src/redux/slices';
 import { basketIcon, dislikeFillIcon, dislikeIcon, favoriteFillIcon, favoriteIcon, likeFillIcon, likeIcon, pencilIcon } from 'src/assets';
 import { ModalConfirm, ModalManage } from 'src/components';
 import cls from './styles.module.scss';

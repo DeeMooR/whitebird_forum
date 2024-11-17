@@ -1,5 +1,5 @@
 import { roleType } from "src/config";
-import { IPost, IFullUser, Undefinable, IUser, IComments } from "src/interfaces";
+import { IPost, IFullUser, Undefinable, IUser, IComment } from "src/interfaces";
 
 export type StateType = {
   user: IUserState;
@@ -36,7 +36,7 @@ export interface IPostsState {
 export interface IPostState {
   post: IPost | null;
   user: IUser | null;
-  comments: IComments[];
+  comments: IComment[];
   controls: {
     likeUserIds: number[],
     dislikeUserIds: number[],
