@@ -10,8 +10,9 @@
       padding: 0 20px;
       grid-template-columns: 5fr 7fr 10fr 27px 27px;
       p {
-        display: flex;
-        align-items: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       img {
         display: flex;
@@ -32,5 +33,35 @@
   .users__empty {
     text-align: center;
     padding: 12px 0 0 0;
+  }
+}
+
+@media (max-width: 599.98px) {
+  .users {
+    font-size: 15px;
+    .users__table {
+      .table__line {
+        padding: 0 15px;
+        grid-template-columns: 7fr 10fr 27px 27px;
+        p {
+          &:nth-child(2) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 479.98px) {
+  .users {
+    font-size: 14px;
+    .users__table {
+      .table__line {
+        gap: 10px;
+        height: 48px;
+        padding: 0 10px;
+      }
+    }
   }
 }

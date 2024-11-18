@@ -60,7 +60,7 @@ export const Card:FC<ICard> = ({ post, showControls, showPriority, movingPostsId
         }
         <div className={cls.card__info}>
           <p className={cls.card__author}>{username}</p>
-          <p className={cls.card__title} onClick={handleClickPost}>{title}</p>
+          <h3 className={cls.card__title} onClick={handleClickPost}>{title}</h3>
         </div>
         <div className={cls.card__comments}>
           <p className={cls.comments__counter}>{comments_number || 0}</p>

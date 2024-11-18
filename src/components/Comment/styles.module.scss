@@ -36,3 +36,13 @@
     }
   }
 }
+
+@media (max-width: 479.98px) {
+  .comment {
+    .comment__info {
+      .comment__body {
+        font-size: 14px;
+      }
+    }
+  }
+}

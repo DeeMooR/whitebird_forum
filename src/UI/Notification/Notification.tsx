@@ -11,7 +11,7 @@ interface INotification {
   clearMessage?: () => void,
 }
 
-export const Notification:FC<INotification> = ({type, message, displayTime = 3000, clearMessage}) => {
+export const Notification:FC<INotification> = ({type, message, displayTime = 2000, clearMessage}) => {
   const { icon, style } = NotificationData[type];
   const [isVisible, setIsVisible] = useState(true);
   const [isRendered, setIsRendered] = useState(false);

@@ -20,7 +20,6 @@
       }
       .card__title {
         display: inline;
-        font-size: 21px;
         font-weight: 600;
         &:hover {
           color: var(--blue-light);
@@ -49,6 +48,28 @@
       img {
         padding: 3px;
         cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (max-width: 699.98px) {
+  .card {
+    .card__content {
+      .card__comments {
+        padding: 0 0 0 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 479.98px) {
+  .card {
+    gap: 15px;
+    .card__content {
+      gap: 15px;
+      .card__comments {
+        padding: 0;
       }
     }
   }

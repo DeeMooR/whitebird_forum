@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { getUserSelector } from 'src/redux/selectors';
 import { HeaderButtons } from 'src/components';
-import { logoIcon } from 'src/assets'
+import { logoIcon, logoShortIcon } from 'src/assets'
 import cls from './styles.module.scss';
 
 export const Header = () => {
@@ -16,9 +16,10 @@ export const Header = () => {
   return (
     <header className={cls.header}>
       <div className={headerWrapperStyle}>
-        <div className={cls.header__logo} onClick={() => navigate('/forum')}>
+        <picture className={cls.header__logo} onClick={() => navigate('/forum')}>
+          <source srcSet={logoShortIcon} media="(max-width: 800px)" />
           <img src={logoIcon} alt="WHITEBIRD" />
-        </div>
+        </picture>
         <div className={cls.header__navigation}>
           <Link to='/forum'>Форум</Link>
           {role === 'admin' && 

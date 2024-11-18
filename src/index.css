@@ -80,6 +80,13 @@ body {
   padding: 0 20px;
 }
 
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 22px;
+}
+
 button {
   display: flex;
   align-items: center;
@@ -144,4 +151,25 @@ input:disabled,
 textarea:disabled {
   background-color: var(--disabled-light);
   cursor: not-allowed;
+}
+
+@media (max-width: 599.98px) {
+  h2 {
+    font-size: 24px;
+  }
+  h3 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 479.98px) {
+  h1 {
+    font-size: 28px;
+  }
+  button {
+    font-size: 13px;
+  }
+  .btnSmall {
+    font-size: 12px;
+  }
 }

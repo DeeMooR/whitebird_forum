@@ -68,3 +68,14 @@
     }
   }
 }
+
+@media (max-width: 479.98px) {
+  .notification {
+    .notification__wrapper {
+      padding: 16px 22px;
+      .notification__text {
+        font-size: 15px;
+      }
+    }
+  }
+}

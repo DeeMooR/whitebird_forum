@@ -94,8 +94,10 @@ export const AccountPage = () => {
                 ))}
               </div>
               <div className={cls.account__buttons}>
-                <button type='button' className={cn(cls.account__btnDelete, 'btnSmall', 'btnDelete')} onClick={() => setModalDelete(true)}>Удалить</button>
-                <button type='submit' className={cn(cls.account__btnUpdate, 'btnSmall')} disabled={!isDirty}>Изменить</button>
+                <div className={cls.account__сontrols}>
+                  <button type='button' className={cn(cls.account__btnDelete, 'btnSmall', 'btnDelete')} onClick={() => setModalDelete(true)}>Удалить</button>
+                  <button type='submit' className={cn(cls.account__btnUpdate, 'btnSmall')} disabled={!isDirty}>Изменить</button>
+                </div>
                 <button type='button' className={cn(cls.account__btnExit, 'btnSmall')} onClick={handleExit}>Выйти</button>
               </div>
             </form>

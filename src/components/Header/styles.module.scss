@@ -16,6 +16,9 @@
     max-width: 1340px;
     .header__logo {
       cursor: pointer;
+      img {
+        height: 35px;
+      }
     }
     .header__navigation {
       position: absolute;
@@ -29,6 +32,32 @@
         transition: all 0.15s ease-in-out 0s;
         &:hover {
           color: var(--white-hover)
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 699.98px) {
+  .header {
+    .header__wrapper {
+      .header__navigation {
+        left: 85px;
+        transform: translate(0, -50%);
+        gap: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: 479.98px) {
+  .header {
+    .header__wrapper {
+      .header__navigation {
+        a {
+          &:last-child {
+            display: none;
+          }
         }
       }
     }

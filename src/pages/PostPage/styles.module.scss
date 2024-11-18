@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 0 0 10px 0;
+    padding: 10px 0;
     margin: 0 0 20px 0;
     border-bottom: 1px solid var(--black-transparent);
     img {
@@ -26,7 +26,6 @@
   .post__info {
     margin: 0 0 25px 0;
     .post__title {
-      font-size: 30px;
       font-weight: 600;
       margin: 0 0 20px 0;
     }
@@ -36,5 +35,28 @@
   }
   .post__controls {
     margin: 0 0 60px 0;
+  }
+}
+
+@media (max-width: 799.98px) {
+  .post {
+    .post__info {
+      .post__body {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 479.98px) {
+  .post {
+    .post__author {
+      margin: 0 0 15px 0;
+      .author__info {
+        .author__username {
+          font-size: 16px;
+        }
+      }
+    }
   }
 }
