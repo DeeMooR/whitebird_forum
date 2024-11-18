@@ -25,7 +25,7 @@ export const ForumPage = () => {
   return (
     <PageTemplate notShowCrumbs showScroll showPostsMessages>
       <div className={cls.forumPage}>
-        <h1 className={cls.forumPage__title}>Все статьи</h1>
+        <h1 className={cls.forumPage__title}>Все посты</h1>
         <div className={cls.forumPage__search}>
           <Search data='posts' />
         </div>
