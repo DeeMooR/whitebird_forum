@@ -5,6 +5,7 @@ const initialState: IPostsState = {
   posts: [],
   myPosts: [],
   users: [],
+  search: null,
   isLoading: false,
   errorMessage: null,
   successMessage: null,
@@ -20,6 +21,9 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState: initialState,
   reducers: {
+    setPostsSearch: (state, { payload }) => {
+      state.search = payload;
+    },
     setPostsSuccessMessage: (state, { payload }) => {
       state.successMessage = payload;
     },
@@ -94,6 +98,7 @@ export const postsSlice = createSlice({
 })
 
 export const {
+  setPostsSearch,
   setPostsSuccessMessage,
   setPostsErrorMessage,
   clearPostsMessages,

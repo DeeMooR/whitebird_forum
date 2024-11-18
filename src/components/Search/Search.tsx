@@ -5,6 +5,7 @@ import { ISearchForm } from 'src/interfaces';
 import { Input } from 'src/UI';
 import { getSearchAction } from './config';
 import cls from './styles.module.scss';
+import { setPostsSearch } from 'src/redux/slices';
 
 interface ISearch {
   data: 'users' | 'posts'
@@ -23,6 +24,7 @@ export const Search:FC<ISearch> = ({ data }) => {
 
   const onSubmit = ({ search }: ISearchForm) => {
     if (!search && previousSearch === '') return;
+    if (data === 'posts') dispatch(setPostsSearch(search));
     const action = getSearchAction[data](search)
     dispatch(action);
     setPreviousSearch(search);

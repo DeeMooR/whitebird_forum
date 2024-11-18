@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from 'src/redux/slices';
-import { getLocalPostsSelector, getPostsSelector } from 'src/redux/selectors';
+import { getLocalPostsSelector, getPostsSelector, getUserSelector } from 'src/redux/selectors';
 import { ListOfPosts, Search } from 'src/components';
 import { PageTemplate } from 'src/pages'
 import cls from './styles.module.scss';
 
 export const ForumPage = () => {
   const dispatch = useDispatch();
-  const { posts } = useSelector(getPostsSelector);
+  const { user } = useSelector(getUserSelector);
+  const { posts, search } = useSelector(getPostsSelector);
   const localPosts = useSelector(getLocalPostsSelector);
-  const allPosts = [...localPosts, ...posts];
+  const searchLocalPosts = (!search || user.username === search || user.email === search) ? localPosts : [];
+  const allPosts = [...searchLocalPosts, ...posts];
 
   useEffect(() => {
     dispatch(getPosts());

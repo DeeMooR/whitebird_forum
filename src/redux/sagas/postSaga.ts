@@ -55,8 +55,8 @@ function* deletePostInPostPageSaga({ payload }: IDeletePostSaga) {
     const { postId, navigate } = payload;
     yield axiosInstance.delete(`${endpoints.posts}/${postId}`);
     yield put(deletePostInPostPageSuccess());
-    yield put(setPostsSuccessMessage('Пост успешно удалён'))
     navigate('/forum');
+    yield put(setPostsSuccessMessage('Пост успешно удалён'))
   } catch (error) {
     yield put(deletePostInPostPageFailure());
   }

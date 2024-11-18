@@ -4,7 +4,7 @@ import { getPostsSelector, getUserSelector } from 'src/redux/selectors';
 import { deleteLocalPost, deletePost, updateUserFavoritePosts } from 'src/redux/slices';
 import { basketIcon, favoriteFillIcon, favoriteIcon, pencilIcon } from 'src/assets';
 import { ModalConfirm, ModalManage } from 'src/components';
-import { getUsernameById } from 'src/config';
+import { getTextPluralComments, getUsernameById } from 'src/config';
 import { IPost } from 'src/interfaces';
 import cls from './styles.module.scss';
 import { useNavigate } from 'react-router-dom';
@@ -55,7 +55,7 @@ export const Card:FC<ICard> = ({ post, showControls }) => {
       </div>
       <div className={cls.card__comments}>
         <p className={cls.comments__counter}>{comments_number || 0}</p>
-        <p className={cls.comments__text}>ответов</p>
+        <p className={cls.comments__text}>{getTextPluralComments(comments_number || 0)}</p>
       </div>
       {showControls &&
         <div className={cls.card__buttons}>

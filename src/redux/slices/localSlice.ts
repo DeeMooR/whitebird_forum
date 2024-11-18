@@ -31,9 +31,11 @@ export const localSlice = createSlice({
 
     createComment: (state, { payload }) => setLoading(state),
     createCommentSuccess: (state, { payload }) => {
+      const { newComment, updatedPosts } = payload;
       state.isLoading = false;
-      state.comments = [payload, ...state.comments];
+      state.comments = [newComment, ...state.comments];
       state.commentsMaxId = state.commentsMaxId + 1;
+      state.posts = updatedPosts;
     },
     createCommentFailure: (state) => {
       state.isLoading = false;
@@ -55,8 +57,10 @@ export const localSlice = createSlice({
 
     deleteComment: (state, { payload }) => setLoading(state),
     deleteCommentSuccess: (state, { payload }) => {
+      const { id, updatedPosts } = payload;
       state.isLoading = false;
-      state.comments = state.comments.filter(item => item.id !== payload);
+      state.comments = state.comments.filter(item => item.id !== id);
+      state.posts = updatedPosts;
       state.successLocalMessage = 'Комментарий успешно удалён';
     },
     deleteCommentFailure: (state) => {

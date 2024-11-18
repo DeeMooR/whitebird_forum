@@ -29,6 +29,7 @@ export interface IPostsState {
   posts: IPost[];
   myPosts: IPost[];
   users: IUser[];
+  search: string | null;
   isLoading: boolean;
   errorMessage: string | null;
   successMessage: string | null;

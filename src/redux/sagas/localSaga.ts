@@ -35,7 +35,7 @@ interface IDeleteLocalPostSaga {
 
 function* createCommentSaga({ payload }: ICreateCommentSaga) {
   try {
-    const { commentsMaxId }: ILocalState = yield select(getLocalSelector);
+    const { commentsMaxId, posts: localPosts }: ILocalState = yield select(getLocalSelector);
     const { user, post }: IPostState = yield select(getPostSelector);
     const comment = {
       postId: post?.id,
@@ -44,7 +44,11 @@ function* createCommentSaga({ payload }: ICreateCommentSaga) {
     }
     let newComment: IComment = yield axiosInstance.post(endpoints.comments, comment).then(({ data }) => data);
     newComment.id = commentsMaxId + 1;
-    yield put(createCommentSuccess(newComment));
+    
+    let updatedPosts: IPost[] = localPosts.map(item => {
+      return (item.userId === user?.id) ? {...item, comments_number: item.comments_number! + 1} : item;
+    })
+    yield put(createCommentSuccess({newComment, updatedPosts}));
   } catch (error) {
     yield put(createCommentFailure());
   }
@@ -63,8 +67,14 @@ function* updateCommentSaga({ payload }: IUpdateCommentSaga) {
 
 function* deleteCommentSaga({ payload: id }: IDeleteCommentSaga) {
   try {
+    const { user }: IPostState = yield select(getPostSelector);
+    const { posts: localPosts }: ILocalState = yield select(getLocalSelector);
+    let updatedPosts: IPost[] = localPosts.map(item => {
+      return (item.userId === user?.id) ? {...item, comments_number: item.comments_number! - 1} : item;
+    })
+
     yield axiosInstance.delete(`${endpoints.comments}/${id}`);
-    yield put(deleteCommentSuccess(id));
+    yield put(deleteCommentSuccess({id, updatedPosts}));
   } catch (error) {
     yield put(deleteCommentFailure());
   }
@@ -88,14 +98,9 @@ function* createLocalPostSaga({ payload }: ICreateLocalPostSaga) {
 function* updateLocalPostSaga({ payload }: IUpdateLocalPostSaga) {
   try {
     const { id, comments_number, ...localPost } = payload;
-    const localComments: IComment[] = yield select(getLocalCommentsSelector);
     let changedPost: IPost = yield axiosInstance.patch(`${endpoints.posts}/${id}`, localPost).then(({ data }) => data);
-    
-    const localCommentsNumber = localComments.reduce((acc, item) => {
-      return (item.postId === id) ? acc + 1 : acc;
-    }, 0)
     changedPost.id = id;
-    changedPost.comments_number = localCommentsNumber;
+    changedPost.comments_number = comments_number;
 
     const { post }: IPostState = yield select(getPostSelector);
     if (post?.id === id) yield put(updatePostInPostPageSuccess(changedPost));
