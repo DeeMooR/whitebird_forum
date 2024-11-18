@@ -27,7 +27,7 @@ function* createCommentSaga({ payload }: PayloadAction<INewComment>) {
 
     // обновление счётчика комментариев у поста
     let updatedPosts: IPost[] = localPosts.map(item => {
-      return (item.userId === user?.id) ? {...item, comments_number: item.comments_number! + 1} : item;
+      return (item.id === post?.id) ? {...item, comments_number: item.comments_number! + 1} : item;
     })
     yield put(createCommentSuccess({newComment, updatedPosts}));
   } catch (error) {
@@ -64,14 +64,15 @@ function* deleteCommentSaga({ payload: id }: PayloadAction<number>) {
 
 function* createLocalPostSaga({ payload }: PayloadAction<Pick<IPost, 'title' | 'body'>>) {
   try {
+    const { postsMaxId }: ILocalState = yield select(getLocalSelector);
     const { user }: IUserState = yield select(getUserSelector);
     const post = {
       userId: user.id,
       comments_number: 0,
-      priority: 1,
       ...payload
     }
     const newPost: IPost = yield createLocalPostApi(post);
+    newPost.id = postsMaxId + 1;
     yield put(createLocalPostSuccess(newPost));
   } catch (error) {
     yield put(createLocalPostFailure());

@@ -1,8 +1,8 @@
 import { IComment, IPost, IUser } from "src/interfaces";
 import { endpoints, axiosInstance } from ".";
 
-export const getPostApi = (postId: number): Promise<IPost> => 
-  axiosInstance.get(endpoints.posts, { params: { postId }}).then(({ data }) => data[0]);
+export const getPostApi = (id: number): Promise<IPost> => 
+  axiosInstance.get(endpoints.posts, { params: { id }}).then(({ data }) => data[0]);
 
 export const getCommentsApi = (postId: number): Promise<IComment[]> => 
   axiosInstance.get(endpoints.comments, { params: { postId }}).then(({ data }) => data);

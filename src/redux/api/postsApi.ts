@@ -4,7 +4,7 @@ import { endpoints, axiosInstance } from ".";
 export const getPostsApi = (): Promise<IPost[]> => 
   axiosInstance.get(endpoints.posts).then(({ data }) => data);
 
-export const getMyPostsApi = (userId: number): Promise<IPost[]> => 
+export const getPostsByUserIdApi = (userId: number): Promise<IPost[]> => 
   axiosInstance.get(endpoints.posts, { params: { userId }}).then(({ data }) => data);
 
 export const getUsersApi = (): Promise<IUser[]> => 
@@ -21,9 +21,6 @@ export const getUsersByEmailApi = (email: string): Promise<IUser[]> =>
   axiosInstance.get(endpoints.users, { params: { email }}).then(({ data }) =>
     data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
   );
-
-export const getPostsByUserIdApi = (userId: number): Promise<IPost[]> => 
-  axiosInstance.get(endpoints.posts, { params: { userId }}).then(({ data }) => data);
 
 export const updatePostApi = (id: number, post: Partial<IPost>): Promise<IPost> => 
   axiosInstance.patch(`${endpoints.posts}/${id}`, post).then(({ data }) => data);

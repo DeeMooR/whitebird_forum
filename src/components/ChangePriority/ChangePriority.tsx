@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { updateLocalPostPriority, updatePostPriority } from 'src/redux/slices';
+import { updatePostPriority } from 'src/redux/slices';
 import { arrowDownIcon, arrowUpIcon } from 'src/assets';
 import cn from 'classnames';
 import cls from './styles.module.scss';
@@ -19,9 +19,7 @@ export const ChangePriority:FC<IChangePriority> = ({ postId, defaultValue, isLoc
   const handleClickDown = () => setPriority((prev) => prev > 1 ? --prev : prev);
 
   useEffect(() => {
-    // новые посты обновляются отдельно в localSaga
-    const func = isLocalPost ? updateLocalPostPriority({postId, priority}) : updatePostPriority({postId, priority});
-    dispatch(func);
+    dispatch(updatePostPriority({postId, priority}));
   }, [priority])
   
   const controlUpStyle = cn(cls.changePriority__contol, { [cls.hidden]: priority >= 10 });

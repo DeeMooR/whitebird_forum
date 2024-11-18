@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts, setPostsSearch } from 'src/redux/slices';
-import { getLocalPostsSelector, getPostsSelector, getUserSelector } from 'src/redux/selectors';
+import { getPostsSelector, getUserSelector } from 'src/redux/selectors';
 import { ListOfPosts, Search } from 'src/components';
 import { PageTemplate } from 'src/pages'
 import { ROLES } from 'src/config';
@@ -9,13 +9,8 @@ import cls from './styles.module.scss';
 
 export const ForumPage = () => {
   const dispatch = useDispatch();
-  const { user, role } = useSelector(getUserSelector);
+  const { role } = useSelector(getUserSelector);
   const { posts, search } = useSelector(getPostsSelector);
-  const localPosts = useSelector(getLocalPostsSelector);
-
-  // новые посты хранятся и обновляются отдельно в localState
-  const searchLocalPosts = (!search || user.username === search || user.email === search) ? localPosts : [];
-  const allPosts = [...searchLocalPosts, ...posts];
   const showPriority = !search && role === ROLES.ADMIN;
 
   useEffect(() => {
@@ -23,8 +18,8 @@ export const ForumPage = () => {
     return () => {dispatch(setPostsSearch(null))};
   }, [dispatch]);
 
-  const sortAllPosts = () => {
-    return allPosts.sort((l, r) => r.priority! - l.priority!);
+  const sortPosts = () => {
+    return [...posts].sort((l, r) => r.priority! - l.priority!);
   }
 
   return (
@@ -41,7 +36,7 @@ export const ForumPage = () => {
           </div>
         }
         <ListOfPosts 
-          posts={sortAllPosts()}
+          posts={sortPosts()}
           emptyText='По выбранным критериям постов не найдено' 
           withLimit
           showPriority={showPriority}
