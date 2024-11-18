@@ -10,11 +10,7 @@ export const FavoritePostsPage = () => {
   const dispatch = useDispatch();
   const { favoritePosts } = useSelector(getUserSelector);
   const { posts } = useSelector(getPostsSelector);
-  const localPosts = useSelector(getLocalPostsSelector);
-
-  // новые посты хранятся и обновляются отдельно в localState
-  const allPosts = [...localPosts, ...posts];
-  const displayedPosts = allPosts.filter((post) => favoritePosts.includes(post.id))
+  const displayedPosts = posts.filter((post) => favoritePosts.includes(post.id))
 
   useEffect(() => {
     dispatch(getPosts());

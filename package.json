@@ -1,5 +1,6 @@
 {
-  "name": "https://deemoor.github.io/whitebird_forum/",
+  "homepage": "https://deemoor.github.io/whitebird_forum/",
+  "name": "whitebird_forum",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

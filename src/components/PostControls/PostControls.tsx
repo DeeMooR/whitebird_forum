@@ -6,13 +6,14 @@ import { deleteLocalPost, deletePostInPostPage, updatePostDislikes, updatePostLi
 import { basketIcon, dislikeFillIcon, dislikeIcon, favoriteFillIcon, favoriteIcon, likeFillIcon, likeIcon, pencilIcon } from 'src/assets';
 import { ModalConfirm, ModalManage } from 'src/components';
 import { ROLES } from 'src/config';
+import cn from 'classnames';
 import cls from './styles.module.scss';
 
 export const PostControls = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { post, user } = useSelector(getPostSelector);
-  const { favoritePosts, role } = useSelector(getUserSelector);
+  const { post} = useSelector(getPostSelector);
+  const { favoritePosts, user, role } = useSelector(getUserSelector);
   const { likeUserIds, dislikeUserIds } = useSelector(getControlsInPostSelector);
   const isAuthorized = role !== ROLES.UNAUTHORIZED;
 
@@ -40,20 +41,24 @@ export const PostControls = () => {
       : deletePostInPostPage({id: post?.id, navigate});
     dispatch(func);
   }
+
+  const feedbackStyle = cn(cls.feedback, {
+    [cls.isDisabled]: !isAuthorized
+  })
   
   return (
     <div className={cls.controls}>
       <div className={cls.controls__feedback}>
-        <div className={cls.feedback} onClick={handleClickLike}>
-          {user && likeUserIds.includes(user.id) 
+        <div className={feedbackStyle} onClick={handleClickLike}>
+          {user.id && likeUserIds.includes(user.id) 
             ? <img src={likeFillIcon} alt="likeFill" />
             : <img src={likeIcon} alt="like" />
           }
           <p className={cls.feedback__counter}>{likeUserIds.length}</p>
         </div>
         <div className={cls.feedback__verticalLine}></div>
-        <div className={cls.feedback} onClick={handleClickDislike}>
-          {user && dislikeUserIds.includes(user.id) 
+        <div className={feedbackStyle} onClick={handleClickDislike}>
+          {user.id && dislikeUserIds.includes(user.id) 
             ? <img src={dislikeFillIcon} alt="dislikeFill" />
             : <img src={dislikeIcon} alt="dislike" />
           }
