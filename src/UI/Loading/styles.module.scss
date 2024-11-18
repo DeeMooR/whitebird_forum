@@ -14,15 +14,6 @@
     border-radius: 50%;
     animation: spin 1s ease-in-out infinite;
   }
-  &.isPage {
-    min-height: calc(100vh - 114px);
-  }
-  &.isWrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
 }
 
 @keyframes spin {

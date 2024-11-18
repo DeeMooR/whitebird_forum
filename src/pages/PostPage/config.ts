@@ -14,6 +14,7 @@ export const getPostDataFunc = ({param, localPosts, userAccount, navigate}: IGet
   let func;
   const postId = +param!;
   if (postId > 100) {
+    // обновление user, post, controls в postState данными из userState и localState
     const post = localPosts.find(post => post.id === postId);
     if (!post?.id) navigate('/forum');
 
@@ -26,6 +27,7 @@ export const getPostDataFunc = ({param, localPosts, userAccount, navigate}: IGet
     const controls = getControlsPost(postId)
     func = setPostData({post, user, controls});
   } else {
+    // запрос на получение user и post
     func = getPost({postId, navigate});
   }
   return func;

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ADMIN_EMAIL, getFavoritePosts, updateArrayIds } from "src/config";
+import { ADMIN_EMAIL, ROLES, getFavoritePosts, updateArrayIds } from "src/config";
 import { IUserState } from "../interfaces";
 
 const initialState: IUserState = {
@@ -47,7 +47,7 @@ export const userSlice = createSlice({
     },
     logout: (state) => {
       state.user = initialState.user;
-      state.role = 'unauthorized';
+      state.role = ROLES.UNAUTHORIZED;
       localStorage.removeItem('userEmail');
     },
 
@@ -56,16 +56,16 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.user = payload;
       if (payload.email === ADMIN_EMAIL) {
-        state.role = 'admin';
+        state.role = ROLES.ADMIN;
         state.successMessage = 'Вы успешно авторизованы как АДМИН'
       } else {
-        state.role = 'user';
+        state.role = ROLES.USER;
       }
       localStorage.setItem('userEmail', payload.email);
     },
     signInFailure: (state, { payload }) => {
       state.isLoading = false;
-      state.role = 'unauthorized';
+      state.role = ROLES.UNAUTHORIZED;
       state.errorMessage = payload;
     },
 
@@ -84,7 +84,7 @@ export const userSlice = createSlice({
     deleteUserSuccess: (state) => {
       state.isLoading = false;
       state.user = initialState.user;
-      state.role = 'unauthorized';
+      state.role = ROLES.UNAUTHORIZED;
       state.successMessage = 'Пользователь успешно удалён';
       localStorage.removeItem('userEmail');
     },

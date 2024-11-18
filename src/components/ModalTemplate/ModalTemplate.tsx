@@ -1,5 +1,5 @@
 import React, { FC, ReactNode, useEffect } from 'react'
-import { displayScroll, hiddenScroll } from 'src/config';
+import { displayScroll, hiddenScroll } from './config';
 import { crossIcon } from 'src/assets';
 import cn from 'classnames';
 import cls from './styles.module.scss';

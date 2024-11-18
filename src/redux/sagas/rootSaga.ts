@@ -1,9 +1,5 @@
 import { all } from "redux-saga/effects";
-import userSaga from "./userSaga";
-import usersSaga from "./usersSaga";
-import postsSaga from "./postsSaga";
-import postSaga from "./postSaga";
-import localSaga from "./localSaga";
+import { localSaga, postSaga, postsSaga, userSaga, usersSaga } from ".";
 
 export default function* rootSaga() {
   yield all([

@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts } from 'src/redux/slices';
+import { getPosts, setPostsSearch } from 'src/redux/slices';
 import { getLocalPostsSelector, getPostsSelector, getUserSelector } from 'src/redux/selectors';
 import { ListOfPosts, Search } from 'src/components';
 import { PageTemplate } from 'src/pages'
+import { ROLES } from 'src/config';
 import cls from './styles.module.scss';
 
 export const ForumPage = () => {
@@ -11,12 +12,15 @@ export const ForumPage = () => {
   const { user, role } = useSelector(getUserSelector);
   const { posts, search } = useSelector(getPostsSelector);
   const localPosts = useSelector(getLocalPostsSelector);
+
+  // новые посты хранятся и обновляются отдельно в localState
   const searchLocalPosts = (!search || user.username === search || user.email === search) ? localPosts : [];
   const allPosts = [...searchLocalPosts, ...posts];
-  const showPriority = !search && role === 'admin';
+  const showPriority = !search && role === ROLES.ADMIN;
 
   useEffect(() => {
     dispatch(getPosts());
+    return () => {dispatch(setPostsSearch(null))};
   }, [dispatch]);
 
   const sortAllPosts = () => {

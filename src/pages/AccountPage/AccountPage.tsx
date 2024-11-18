@@ -4,14 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'src/redux/selectors';
 import { clearUserMessages, deleteUser, logout, updateUser } from 'src/redux/slices';
+import { IAccountForm, accountInputs, convertUser, fieldsToCheck, getDefaultUser } from './config';
+import { ROLES, checkEmptyValues } from 'src/config';
+import { Input, Loading, Notification } from 'src/UI';
 import { ModalConfirm } from 'src/components';
 import { PageTemplate } from 'src/pages';
-import { IFullUser } from 'src/interfaces';
-import { Input, Loading, Notification } from 'src/UI';
-import { accountInputs, checkEmptyValues } from 'src/config';
 import cn from 'classnames';
 import cls from './styles.module.scss';
-import { IAccountForm, convertUser, fieldsToCheck, getDefaultUser } from './config';
 
 export const AccountPage = () => {
   const navigate = useNavigate();
@@ -30,7 +29,7 @@ export const AccountPage = () => {
   });
 
   useEffect(() => {
-    if (role === 'unauthorized') navigate('/forum');
+    if (role === ROLES.UNAUTHORIZED) navigate('/forum');
   }, [role])
 
   const handleUpdate = (data: IAccountForm) => {
@@ -45,9 +44,7 @@ export const AccountPage = () => {
     setModalDelete(false);
   }
 
-  const handleExit = () => {
-    dispatch(logout());
-  }
+  const handleExit = () => dispatch(logout());
 
   const clearMessages = () => dispatch(clearUserMessages());
 
@@ -55,7 +52,7 @@ export const AccountPage = () => {
     <PageTemplate>
       <div className={cls.account}>
         <h1 className={cls.account__title}>Личный кабинет</h1>
-        {role === 'admin' &&
+        {role === ROLES.ADMIN &&
           <button className={cn(cls.account__users, 'btnSmall')} onClick={() => navigate('/users')}>Все пользователи</button>
         }
         <div className={cls.account__content}>

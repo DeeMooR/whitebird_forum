@@ -1,73 +1,15 @@
 import { UseFormSetError } from "react-hook-form";
-import { IComment, IInput, IPost, IUser } from "./interfaces";
-import { IControlsPost, controlsPosts } from "./controlsPostsData";
-import { axiosInstance, endpoints } from "./redux/api";
+import { IComment, IPost, IUser } from "./interfaces";
 
-export type roleType = 'unauthorized' | 'user' | 'admin';
+export enum ROLES {
+  UNAUTHORIZED = 'unauthorized',
+  USER = 'user',
+  ADMIN = 'admin',
+}
 
 export const ADMIN_EMAIL = 'Sincere@april.biz';
 
 export const STEP_POSTS = 10;
-
-interface IAccountInputs {
-  main: IInput[],
-  address: IInput[]
-}
-
-export const accountInputs: IAccountInputs = {
-  main: [
-    {
-      id: 'name',
-      type: 'text',
-      title: 'Имя',
-      placeholder: 'Имя'
-    },
-    {
-      id: 'username',
-      type: 'text',
-      title: 'Никнейм',
-      placeholder: 'Никнейм'
-    },
-    {
-      id: 'email',
-      type: 'email',
-      title: 'Почта',
-      placeholder: 'yourmail@mail.com'
-    },
-    {
-      id: 'phone',
-      type: 'tel',
-      title: 'Номер телефона',
-      placeholder: 'Телефон'
-    }
-  ],
-  address: [
-    {
-      id: 'city',
-      type: 'text',
-      title: 'Город',
-      placeholder: 'Город'
-    },
-    {
-      id: 'zipcode',
-      type: 'text',
-      title: 'Индекс',
-      placeholder: 'Индекс'
-    },
-    {
-      id: 'street',
-      type: 'text',
-      title: 'Улица',
-      placeholder: 'Улица'
-    },
-    {
-      id: 'suite',
-      type: 'text',
-      title: 'Дом',
-      placeholder: 'Дом'
-    }
-  ]
-}
 
 export const favoritePosts = [
   {
@@ -112,39 +54,6 @@ export const favoritePosts = [
   }
 ]
 
-export const getUserById = (users: IUser[], id: number) => {
-  const user = users.find(user => user.id === id);
-  return users.find(user => user.id === id);
-}
-
-export const getUsernameById = (users: IUser[], id: number) => {
-  const user = users.find(user => user.id === id);
-  return user ? user.username : null;
-}
-
-export const isMobileOrTablet = () => {
-  const userAgent = navigator.userAgent;
-  const isMobile = /Mobi/i.test(userAgent);
-  const isTablet = /Tablet/i.test(userAgent);
-  return isMobile || isTablet;
-}
-
-export const hiddenScroll = () => {
-  const scrollType = document.body.style.overflowY;
-  document.body.style.overflowY = 'hidden';
-  if (!isMobileOrTablet() && scrollType === 'scroll') {
-    document.body.style.padding = '0 17px 0 0';
-  }
-  return scrollType;
-}
-
-export const displayScroll = (scrollType: string) => {
-  document.body.style.overflowY = scrollType;
-  if (!isMobileOrTablet()) {
-    document.body.style.padding = '0';
-  }
-}
-
 export const getFavoritePosts = (userId: number | undefined) => {
   const user = favoritePosts.find(user => user.userId === userId);
   return user ? user.postIds : [];
@@ -153,14 +62,13 @@ export const getFavoritePosts = (userId: number | undefined) => {
 export const checkEmptyValues = (data: Object, fieldsToСheck: string[], setError: UseFormSetError<any>) => {
   const fields = Object.entries(data);
   let isCorrect = true;
- 
+
   fields.filter(([key]) => fieldsToСheck.some(field => key.startsWith(field))).forEach(([key, value]) => {
     if (value === null || value === undefined || value === '') {
       setError(`${key}`, { message: 'Обязательное поле' });
       isCorrect = false;
     }
   });
-  
   return isCorrect;
 }
 
@@ -184,14 +92,4 @@ export const addCommentsNumberToPosts = async (posts: IPost[], localComments: IC
       return { ...post, comments_number: commentsNumber };
     })
   );
-}
-
-export const getTextPluralComments = (count: number) => {
-  const rules = ['ответ', 'ответа', 'ответов'];
-  const result = new Intl.PluralRules('ru-RU').select(count);
-  switch (result) {
-    case 'one': return rules[0];
-    case 'few': return rules[1];
-    default: return rules[2];
-  }
 }

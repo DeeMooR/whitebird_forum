@@ -19,6 +19,7 @@ export const ChangePriority:FC<IChangePriority> = ({ postId, defaultValue, isLoc
   const handleClickDown = () => setPriority((prev) => prev > 1 ? --prev : prev);
 
   useEffect(() => {
+    // новые посты обновляются отдельно в localSaga
     const func = isLocalPost ? updateLocalPostPriority({postId, priority}) : updatePostPriority({postId, priority});
     dispatch(func);
   }, [priority])

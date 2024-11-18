@@ -1,6 +1,11 @@
-import { IFullUser, Undefinable } from "src/interfaces";
+import { IFullUser, IInput, Undefinable } from "src/interfaces";
 
 export const fieldsToCheck = ['name', 'username', 'email', 'phone', 'city', 'zipcode', 'street', 'suite'];
+
+interface IAccountInputs {
+  main: IInput[],
+  address: IInput[]
+}
 
 export interface IAccountForm {
   name: string,
@@ -13,6 +18,62 @@ export interface IAccountForm {
   suite: string,
 }
 
+export const accountInputs: IAccountInputs = {
+  main: [
+    {
+      id: 'name',
+      type: 'text',
+      title: 'Имя',
+      placeholder: 'Имя'
+    },
+    {
+      id: 'username',
+      type: 'text',
+      title: 'Никнейм',
+      placeholder: 'Никнейм'
+    },
+    {
+      id: 'email',
+      type: 'email',
+      title: 'Почта',
+      placeholder: 'yourmail@mail.com'
+    },
+    {
+      id: 'phone',
+      type: 'tel',
+      title: 'Номер телефона',
+      placeholder: 'Телефон'
+    }
+  ],
+  address: [
+    {
+      id: 'city',
+      type: 'text',
+      title: 'Город',
+      placeholder: 'Город'
+    },
+    {
+      id: 'zipcode',
+      type: 'text',
+      title: 'Индекс',
+      placeholder: 'Индекс'
+    },
+    {
+      id: 'street',
+      type: 'text',
+      title: 'Улица',
+      placeholder: 'Улица'
+    },
+    {
+      id: 'suite',
+      type: 'text',
+      title: 'Дом',
+      placeholder: 'Дом'
+    }
+  ]
+}
+
+// разворачивание объекта, так как useForm плохо работает с вложенными объектами
 export const getDefaultUser = (user: Undefinable<IFullUser>) => {
   return  {
     name: user.name || '',
@@ -26,6 +87,7 @@ export const getDefaultUser = (user: Undefinable<IFullUser>) => {
   }
 }
 
+// преобразование развёрнутого объекта в формат IFullUser
 export const convertUser = (data: IAccountForm, id: number) => {
   const { city, zipcode, street, suite, ...obj } = data;
   return {

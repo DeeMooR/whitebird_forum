@@ -13,7 +13,7 @@ interface ICommentBlock {
 
 export const Comment:FC<ICommentBlock> = ({ obj }) => {
   const dispatch = useDispatch();
-  const { id, name, email, body, postId } = obj;
+  const { id, name, email, body } = obj;
   const { user } = useSelector(getUserSelector);
   const [modalUpdate, setModalUpdate] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
@@ -42,7 +42,7 @@ export const Comment:FC<ICommentBlock> = ({ obj }) => {
       {modalUpdate && 
         <ModalManage 
           id='comment_update'
-          obj={obj} 
+          defaultObj={obj} 
           type='comment'
           action='update' 
           closeModal={() => setModalUpdate(false)} 

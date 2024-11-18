@@ -1,22 +1,22 @@
 import React, { FC } from 'react'
-import { ModalTemplate } from 'src/components';
-import cls from './styles.module.scss';
-import { IComment, IInput, IPost, ITextarea, IUser } from 'src/interfaces';
 import { useForm } from 'react-hook-form';
-import { Input, Textarea } from 'src/UI';
 import { useDispatch } from 'react-redux';
-import { actionType, fieldsToCheck, getModalManageAction, idType, modalFields, modalManageText, objStructure, objType } from './config';
+import { ModalTemplate } from 'src/components';
+import { IInput, ITextarea } from 'src/interfaces';
 import { checkEmptyValues } from 'src/config';
+import { actionType, fieldsToCheck, getModalManageAction, idType, modalFields, modalManageText, objStructure, objType } from './config';
+import { Input, Textarea } from 'src/UI';
+import cls from './styles.module.scss';
 
 interface IModalManage {
   id: idType,
-  obj?: objType,
+  defaultObj?: objType,
   type: objStructure,
   action: actionType,
   closeModal: () => void
 }
 
-export const ModalManage:FC<IModalManage> = ({id, obj, type, action, closeModal}) => {
+export const ModalManage:FC<IModalManage> = ({id, defaultObj, type, action, closeModal}) => {
   const dispatch = useDispatch();
   const { title, btnText } = modalManageText[type][action];
 
@@ -27,7 +27,7 @@ export const ModalManage:FC<IModalManage> = ({id, obj, type, action, closeModal}
     formState: { errors },
   } = useForm<objType>({
     mode: 'onChange',
-    defaultValues: obj || {}
+    defaultValues: defaultObj || {}
   });
 
   const onSubmit = (data: objType) => {

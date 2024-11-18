@@ -5,7 +5,8 @@ import { getPostsSelector, getUserSelector } from 'src/redux/selectors';
 import { deleteLocalPost, deletePost, updateUserFavoritePosts } from 'src/redux/slices';
 import { basketIcon, favoriteFillIcon, favoriteIcon, pencilIcon } from 'src/assets';
 import { ChangePriority, ModalConfirm, ModalManage, PostMoving } from 'src/components';
-import { getTextPluralComments, getUsernameById } from 'src/config';
+import { getTextPluralComments, getUsernameById } from './config';
+import { ROLES } from 'src/config';
 import { IPost } from 'src/interfaces';
 import cls from './styles.module.scss';
 
@@ -29,7 +30,7 @@ export const Card:FC<ICard> = ({ post, showControls, showPriority, movingPostsId
 
   const { id, userId, title, comments_number, priority } = post;
   const username = getUsernameById(users, userId);
-  const isLocalPost = id > 100;
+  const isLocalPost = id > 100; // новые посты хранятся и обновляются в localState
 
   const handleClickPost = () => {
     navigate(`/forum/${id}`);
@@ -50,7 +51,7 @@ export const Card:FC<ICard> = ({ post, showControls, showPriority, movingPostsId
         <ChangePriority postId={id} defaultValue={priority || 1} isLocalPost={isLocalPost} />
       }
       <div className={cls.card__content}>
-        {role !== 'unauthorized' &&
+        {role !== ROLES.UNAUTHORIZED &&
           <div className={cls.card__star}>
             {favoritePosts.includes(id)
               ? <img src={favoriteFillIcon} onClick={handleClickFavorite} alt="favoriteFill" />
@@ -79,7 +80,7 @@ export const Card:FC<ICard> = ({ post, showControls, showPriority, movingPostsId
       {modalUpdate && 
         <ModalManage 
           id={isLocalPost ? 'localPosts_update' : 'posts_update'}
-          obj={post} 
+          defaultObj={post} 
           type='post'
           action='update' 
           closeModal={() => setModalUpdate(false)} 

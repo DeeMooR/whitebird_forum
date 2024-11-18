@@ -1,5 +1,3 @@
-import { UseFormRegister } from "react-hook-form";
-
 export type Nullable<T> = {
   [P in keyof T]: T[P] | null;
 };
@@ -22,19 +20,7 @@ export interface IFullUser extends IUser {
     suite: string,
     city: string,
     zipcode: string,
-    geo: {
-      lat: string,
-      lng: string,
-    }
   },
-}
-
-export interface ISignIn {
-  email: string
-}
-
-export interface ISearchForm {
-  search: string
 }
 
 export interface IPost {
@@ -56,15 +42,12 @@ export interface IComment {
 
 export interface INewComment extends Pick<IComment, 'name' | 'body'>{}
 
-export interface IInputBlock {
-  id: string;
-  register: UseFormRegister<any>;
-  type: 'text' | 'password' | 'email' | 'tel';
-  title?: string;
-  placeholder?: string;
-  disabled?: boolean;
-  error?: string;
-  classNameInput?: string;
+export interface ISignIn {
+  email: string
+}
+
+export interface ISearchForm {
+  search: string
 }
 
 export interface IInput {

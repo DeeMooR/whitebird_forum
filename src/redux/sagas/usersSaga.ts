@@ -1,42 +1,23 @@
+import { PayloadAction } from '@reduxjs/toolkit';
 import { takeLatest, put } from 'redux-saga/effects';
 import { getUsers, getUsersSuccess, getUsersFailure, getUserByUserData, getUserByUserDataSuccess, getUserByUserDataFailure, deleteUserByAdminSuccess, deleteUserByAdminFailure, deleteUserByAdmin, changeUserByAdmin, changeUserByAdminSuccess, changeUserByAdminFailure } from '../slices';
-import { axiosInstance, endpoints } from '../api';
+import { deleteUserByAdminApi, getUsersApi, getUsersByEmailApi, getUsersByUsernameApi, updateUserApi } from '../api/usersApi';
 import { IUser } from 'src/interfaces';
-
-interface IGetUserByUserDataSaga {
-  payload: string;
-}
-
-interface IDeleteUserByAdminSaga {
-  payload: number;
-}
-
-interface IChangeUserByAdminSaga {
-  payload: IUser;
-}
-
-
 
 function* getUsersSaga() {
   try {
-    const users: IUser[] = yield axiosInstance.get(endpoints.users).then(({ data }) =>
-      data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
-    );
+    const users: IUser[] = yield getUsersApi();
     yield put(getUsersSuccess(users));
   } catch (error) {
     yield put(getUsersFailure());
   }
 }
 
-function* getUserByUserDataSaga({ payload }: IGetUserByUserDataSaga) {
+function* getUserByUserDataSaga({ payload }: PayloadAction<string>) {
   try {
-    let users: IUser[] = yield axiosInstance.get(endpoints.users, { params: { username: payload }}).then(({ data }) =>
-      data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
-    );
+    let users: IUser[] = yield getUsersByUsernameApi(payload);
     if (!users.length) {
-      users = yield axiosInstance.get(endpoints.users, { params: { email: payload }}).then(({ data }) =>
-        data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
-      );
+      users = yield getUsersByEmailApi(payload);
     }
     yield put(getUserByUserDataSuccess(users));
   } catch (error) {
@@ -44,33 +25,28 @@ function* getUserByUserDataSaga({ payload }: IGetUserByUserDataSaga) {
   }
 }
 
-function* deleteUserByAdminSaga({ payload: id }: IDeleteUserByAdminSaga) {
-  try {
-    yield axiosInstance.delete(`${endpoints.users}/${id}`);
-    yield put(deleteUserByAdminSuccess(id));
-  } catch (error) {
-    yield put(deleteUserByAdminFailure());
-  }
-}
-
-function* changeUserByAdminSaga({ payload }: IChangeUserByAdminSaga) {
+function* changeUserByAdminSaga({ payload }: PayloadAction<IUser>) {
   try {
     const { id, ...user } = payload;
-    const changedUser: IUser = yield axiosInstance.patch(`${endpoints.users}/${id}`, user).then(({ data }) => {
-      const { id, name, username, email } = data;
-      return { id, name, username, email };
-    })
+    const changedUser: IUser = yield updateUserApi(id, user);
     yield put(changeUserByAdminSuccess(changedUser));
   } catch (error) {
     yield put(changeUserByAdminFailure());
   }
 }
 
-function* usersSaga() {
-  yield takeLatest(getUsers, getUsersSaga);
-  yield takeLatest(getUserByUserData, getUserByUserDataSaga);
-  yield takeLatest(deleteUserByAdmin, deleteUserByAdminSaga);
-  yield takeLatest(changeUserByAdmin, changeUserByAdminSaga);
+function* deleteUserByAdminSaga({ payload: id }: PayloadAction<number>) {
+  try {
+    yield deleteUserByAdminApi(id);
+    yield put(deleteUserByAdminSuccess(id));
+  } catch (error) {
+    yield put(deleteUserByAdminFailure());
+  }
 }
 
-export default usersSaga;
+export function* usersSaga() {
+  yield takeLatest(getUsers, getUsersSaga);
+  yield takeLatest(getUserByUserData, getUserByUserDataSaga);
+  yield takeLatest(changeUserByAdmin, changeUserByAdminSaga);
+  yield takeLatest(deleteUserByAdmin, deleteUserByAdminSaga);
+}

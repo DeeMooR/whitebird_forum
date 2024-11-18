@@ -1,5 +1,6 @@
 import { IPost } from "src/interfaces";
 
+// возвращает id соседних постов, если у них такой же приоритет
 export const getMovingPostsId = (posts: IPost[], postId: number) => {
   const index = posts.findIndex(item => item.id === postId);
   const priority = posts[index].priority;

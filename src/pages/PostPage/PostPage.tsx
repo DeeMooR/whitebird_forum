@@ -20,6 +20,7 @@ export const PostPage = () => {
   const userAccount = useSelector(getUserDataSelector);
 
   useEffect(() => {
+    // если это новый пост, данные берутся не из запроса, а из state
     const func = getPostDataFunc({param, localPosts, userAccount, navigate});
     dispatch(func);
     return () => { dispatch(clearPostState()) }

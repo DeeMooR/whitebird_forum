@@ -5,6 +5,7 @@ import { getControlsInPostSelector, getPostSelector, getUserSelector } from 'src
 import { deleteLocalPost, deletePostInPostPage, updatePostDislikes, updatePostLikes, updateUserFavoritePosts } from 'src/redux/slices';
 import { basketIcon, dislikeFillIcon, dislikeIcon, favoriteFillIcon, favoriteIcon, likeFillIcon, likeIcon, pencilIcon } from 'src/assets';
 import { ModalConfirm, ModalManage } from 'src/components';
+import { ROLES } from 'src/config';
 import cls from './styles.module.scss';
 
 export const PostControls = () => {
@@ -13,7 +14,7 @@ export const PostControls = () => {
   const { post, user } = useSelector(getPostSelector);
   const { favoritePosts, role } = useSelector(getUserSelector);
   const { likeUserIds, dislikeUserIds } = useSelector(getControlsInPostSelector);
-  const isAuthorized = role !== 'unauthorized';
+  const isAuthorized = role !== ROLES.UNAUTHORIZED;
 
   const [modalUpdate, setModalUpdate] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
@@ -33,7 +34,10 @@ export const PostControls = () => {
   }
 
   const handleDelete = () => {
-    const func = (post && post?.id > 100) ? deleteLocalPost({postId: post?.id, navigate}) : deletePostInPostPage({id: post?.id, navigate});
+    // новые посты отдельно изменяются в localState 
+    const func = (post && post?.id > 100) 
+      ? deleteLocalPost({postId: post?.id, navigate}) 
+      : deletePostInPostPage({id: post?.id, navigate});
     dispatch(func);
   }
   
@@ -75,7 +79,7 @@ export const PostControls = () => {
       {modalUpdate && 
         <ModalManage 
           id={(post && post?.id > 100) ? 'localPosts_update' : 'post_update'}
-          obj={post!} 
+          defaultObj={post!} 
           type='post'
           action='update' 
           closeModal={() => setModalUpdate(false)}

@@ -1,4 +1,4 @@
-import { roleType } from "src/config";
+import { ROLES } from "src/config";
 import { IPost, IFullUser, Undefinable, IUser, IComment } from "src/interfaces";
 
 export type StateType = {
@@ -12,7 +12,7 @@ export type StateType = {
 export interface IUserState {
   user: Undefinable<IFullUser>;
   favoritePosts: number[];
-  role: roleType | null,
+  role: ROLES | null,
   isLoading: boolean;
   errorMessage: string | null;
   successMessage: string | null;

@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
-import cn from 'classnames';
 import { ModalTemplate } from 'src/components';
 import { ModalConfirmActionType, ModalConfirmData, isModalDelete } from './config';
+import cn from 'classnames';
 import cls from './styles.module.scss';
 
 interface IModalConfirm {

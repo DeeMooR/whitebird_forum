@@ -7,6 +7,7 @@ import { clearUserMessages, signIn } from 'src/redux/slices';
 import { PageTemplate } from 'src/pages';
 import { ISignIn } from 'src/interfaces';
 import { Input, Loading, Notification } from 'src/UI';
+import { ROLES } from 'src/config';
 import cls from './styles.module.scss';
 
 export const SignInPage = () => {
@@ -24,7 +25,7 @@ export const SignInPage = () => {
   });
 
   useEffect(() => {
-    if (role !== 'unauthorized') navigate('/forum');
+    if (role !== ROLES.UNAUTHORIZED) navigate('/forum');
   }, [role])
 
   const onSubmit = (data: ISignIn) => {

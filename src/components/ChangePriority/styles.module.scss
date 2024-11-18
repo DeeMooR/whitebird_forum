@@ -6,7 +6,7 @@
   height: 100%;
   padding: 7px 0;
   border-radius: 16px;
-  border: 1px solid var(--grey);
+  border: 1px solid var(--disabled-light);
   .changePriority__contol {
     padding: 3px;
     cursor: pointer;
@@ -19,6 +19,7 @@
     text-align: center;
     background: none;
     border: none;
+    font-family: var(--font-numbers);
     font-weight: 600;
     height: 20px;
     width: 25px;

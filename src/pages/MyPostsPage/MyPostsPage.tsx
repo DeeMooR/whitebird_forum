@@ -11,13 +11,14 @@ export const MyPostsPage = () => {
   const { user } = useSelector(getUserSelector);
   const { myPosts } = useSelector(getPostsSelector);
   const localPosts = useSelector(getLocalPostsSelector);
+
+  // новые посты хранятся и обновляются отдельно в localState
   const allPosts = [...localPosts, ...myPosts];
   const [modalAdd, setModalAdd] = useState(false);
 
   useEffect(() => {
     dispatch(getMyPosts(user.id));
   }, [dispatch])
-
 
   return (
     <PageTemplate showScroll showPostsMessages>

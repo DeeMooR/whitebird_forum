@@ -7,18 +7,16 @@
   
   --white: #FFFFFF;
   --white-hover: #e3e3e3;
-  --white-transparent: rgba(255, 255, 255, 0.6);
+  --white-faint: rgba(255, 255, 255, 0.6);
   --black: #282828;
   --grey: #8f9db1;
-  --black-transparent: rgba(0, 0, 0, 0.05);
-  --background: #F8FBFD;
+  --grey-border: rgba(0, 0, 0, 0.06);
   --blue: #0069FF;
   --blue-light: #3a86f1;
-  --blue-transparent: #7dacee;
   
+  --background: #F8FBFD;
   --input: #FAFAFA;
   --disabled: #a8a8a8;
-  --disabled-hover: #c9c9c9;
   --disabled-light: #d9d9d9;
   --success: #4DB84D;
   --warning: #FFAA00;
@@ -63,7 +61,6 @@ h1,h2,h3,h4,h5,h6{font-weight: 500}
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* overflow-y: scroll; */
 }
 
 #root {
@@ -109,7 +106,7 @@ button:hover:not(:disabled) {
   background-color: var(--blue-light);
 }
 .btnBorder {
-  border: 1px solid var(--white-transparent);
+  border: 1px solid var(--white-faint);
 }
 .btnSmall {
   height: 36px;

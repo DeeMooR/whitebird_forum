@@ -45,7 +45,7 @@ export const Users:FC<IUsers> = ({ users }) => {
       {modalChange && 
         <ModalManage 
           id='users_update' 
-          obj={modalChange} 
+          defaultObj={modalChange} 
           type='user'
           action='update' 
           closeModal={() => setModalChange(null)} 

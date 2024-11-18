@@ -4,6 +4,7 @@ import { getLocalSelector, getPostsSelector } from 'src/redux/selectors';
 import { clearLocalMessages, clearPostsMessages } from 'src/redux/slices';
 import { Notification } from 'src/UI';
 
+// страница отображения уведомлений из postsState и localState
 export const PostsMessages = () => {
   const dispatch = useDispatch();
   const { successMessage, errorMessage } = useSelector(getPostsSelector);
