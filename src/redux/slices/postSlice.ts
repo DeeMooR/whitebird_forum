@@ -26,6 +26,11 @@ export const postSlice = createSlice({
   name: 'post',
   initialState: initialState,
   reducers: {
+    setPostData: (state, { payload }) => {
+      state.post = payload.post;
+      state.user = payload.user;
+      state.controls = payload.controls;
+    },
     updatePostLikes: (state, { payload }) => {
       const userIds = state.controls.likeUserIds;
       state.controls.likeUserIds = updateArrayIds(userIds, payload);
@@ -42,7 +47,7 @@ export const postSlice = createSlice({
         likeUserIds: [...state.controls.likeUserIds],
         dislikeUserIds: [...state.controls.dislikeUserIds]
       }
-      updateControlsPost(obj)
+      updateControlsPost(obj);
       Object.assign(state, initialState);
     },
     clearPostMessages: (state) => {
@@ -84,6 +89,7 @@ export const postSlice = createSlice({
 })
 
 export const {
+  setPostData,
   updatePostLikes,
   updatePostDislikes,
   clearPostState,

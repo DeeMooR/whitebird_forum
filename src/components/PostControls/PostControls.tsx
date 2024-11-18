@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getControlsInPostSelector, getPostSelector, getUserSelector } from 'src/redux/selectors';
-import { deletePostInPostPage, updatePostDislikes, updatePostLikes, updateUserFavoritePosts } from 'src/redux/slices';
+import { deleteLocalPost, deletePostInPostPage, updatePostDislikes, updatePostLikes, updateUserFavoritePosts } from 'src/redux/slices';
 import { basketIcon, dislikeFillIcon, dislikeIcon, favoriteFillIcon, favoriteIcon, likeFillIcon, likeIcon, pencilIcon } from 'src/assets';
 import { ModalConfirm, ModalManage } from 'src/components';
 import cls from './styles.module.scss';
@@ -33,7 +33,8 @@ export const PostControls = () => {
   }
 
   const handleDelete = () => {
-    dispatch(deletePostInPostPage({id: post?.id, navigate}));
+    const func = (post && post?.id > 100) ? deleteLocalPost({postId: post?.id, navigate}) : deletePostInPostPage({id: post?.id, navigate});
+    dispatch(func);
   }
   
   return (
@@ -73,7 +74,7 @@ export const PostControls = () => {
       }
       {modalUpdate && 
         <ModalManage 
-          id='post_update'
+          id={(post && post?.id > 100) ? 'localPosts_update' : 'post_update'}
           obj={post!} 
           type='post'
           action='update' 

@@ -1,9 +1,9 @@
 import { takeLatest, put, select } from 'redux-saga/effects';
-import { getPosts, getPostsSuccess, getPostsFailure, getPostsByUser, getPostsByUserSuccess, getPostsByUserFailure, getMyPosts, getMyPostsSuccess, getMyPostsFailure, updatePost, deletePost, updatePostSuccess, updatePostFailure, deletePostSuccess, deletePostFailure, createPost, createPostSuccess, createPostFailure } from '../slices';
+import { getPosts, getPostsSuccess, getPostsFailure, getPostsByUser, getPostsByUserSuccess, getPostsByUserFailure, getMyPosts, getMyPostsSuccess, getMyPostsFailure, updatePost, deletePost, updatePostSuccess, updatePostFailure, deletePostSuccess, deletePostFailure } from '../slices';
 import { axiosInstance, endpoints } from '../api';
-import { IPost, IUser } from 'src/interfaces';
-import { getUserSelector } from '../selectors';
-import { IUserState } from '../interfaces';
+import { IComment, IPost, IUser } from 'src/interfaces';
+import { getLocalCommentsSelector } from '../selectors';
+import { addCommentsNumberToPosts } from 'src/config';
 
 interface IGetMyPostsSaga {
   payload: string;
@@ -11,10 +11,6 @@ interface IGetMyPostsSaga {
 
 interface IGetPostsByUserSaga {
   payload: string;
-}
-
-interface ICreatePostSaga {
-  payload: Pick<IPost, 'title' | 'body'>;
 }
 
 interface IUpdatePostSaga {
@@ -29,9 +25,12 @@ function* getPostsSaga() {
   try {
     const posts: IPost[] = yield axiosInstance.get(endpoints.posts).then(({ data }) => data);
     const users: IUser[] = yield axiosInstance.get(endpoints.users).then(({ data }) =>
-      data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
+    data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
     );
-    yield put(getPostsSuccess({posts, users}));
+
+    const localComments: IComment[] = yield select(getLocalCommentsSelector);
+    const postsWithComments: IPost[] = yield addCommentsNumberToPosts(posts, localComments);
+    yield put(getPostsSuccess({posts: postsWithComments, users}));
   } catch (error) {
     yield put(getPostsFailure());
   }
@@ -41,9 +40,12 @@ function* getMyPostsSaga({ payload: userId }: IGetMyPostsSaga) {
   try {
     const myPosts: IPost[] = yield axiosInstance.get(endpoints.posts, { params: { userId }}).then(({ data }) => data);
     const users: IUser[] = yield axiosInstance.get(endpoints.users).then(({ data }) =>
-      data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
+    data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
     );
-    yield put(getMyPostsSuccess({myPosts, users}));
+
+    const localComments: IComment[] = yield select(getLocalCommentsSelector);
+    const postsWithComments: IPost[] = yield addCommentsNumberToPosts(myPosts, localComments);
+    yield put(getMyPostsSuccess({myPosts: postsWithComments, users}));
   } catch (error) {
     yield put(getMyPostsFailure());
   }
@@ -64,23 +66,12 @@ function* getPostsByUserSaga({ payload }: IGetPostsByUserSaga) {
       const userId = users[0].id;
       posts = yield axiosInstance.get(endpoints.posts, { params: { userId }}).then(({ data }) => data);
     }
-    yield put(getPostsByUserSuccess(posts));
+
+    const localComments: IComment[] = yield select(getLocalCommentsSelector);
+    const postsWithComments: IPost[] = yield addCommentsNumberToPosts(posts, localComments);
+    yield put(getPostsByUserSuccess(postsWithComments));
   } catch (error) {
     yield put(getPostsByUserFailure());
-  }
-}
-
-function* createPostSaga({ payload }: ICreatePostSaga) {
-  try {
-    const { user }: IUserState = yield select(getUserSelector);
-    const post = {
-      userId: user.id,
-      ...payload
-    }
-    const newPost: IPost = yield axiosInstance.post(endpoints.posts, post).then(({ data }) => data);
-    yield put(createPostSuccess(newPost));
-  } catch (error) {
-    yield put(createPostFailure());
   }
 }
 
@@ -88,7 +79,10 @@ function* updatePostSaga({ payload }: IUpdatePostSaga) {
   try {
     const { id, comments_number, ...post } = payload;
     const changedPost: IPost = yield axiosInstance.patch(`${endpoints.posts}/${id}`, post).then(({ data }) => data);
-    yield put(updatePostSuccess(changedPost));
+    
+    const localComments: IComment[] = yield select(getLocalCommentsSelector);
+    const postsWithComments: IPost[] = yield addCommentsNumberToPosts([changedPost], localComments);
+    yield put(updatePostSuccess(postsWithComments[0]));
   } catch (error) {
     yield put(updatePostFailure());
   }
@@ -107,7 +101,6 @@ function* forumSaga() {
   yield takeLatest(getPosts, getPostsSaga);
   yield takeLatest(getMyPosts, getMyPostsSaga);
   yield takeLatest(getPostsByUser, getPostsByUserSaga);
-  yield takeLatest(createPost, createPostSaga);
   yield takeLatest(updatePost, updatePostSaga);
   yield takeLatest(deletePost, deletePostSaga);
 }

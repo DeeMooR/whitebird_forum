@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { getPostsSelector } from 'src/redux/selectors';
+import { getLocalIsLoadingSelector, getPostsSelector } from 'src/redux/selectors';
 import { IPost } from 'src/interfaces';
 import { Card } from 'src/components';
 import { Loading } from 'src/UI';
@@ -17,6 +17,7 @@ interface IListOfPosts {
 export const ListOfPosts:FC<IListOfPosts> = ({posts, emptyText, withLimit, showControls}) => {
   const [limit, setLimit] = useState(withLimit ? STEP_POSTS : null);
   const { isLoading } = useSelector(getPostsSelector);
+  const isLocalLoading = useSelector(getLocalIsLoadingSelector);
 
   const handleShowMore = () => {
     setLimit((prev) => prev! + STEP_POSTS)
@@ -24,7 +25,7 @@ export const ListOfPosts:FC<IListOfPosts> = ({posts, emptyText, withLimit, showC
 
   return (
     <div className={cls.listOfPosts}>
-      {isLoading ? (
+      {isLoading || isLocalLoading ? (
         <div className={cls.listOfPosts__loading}>
           <Loading />
         </div>

@@ -1,9 +1,10 @@
 import { takeLatest, put, select } from 'redux-saga/effects';
-import { createComment, createCommentFailure, createCommentSuccess, deleteComment, deleteCommentFailure, deleteCommentSuccess, updateComment, updateCommentFailure, updateCommentSuccess, } from '../slices';
+import { createComment, createCommentFailure, createCommentSuccess, createLocalPost, createLocalPostFailure, createLocalPostSuccess, deleteComment, deleteCommentFailure, deleteCommentSuccess, deleteLocalPost, deleteLocalPostFailure, deleteLocalPostSuccess, updateComment, updateCommentFailure, updateCommentSuccess, updateLocalPost, updateLocalPostFailure, updateLocalPostSuccess, updatePostInPostPageSuccess, } from '../slices';
 import { axiosInstance, endpoints } from '../api';
-import { IComment, INewComment } from 'src/interfaces';
-import { getLocalSelector, getPostSelector } from '../selectors';
-import { ILocalState, IPostState } from '../interfaces';
+import { IComment, INewComment, IPost } from 'src/interfaces';
+import { getLocalCommentsSelector, getLocalSelector, getPostSelector, getUserSelector } from '../selectors';
+import { ILocalState, IPostState, IUserState } from '../interfaces';
+import { NavigateFunction } from 'react-router-dom';
 
 interface ICreateCommentSaga {
   payload: INewComment;
@@ -17,9 +18,24 @@ interface IDeleteCommentSaga {
   payload: number;
 }
 
+interface ICreateLocalPostSaga {
+  payload: Pick<IPost, 'title' | 'body'>;
+}
+
+interface IUpdateLocalPostSaga {
+  payload: IPost;
+}
+
+interface IDeleteLocalPostSaga {
+  payload: {
+    postId: number,
+    navigate: NavigateFunction
+  };
+}
+
 function* createCommentSaga({ payload }: ICreateCommentSaga) {
   try {
-    const { maxId }: ILocalState = yield select(getLocalSelector);
+    const { commentsMaxId }: ILocalState = yield select(getLocalSelector);
     const { user, post }: IPostState = yield select(getPostSelector);
     const comment = {
       postId: post?.id,
@@ -27,7 +43,7 @@ function* createCommentSaga({ payload }: ICreateCommentSaga) {
       ...payload
     }
     let newComment: IComment = yield axiosInstance.post(endpoints.comments, comment).then(({ data }) => data);
-    newComment.id = maxId + 1;
+    newComment.id = commentsMaxId + 1;
     yield put(createCommentSuccess(newComment));
   } catch (error) {
     yield put(createCommentFailure());
@@ -54,10 +70,61 @@ function* deleteCommentSaga({ payload: id }: IDeleteCommentSaga) {
   }
 }
 
+function* createLocalPostSaga({ payload }: ICreateLocalPostSaga) {
+  try {
+    const { user }: IUserState = yield select(getUserSelector);
+    const post = {
+      userId: user.id,
+      comments_number: 0,
+      ...payload
+    }
+    const newPost: IPost = yield axiosInstance.post(endpoints.posts, post).then(({ data }) => data);
+    yield put(createLocalPostSuccess(newPost));
+  } catch (error) {
+    yield put(createLocalPostFailure());
+  }
+}
+
+function* updateLocalPostSaga({ payload }: IUpdateLocalPostSaga) {
+  try {
+    const { id, comments_number, ...localPost } = payload;
+    const localComments: IComment[] = yield select(getLocalCommentsSelector);
+    let changedPost: IPost = yield axiosInstance.patch(`${endpoints.posts}/${id}`, localPost).then(({ data }) => data);
+    
+    const localCommentsNumber = localComments.reduce((acc, item) => {
+      return (item.postId === id) ? acc + 1 : acc;
+    }, 0)
+    changedPost.id = id;
+    changedPost.comments_number = localCommentsNumber;
+
+    const { post }: IPostState = yield select(getPostSelector);
+    if (post?.id === id) yield put(updatePostInPostPageSuccess(changedPost));
+    yield put(updateLocalPostSuccess(changedPost));
+  } catch (error) {
+    yield put(updateLocalPostFailure());
+  }
+}
+
+function* deleteLocalPostSaga({ payload }: IDeleteLocalPostSaga) {
+  try {
+    const { postId, navigate } = payload;
+    yield axiosInstance.delete(`${endpoints.posts}/${postId}`);
+    yield put(deleteLocalPostSuccess(postId));
+
+    const { post }: IPostState = yield select(getPostSelector);
+    if (post?.id === postId) navigate('/forum');
+  } catch (error) {
+    yield put(deleteLocalPostFailure());
+  }
+}
+
 function* forumSaga() {
   yield takeLatest(createComment, createCommentSaga);
   yield takeLatest(updateComment, updateCommentSaga);
   yield takeLatest(deleteComment, deleteCommentSaga);
+  yield takeLatest(createLocalPost, createLocalPostSaga);
+  yield takeLatest(updateLocalPost, updateLocalPostSaga);
+  yield takeLatest(deleteLocalPost, deleteLocalPostSaga);
 }
 
 export default forumSaga;

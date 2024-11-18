@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostsSelector, getUserSelector } from 'src/redux/selectors';
-import { deletePost, updateUserFavoritePosts } from 'src/redux/slices';
+import { deleteLocalPost, deletePost, updateUserFavoritePosts } from 'src/redux/slices';
 import { basketIcon, favoriteFillIcon, favoriteIcon, pencilIcon } from 'src/assets';
 import { ModalConfirm, ModalManage } from 'src/components';
 import { getUsernameById } from 'src/config';
@@ -24,6 +24,7 @@ export const Card:FC<ICard> = ({ post, showControls }) => {
 
   const { id, userId, title, comments_number } = post;
   const username = getUsernameById(users, userId);
+  const isLocalPost = id > 100;
 
   const handleClickPost = () => {
     navigate(`/forum/${id}`);
@@ -34,7 +35,8 @@ export const Card:FC<ICard> = ({ post, showControls }) => {
   }
 
   const handleDelete = () => {
-    dispatch(deletePost(post.id));
+    const func = isLocalPost ? deleteLocalPost({postId: id, navigate}) : deletePost(id);
+    dispatch(func);
   }
 
   return (
@@ -53,7 +55,7 @@ export const Card:FC<ICard> = ({ post, showControls }) => {
       </div>
       <div className={cls.card__comments}>
         <p className={cls.comments__counter}>{comments_number || 0}</p>
-        <p className={cls.comments__text}>коммент</p>
+        <p className={cls.comments__text}>ответов</p>
       </div>
       {showControls &&
         <div className={cls.card__buttons}>
@@ -63,7 +65,7 @@ export const Card:FC<ICard> = ({ post, showControls }) => {
       }
       {modalUpdate && 
         <ModalManage 
-          id='posts_update'
+          id={isLocalPost ? 'localPosts_update' : 'posts_update'}
           obj={post} 
           type='post'
           action='update' 

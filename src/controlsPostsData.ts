@@ -519,6 +519,7 @@ export const getControlsPost = (id: number) => {
 }
 
 export const updateControlsPost = (obj: IControlsPost) => {
+  if (obj.postId > 100) controlsPosts = [...controlsPosts, obj];
   controlsPosts = controlsPosts.map(item => {
     return item.postId === obj.postId ? obj : item;
   });

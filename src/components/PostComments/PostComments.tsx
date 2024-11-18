@@ -14,14 +14,17 @@ import cls from './styles.module.scss';
 export const PostComments = () => {
   const dispatch = useDispatch();
   const { role } = useSelector(getUserSelector);
-  const { comments } = useSelector(getPostSelector);
-  const { comments: localComments, isLoading, successMessage, errorMessage } = useSelector(getLocalSelector);
-  const allComments = [...localComments, ...comments];
+  const { post, comments } = useSelector(getPostSelector);
+  const { comments: localComments, isLoading, successLocalMessage, errorLocalMessage } = useSelector(getLocalSelector);
+
+  const postLocalComments = localComments.filter((comment) => comment.postId === post?.id)
+  const allComments = [...postLocalComments, ...comments];
 
   const {
     register,
     handleSubmit,
     setError,
+    reset,
     formState: { errors },
   } = useForm<INewComment>({
     mode: 'onChange'
@@ -31,6 +34,7 @@ export const PostComments = () => {
     const isCorrect = checkEmptyValues(data, ['name', 'body'], setError);
     if (!isCorrect) return;
     dispatch(createComment(data));
+    reset();
   }
 
   const clearMessages = () => dispatch(clearLocalMessages());
@@ -67,14 +71,18 @@ export const PostComments = () => {
           <Loading />
         </div>
       ) : (
-        <div className={cls.comments__list}>
-          {allComments.map(item => (
-            <Comment obj={item} key={item.id} />
-          ))}
-        </div>
+        !!allComments.length ? (
+          <div className={cls.comments__list}>
+            {allComments.map(item => (
+              <Comment obj={item} key={item.id} />
+            ))}
+          </div>
+        ) : (
+          <p className={cls.comments__empty}>Комментариев нет</p>
+        )
       )}
-      {successMessage && <Notification type='success' message={successMessage} clearMessage={clearMessages} />}
-      {errorMessage && <Notification type='error' message={errorMessage} clearMessage={clearMessages} />}
+      {successLocalMessage && <Notification type='success' message={successLocalMessage} clearMessage={clearMessages} />}
+      {errorLocalMessage && <Notification type='error' message={errorLocalMessage} clearMessage={clearMessages} />}
     </div>
   )
 }

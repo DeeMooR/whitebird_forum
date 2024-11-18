@@ -12,3 +12,4 @@ export * from './ModalManage/ModalManage';
 export * from './PostControls/PostControls';
 export * from './PostComments/PostComments';
 export * from './Comment/Comment';
+export * from './PostsMessages/PostsMessages';

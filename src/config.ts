@@ -1,6 +1,7 @@
 import { UseFormSetError } from "react-hook-form";
-import { IInput, IUser } from "./interfaces";
+import { IComment, IInput, IPost, IUser } from "./interfaces";
 import { IControlsPost, controlsPosts } from "./controlsPostsData";
+import { axiosInstance, endpoints } from "./redux/api";
 
 export type roleType = 'unauthorized' | 'user' | 'admin';
 
@@ -167,4 +168,20 @@ export const updateArrayIds = (array: number[], id: number) => {
   return array.includes(id) 
     ? array.filter(item => item !== id)
     : [...array, id];
+}
+
+export const addCommentsNumberToPosts = async (posts: IPost[], localComments: IComment[]): Promise<IPost[]> => {
+  return Promise.all(
+    posts.map(async (post) => {
+      // const comments = await axiosInstance
+      //   .get(endpoints.comments, { params: { postId: post.id }})
+      //   .then(({ data }) => data);
+      const dbCommentsNumber = 5;
+      const localCommentsNumber = localComments.reduce((acc, item) => {
+        return (item.postId === post.id) ? acc + 1 : acc;
+      }, 0)
+      const commentsNumber = dbCommentsNumber + localCommentsNumber;
+      return { ...post, comments_number: commentsNumber };
+    })
+  );
 }

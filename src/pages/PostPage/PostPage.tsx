@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPostSelector } from 'src/redux/selectors';
+import { getLocalIsLoadingSelector, getLocalPostsSelector, getLocalSelector, getPostSelector, getUserDataSelector } from 'src/redux/selectors';
 import { clearPostMessages, clearPostState, getPost } from 'src/redux/slices';
 import { PostComments, PostControls } from 'src/components';
 import { PageTemplate } from 'src/pages'
 import { userPhoto1Image } from 'src/assets';
 import { Loading, Notification } from 'src/UI';
+import { getPostDataFunc } from './config';
 import cls from './styles.module.scss';
 
 export const PostPage = () => {
@@ -14,13 +15,13 @@ export const PostPage = () => {
   const dispatch = useDispatch();
   const { id: param } = useParams();
   const { post, user, isLoading, errorMessage } = useSelector(getPostSelector);
+  const localIsLoading = useSelector(getLocalIsLoadingSelector);
+  const localPosts = useSelector(getLocalPostsSelector);
+  const userAccount = useSelector(getUserDataSelector);
 
   useEffect(() => {
-    const obj = {
-      postId: +param!,
-      navigate
-    }
-    dispatch(getPost(obj));
+    const func = getPostDataFunc({param, localPosts, userAccount, navigate});
+    dispatch(func);
     return () => { dispatch(clearPostState()) }
   }, [param])
 
@@ -29,7 +30,7 @@ export const PostPage = () => {
   return (
     <PageTemplate showScroll>
       <div className={cls.post}>
-        {isLoading ? (
+        {isLoading || localIsLoading ? (
           <Loading />
         ) : (
           <>

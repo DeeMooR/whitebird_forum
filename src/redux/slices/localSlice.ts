@@ -3,16 +3,18 @@ import { ILocalState } from "../interfaces";
 
 const initialState: ILocalState = {
   comments: [],
-  maxId: 500,
+  posts: [],
+  commentsMaxId: 500,
+  postsMaxId: 100,
   isLoading: false,
-  errorMessage: null,
-  successMessage: null,
+  errorLocalMessage: null,
+  successLocalMessage: null,
 }
 
 const setLoading = (state: ILocalState) => {
   state.isLoading = true;
-  state.successMessage = null;
-  state.errorMessage = null;
+  state.successLocalMessage = null;
+  state.errorLocalMessage = null;
 }
 
 export const localSlice = createSlice({
@@ -20,19 +22,22 @@ export const localSlice = createSlice({
   initialState: initialState,
   reducers: {
     clearLocalMessages: (state) => {
-      state.successMessage = null;
-      state.errorMessage = null;
+      state.successLocalMessage = null;
+      state.errorLocalMessage = null;
+    },
+    clearLocalState: (state) => {
+      Object.assign(state, initialState);
     },
 
     createComment: (state, { payload }) => setLoading(state),
     createCommentSuccess: (state, { payload }) => {
       state.isLoading = false;
       state.comments = [payload, ...state.comments];
-      state.maxId = state.maxId + 1;
+      state.commentsMaxId = state.commentsMaxId + 1;
     },
     createCommentFailure: (state) => {
       state.isLoading = false;
-      state.errorMessage = 'Ошибка добавление комментария';
+      state.errorLocalMessage = 'Ошибка добавления комментария';
     },
 
     updateComment: (state, { payload }) => setLoading(state),
@@ -41,28 +46,65 @@ export const localSlice = createSlice({
       state.comments = state.comments.map(item => {
         return (item.id === payload.id) ? payload : item; 
       });
-      state.successMessage = 'Комментарий успешно изменён';
+      state.successLocalMessage = 'Комментарий успешно изменён';
     },
     updateCommentFailure: (state) => {
       state.isLoading = false;
-      state.errorMessage = 'Ошибка изменения комментария';
+      state.errorLocalMessage = 'Ошибка изменения комментария';
     },
 
     deleteComment: (state, { payload }) => setLoading(state),
     deleteCommentSuccess: (state, { payload }) => {
       state.isLoading = false;
       state.comments = state.comments.filter(item => item.id !== payload);
-      state.successMessage = 'Комментарий успешно удалён';
+      state.successLocalMessage = 'Комментарий успешно удалён';
     },
     deleteCommentFailure: (state) => {
       state.isLoading = false;
-      state.errorMessage = 'Ошибка удаления комментария';
+      state.errorLocalMessage = 'Ошибка удаления комментария';
+    },
+
+    createLocalPost: (state, { payload }) => setLoading(state),
+    createLocalPostSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.posts = [payload, ...state.posts];
+      state.postsMaxId = state.postsMaxId + 1;
+      state.successLocalMessage = 'Пост успешно создан';
+    },
+    createLocalPostFailure: (state) => {
+      state.isLoading = false;
+      state.errorLocalMessage = 'Ошибка добавления поста';
+    },
+
+    updateLocalPost: (state, { payload }) => setLoading(state),
+    updateLocalPostSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.posts = state.posts.map(item => {
+        return (item.id === payload.id) ? payload : item; 
+      });
+      state.successLocalMessage = 'Пост успешно изменён';
+    },
+    updateLocalPostFailure: (state) => {
+      state.isLoading = false;
+      state.errorLocalMessage = 'Ошибка изменения поста';
+    },
+
+    deleteLocalPost: (state, { payload }) => setLoading(state),
+    deleteLocalPostSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.posts = state.posts.filter(item => item.id !== payload);
+      state.successLocalMessage = 'Пост успешно удалён';
+    },
+    deleteLocalPostFailure: (state) => {
+      state.isLoading = false;
+      state.errorLocalMessage = 'Ошибка удаления поста';
     },
   }
 })
 
 export const {
   clearLocalMessages,
+  clearLocalState,
   createComment,
   createCommentSuccess,
   createCommentFailure,
@@ -71,7 +113,16 @@ export const {
   updateCommentFailure,
   deleteComment,
   deleteCommentSuccess,
-  deleteCommentFailure
+  deleteCommentFailure,
+  createLocalPost,
+  createLocalPostSuccess,
+  createLocalPostFailure,
+  updateLocalPost,
+  updateLocalPostSuccess,
+  updateLocalPostFailure,
+  deleteLocalPost,
+  deleteLocalPostSuccess,
+  deleteLocalPostFailure
 } = localSlice.actions;
 
 export const localReducer = localSlice.reducer;

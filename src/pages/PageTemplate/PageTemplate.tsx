@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'src/redux/selectors';
 import { clearUserMessages } from 'src/redux/slices';
-import { Footer, Header } from 'src/components';
+import { Footer, Header, PostsMessages } from 'src/components';
 import { Notification } from 'src/UI';
 import cn from 'classnames';
 import cls from './styles.module.scss';
@@ -13,12 +13,13 @@ interface IPageTemplate {
   isCenter?: boolean;
   notShowCrumbs?: boolean;
   showScroll?: boolean;
+  showPostsMessages?: boolean;
 }
 
-export const PageTemplate:FC<IPageTemplate> = ({ children, isCenter, notShowCrumbs, showScroll }) => {
+export const PageTemplate:FC<IPageTemplate> = ({ children, isCenter, notShowCrumbs, showScroll, showPostsMessages }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { successMessage } = useSelector(getUserSelector);
+  const { successMessage: userSuccessMessage } = useSelector(getUserSelector);
 
   useEffect(() => {
     if (showScroll) {
@@ -46,7 +47,8 @@ export const PageTemplate:FC<IPageTemplate> = ({ children, isCenter, notShowCrum
         </div>
       </div>
       <Footer />
-      {successMessage && <Notification type='success' message={successMessage} clearMessage={clearMessages} />}
+      {userSuccessMessage && <Notification type='success' message={userSuccessMessage} clearMessage={clearMessages} />}
+      {showPostsMessages && <PostsMessages />}
     </div>
   )
 }

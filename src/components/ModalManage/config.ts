@@ -1,5 +1,5 @@
 import { IComment, IInput, IPost, ITextarea, IUser } from "src/interfaces"
-import { changeUserByAdmin, createPost, updateComment, updatePost, updatePostInPostPage } from "src/redux/slices";
+import { changeUserByAdmin, createLocalPost, updateComment, updateLocalPost, updatePost, updatePostInPostPage } from "src/redux/slices";
 
 interface IElement {
   element: 'input' | 'textarea',
@@ -14,7 +14,7 @@ interface IModalFields {
 
 export type objType = IUser | IPost | IComment;
 export type objStructure = 'user' | 'post' | 'comment';
-export type idType = 'users_update' | 'posts_update' | 'posts_add' | 'post_update' | 'comment_update';
+export type idType = 'users_update' | 'posts_update' | 'localPosts_update' | 'posts_add' | 'post_update' | 'comment_update';
 export type actionType = 'add' | 'update';
 
 export const modalFields: IModalFields = {
@@ -123,7 +123,8 @@ export const modalManageText = {
 export const getModalManageAction = {
   users_update: (data: objType) => changeUserByAdmin(data),
   posts_update: (data: objType) => updatePost(data),
-  posts_add: (data: objType) => createPost(data),
+  localPosts_update: (data: objType) => updateLocalPost(data),
+  posts_add: (data: objType) => createLocalPost(data),
   post_update: (data: objType) => updatePostInPostPage(data),
   comment_update: (data: objType) => updateComment(data),
 };

@@ -1,9 +1,9 @@
 import React, { useEffect, useLayoutEffect } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { AccountPage, ForumPage, SignInPage, UsersPage, FavoritePostsPage, MyPostsPage, PostPage }  from './pages';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { getUserSelector } from './redux/selectors';
-import { clearUserFavoritePosts, setUserFavoritePosts, signIn, setUserRole } from './redux/slices';
+import { clearUserFavoritePosts, setUserFavoritePosts, signIn, setUserRole, clearLocalState } from './redux/slices';
+import { AccountPage, ForumPage, SignInPage, UsersPage, FavoritePostsPage, MyPostsPage, PostPage }  from './pages';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,10 @@ const App = () => {
 
   useEffect(() => {
     if (user.id) dispatch(setUserFavoritePosts());
-    else dispatch(clearUserFavoritePosts());
+    else {
+      dispatch(clearUserFavoritePosts());
+      dispatch(clearLocalState());
+    }
   }, [user])
 
   return role ? (

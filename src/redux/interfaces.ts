@@ -49,8 +49,10 @@ export interface IPostState {
 
 export interface ILocalState {
   comments: IComment[];
-  maxId: number,
+  posts: IPost[];
+  commentsMaxId: number,
+  postsMaxId: number,
   isLoading: boolean;
-  errorMessage: string | null;
-  successMessage: string | null;
+  errorLocalMessage: string | null;
+  successLocalMessage: string | null;
 }
