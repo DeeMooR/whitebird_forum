@@ -1,5 +1,7 @@
 ## [Whitebird Forum][1]
 
+#### [Видеообзор][1]
+
 Форум со списком постов, комментариями, поиском, валидацией данных, приоритетами постов, личным кабинетом и админ-панелью.
 
 Ограничение бэкенда: \
@@ -47,3 +49,4 @@
 
 [1]: https://deemoor.github.io/whitebird_forum/
 [2]: https://jsonplaceholder.typicode.com/
+[3]: https://drive.google.com/file/d/1X1RMVg7Xocod6WHrmVtMR7IAKBCAFH-G/view?usp=drive_link
