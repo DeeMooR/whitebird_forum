@@ -1,13 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/*--------- CONST ----------*/
+:root {
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont;
+  --font-numbers: toster-text, Helvetica;
+  
+  --white: #FFFFFF;
+  --white-hover: #e3e3e3;
+  --white-faint: rgba(255, 255, 255, 0.6);
+  --black: #282828;
+  --grey: #8f9db1;
+  --grey-border: rgba(0, 0, 0, 0.06);
+  --blue: #0069FF;
+  --blue-light: #3a86f1;
+  
+  --background: #F8FBFD;
+  --input: #FAFAFA;
+  --disabled: #a8a8a8;
+  --disabled-light: #d9d9d9;
+  --success: #4DB84D;
+  --warning: #FFAA00;
+  --error: #DF5A5A;
+  --delete: #DC1D1D;
+}
+
+/*--------- NULLING STYLE ----------*/
+*{
+	padding: 0;
+	margin: 0;
+	border: 0;}
+*,*:before, after{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+nav,footer,header,aside{display: block;}
+html,body{
+	height: 100%;
+	width: 100%;
+	font-size: 18px;
+  font-weight: 400;
+  font-family: var(--font-main);
+  background-color: var(--background);
+  color: var(--black);
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;}
+div, p, a, span {font-family: var(--font-main);}
+input,button,textarea{font-family: var(--font-main);}
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-mox-focus-inner {padding:0; border:0;}
+a, a:visited{text-decoration: none; cursor: pointer; display: block;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{display: block; vertical-align: top;}
+h1,h2,h3,h4,h5,h6{font-weight: 500}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root {
+  height: 100%;
+}
+
+/*--------- STYLES ---------*/
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1120px;
+  padding: 0 20px;
+}
+
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 22px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+  font-size: 15px;
+  padding: 0 24px;
+  color: var(--white);
+  background-color: var(--blue);
+  border: 1px solid transparent;
+  border-radius: 7px;
+  text-transform: uppercase;
+  transition: all 0.15s ease-in-out 0s;
+}
+button:disabled {
+  background-color: var(--disabled);
+  cursor: not-allowed;
+}
+button:hover:not(:disabled) {
+  background-color: var(--blue-light);
+}
+.btnBorder {
+  border: 1px solid var(--white-faint);
+}
+.btnSmall {
+  height: 36px;
+  font-size: 13px;
+}
+.btnDelete {
+  background-color: var(--error);
+}
+.btnDelete:hover:not(:disabled) {
+  background-color: var(--delete);
+}
+
+input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  padding: 0 18px;
+  background-color: var(--input);
+  border: 1px solid var(--blue-light);
+  border-radius: 7px;
+}
+textarea {
+  height: 104px;
+  width: 100%;
+  padding: 18px;
+  margin: 0 0 -4px 0;
+  background-color: var(--input);
+  border: 1px solid var(--blue-light);
+  border-radius: 7px;
+  resize: none;
+}
+input:focus,
+textarea:focus {
+  border: 1px solid var(--blue);
+}
+input:disabled,
+textarea:disabled {
+  background-color: var(--disabled-light);
+  cursor: not-allowed;
+}
+
+@media (max-width: 599.98px) {
+  h2 {
+    font-size: 24px;
+  }
+  h3 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 479.98px) {
+  h1 {
+    font-size: 28px;
+  }
+  button {
+    font-size: 13px;
+  }
+  .btnSmall {
+    font-size: 12px;
+  }
 }

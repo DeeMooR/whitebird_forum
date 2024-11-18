@@ -1,0 +1,74 @@
+.account {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  .account__title {
+    text-align: center;
+    margin: 0 0 10px 0;
+  }
+  .account__users {
+    margin-left: auto;
+  }
+  .account__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    .account__form {
+      flex: 1;
+      .account__subtitle {
+        margin: 0 0 10px 0;
+      }
+      .account__fields {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px 24px;
+        margin: 0 0 26px 0;
+        .account__field {
+          width: calc(50% - 12px);
+        }
+      }
+      .account__buttons {
+        display: flex;
+        justify-content: space-between;
+        .account__сontrols {
+          display: flex;
+          gap: 15px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 479.98px) {
+  .account {
+    .account__title {
+      margin: 0 0 15px 0;
+    }
+    .account__users {
+      margin-bottom: 10px;
+    }
+    .account__content {
+      .account__form {
+        .account__subtitle {
+          margin: 0 0 12px 0;
+        }
+        .account__fields {
+          gap: 18px;
+          .account__field {
+            width: 100%;
+          }
+        }
+        .account__buttons {
+          flex-direction: column;
+          gap: 15px;
+          .account__сontrols {
+            button {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

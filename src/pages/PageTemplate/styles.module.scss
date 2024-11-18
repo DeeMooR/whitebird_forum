@@ -1,0 +1,25 @@
+.pageTemplate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  .pageTemplate__wrapper {
+    flex: 1;
+    margin: 100px 0 0 0;
+    .pageTemplate__crumbs {
+      display: inline-block;
+      font-size: 13px;
+      color: var(--grey);
+      margin: 0 0 5px 0;
+      cursor: pointer;
+    }
+    .pageTemplate__content {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+    }
+    .isCenter {
+      align-items: center;
+    }
+  }
+}

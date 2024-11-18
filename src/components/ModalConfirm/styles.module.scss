@@ -1,0 +1,22 @@
+.modalConfirm {
+  h3 {
+    text-align: center;
+    margin: 0 0 27px 0;
+  }
+  .modalConfirm__buttons {
+    display: flex;
+    gap: 30px;
+    button {
+      border-radius: 5px;
+      transition: all 0.2s ease-in-out 0s;
+    }
+  }
+}
+
+@media (max-width: 479.98px) {
+  .modalConfirm {
+    .modalConfirm__buttons {
+      gap: 15px;
+    }
+  }
+}

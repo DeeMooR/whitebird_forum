@@ -1,0 +1,38 @@
+.modalManage {
+  .modalManage__title {
+    text-align: center;
+    margin: 0 0 27px 0;
+  }
+  .modalManage__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 0 0 25px 0;
+  }
+  .modalManage__buttons {
+    display: flex;
+    gap: 10px;
+    .btnCancel {
+      flex: 2;
+      background-color: var(--grey);
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    .btnChange {
+      flex: 5;
+    }
+  }
+}
+
+@media (max-width: 479.98px) {
+  .modalManage {
+    .modalManage__title {
+      margin: 0 0 22px 0;
+    }
+    .modalManage__fields {
+      gap: 18px;
+      margin: 0 0 21px 0;
+    }
+  }
+}
