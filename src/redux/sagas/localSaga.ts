@@ -86,6 +86,7 @@ function* createLocalPostSaga({ payload }: ICreateLocalPostSaga) {
     const post = {
       userId: user.id,
       comments_number: 0,
+      priority: 1,
       ...payload
     }
     const newPost: IPost = yield axiosInstance.post(endpoints.posts, post).then(({ data }) => data);

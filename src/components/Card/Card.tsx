@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPostsSelector, getUserSelector } from 'src/redux/selectors';
 import { deleteLocalPost, deletePost, updateUserFavoritePosts } from 'src/redux/slices';
 import { basketIcon, favoriteFillIcon, favoriteIcon, pencilIcon } from 'src/assets';
-import { ModalConfirm, ModalManage } from 'src/components';
+import { ChangePriority, ModalConfirm, ModalManage } from 'src/components';
 import { getTextPluralComments, getUsernameById } from 'src/config';
 import { IPost } from 'src/interfaces';
 import cls from './styles.module.scss';
@@ -11,10 +11,11 @@ import { useNavigate } from 'react-router-dom';
 
 interface ICard {
   post: IPost,
-  showControls?: boolean
+  showControls?: boolean,
+  showPriority?: boolean
 }
 
-export const Card:FC<ICard> = ({ post, showControls }) => {
+export const Card:FC<ICard> = ({ post, showControls, showPriority }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { users } = useSelector(getPostsSelector);
@@ -22,7 +23,7 @@ export const Card:FC<ICard> = ({ post, showControls }) => {
   const [modalUpdate, setModalUpdate] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
 
-  const { id, userId, title, comments_number } = post;
+  const { id, userId, title, comments_number, priority } = post;
   const username = getUsernameById(users, userId);
   const isLocalPost = id > 100;
 
@@ -41,28 +42,33 @@ export const Card:FC<ICard> = ({ post, showControls }) => {
 
   return (
     <div className={cls.card}>
-      {role !== 'unauthorized' &&
-        <div className={cls.card__star}>
-          {favoritePosts.includes(id)
-            ? <img src={favoriteFillIcon} onClick={handleClickFavorite} alt="favoriteFill" />
-            : <img src={favoriteIcon} onClick={handleClickFavorite} alt="favorite" />
-          }
-        </div>
+      {showPriority &&
+        <ChangePriority postId={id} defaultValue={priority || 1} isLocalPost={isLocalPost} />
       }
-      <div className={cls.card__info}>
-        <p className={cls.card__author}>{username}</p>
-        <p className={cls.card__title} onClick={handleClickPost}>{title}</p>
-      </div>
-      <div className={cls.card__comments}>
-        <p className={cls.comments__counter}>{comments_number || 0}</p>
-        <p className={cls.comments__text}>{getTextPluralComments(comments_number || 0)}</p>
-      </div>
-      {showControls &&
-        <div className={cls.card__buttons}>
-          <img src={pencilIcon} onClick={() => setModalUpdate(true)} alt="pencil" />
-          <img src={basketIcon} onClick={() => setModalDelete(true)} alt="basket" />
+      <div className={cls.card__content}>
+        {role !== 'unauthorized' &&
+          <div className={cls.card__star}>
+            {favoritePosts.includes(id)
+              ? <img src={favoriteFillIcon} onClick={handleClickFavorite} alt="favoriteFill" />
+              : <img src={favoriteIcon} onClick={handleClickFavorite} alt="favorite" />
+            }
+          </div>
+        }
+        <div className={cls.card__info}>
+          <p className={cls.card__author}>{username}</p>
+          <p className={cls.card__title} onClick={handleClickPost}>{title}</p>
         </div>
-      }
+        <div className={cls.card__comments}>
+          <p className={cls.comments__counter}>{comments_number || 0}</p>
+          <p className={cls.comments__text}>{getTextPluralComments(comments_number || 0)}</p>
+        </div>
+        {showControls &&
+          <div className={cls.card__buttons}>
+            <img src={pencilIcon} onClick={() => setModalUpdate(true)} alt="pencil" />
+            <img src={basketIcon} onClick={() => setModalDelete(true)} alt="basket" />
+          </div>
+        }
+      </div>
       {modalUpdate && 
         <ModalManage 
           id={isLocalPost ? 'localPosts_update' : 'posts_update'}

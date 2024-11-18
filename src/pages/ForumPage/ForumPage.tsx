@@ -8,15 +8,20 @@ import cls from './styles.module.scss';
 
 export const ForumPage = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector(getUserSelector);
+  const { user, role } = useSelector(getUserSelector);
   const { posts, search } = useSelector(getPostsSelector);
   const localPosts = useSelector(getLocalPostsSelector);
   const searchLocalPosts = (!search || user.username === search || user.email === search) ? localPosts : [];
   const allPosts = [...searchLocalPosts, ...posts];
+  const showPriority = !search && role === 'admin';
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [dispatch])
+  }, [dispatch]);
+
+  const sortAllPosts = () => {
+    return allPosts.sort((l, r) => r.priority! - l.priority!);
+  }
 
   return (
     <PageTemplate notShowCrumbs showScroll showPostsMessages>
@@ -25,10 +30,14 @@ export const ForumPage = () => {
         <div className={cls.forumPage__search}>
           <Search data='posts' />
         </div>
+        {showPriority &&
+          <div className={cls.forumPage__listHeader}>Приоритет</div>
+        }
         <ListOfPosts 
-          posts={allPosts}
+          posts={sortAllPosts()}
           emptyText='По выбранным критериям постов не найдено' 
           withLimit
+          showPriority={showPriority}
         />
       </div>
     </PageTemplate>

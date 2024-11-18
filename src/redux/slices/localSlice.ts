@@ -21,6 +21,12 @@ export const localSlice = createSlice({
   name: 'local',
   initialState: initialState,
   reducers: {
+    updateLocalPostPriority: (state, { payload }) => {
+      const { postId, priority } = payload;
+      state.posts = state.posts.map(post => {
+        return (post.id === postId) ? {...post, priority} : post;
+      });
+    },
     clearLocalMessages: (state) => {
       state.successLocalMessage = null;
       state.errorLocalMessage = null;
@@ -107,6 +113,7 @@ export const localSlice = createSlice({
 })
 
 export const {
+  updateLocalPostPriority,
   clearLocalMessages,
   clearLocalState,
   createComment,

@@ -12,9 +12,10 @@ interface IListOfPosts {
   emptyText: string,
   withLimit?: boolean,
   showControls?: boolean,
+  showPriority?: boolean,
 }
 
-export const ListOfPosts:FC<IListOfPosts> = ({posts, emptyText, withLimit, showControls}) => {
+export const ListOfPosts:FC<IListOfPosts> = ({posts, emptyText, withLimit, showControls, showPriority}) => {
   const [limit, setLimit] = useState(withLimit ? STEP_POSTS : null);
   const { isLoading } = useSelector(getPostsSelector);
   const isLocalLoading = useSelector(getLocalIsLoadingSelector);
@@ -34,7 +35,7 @@ export const ListOfPosts:FC<IListOfPosts> = ({posts, emptyText, withLimit, showC
           <>
             <div className={cls.listOfPosts__list}>
               {posts.slice(0, limit || posts.length).map((post) => (
-                <Card post={post} showControls={showControls} key={post.id} />
+                <Card post={post} showControls={showControls} showPriority={showPriority} key={post.id} />
               ))}
             </div>
             {limit && limit < posts.length &&

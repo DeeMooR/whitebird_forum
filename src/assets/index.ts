@@ -1,6 +1,8 @@
 import logoIcon from './icons/logo.svg';
 import logoShortIcon from './icons/logoShort.png';
 import crossIcon from './icons/cross.svg';
+import arrowDownIcon from './icons/arrowDown.svg';
+import arrowUpIcon from './icons/arrowUp.svg';
 import pencilIcon from './icons/pencil.svg';
 import basketIcon from './icons/basket.svg';
 import favoriteIcon from './icons/favorite.svg';
@@ -21,6 +23,8 @@ export {
   logoIcon,
   logoShortIcon,
   crossIcon,
+  arrowDownIcon,
+  arrowUpIcon,
   pencilIcon,
   basketIcon,
   favoriteIcon,

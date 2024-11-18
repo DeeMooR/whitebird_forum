@@ -43,6 +43,7 @@ export interface IPost {
   title: string,
   body: string,
   comments_number: number | null,
+  priority: number | null;
 }
 
 export interface IComment {

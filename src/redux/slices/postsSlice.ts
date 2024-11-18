@@ -24,6 +24,12 @@ export const postsSlice = createSlice({
     setPostsSearch: (state, { payload }) => {
       state.search = payload;
     },
+    updatePostPriority: (state, { payload }) => {
+      const { postId, priority } = payload;
+      state.posts = state.posts.map(post => {
+        return (post.id === postId) ? {...post, priority} : post;
+      });
+    },
     setPostsSuccessMessage: (state, { payload }) => {
       state.successMessage = payload;
     },
@@ -99,6 +105,7 @@ export const postsSlice = createSlice({
 
 export const {
   setPostsSearch,
+  updatePostPriority,
   setPostsSuccessMessage,
   setPostsErrorMessage,
   clearPostsMessages,

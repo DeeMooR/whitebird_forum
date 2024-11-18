@@ -27,9 +27,10 @@ function* getPostsSaga() {
     const users: IUser[] = yield axiosInstance.get(endpoints.users).then(({ data }) =>
     data.map(({ id, name, username, email }: IUser) => ({ id, name, username, email }))
     );
-
+    
     const localComments: IComment[] = yield select(getLocalCommentsSelector);
-    const postsWithComments: IPost[] = yield addCommentsNumberToPosts(posts, localComments);
+    const postsWithPriority = posts.map(item => ({...item, priority: 1}));
+    const postsWithComments: IPost[] = yield addCommentsNumberToPosts(postsWithPriority, localComments);
     yield put(getPostsSuccess({posts: postsWithComments, users}));
   } catch (error) {
     yield put(getPostsFailure());

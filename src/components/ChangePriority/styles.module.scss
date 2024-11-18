@@ -1,0 +1,36 @@
+.changePriority {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 7px 0;
+  border-radius: 16px;
+  border: 1px solid var(--grey);
+  .changePriority__contol {
+    padding: 3px;
+    cursor: pointer;
+    &.hidden {
+      opacity: 0.4;
+      cursor: default;
+    }
+  }
+  .changePriority__input {
+    text-align: center;
+    background: none;
+    border: none;
+    font-weight: 600;
+    height: 20px;
+    width: 25px;
+    padding: 0;
+    margin: 3px 0;
+    &:disabled {
+      cursor: default;
+    }
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
