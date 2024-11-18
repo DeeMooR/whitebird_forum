@@ -56,6 +56,10 @@ export const SignInPage = () => {
                 />
               </div>
               <button type='submit' className={cls.signIn__btnSend}>Войти</button>
+              <div className={cls.signIn__data}>
+                <p className={cls.sighIn__user}>user:  Nathan@yesenia.net</p>
+                <p className={cls.sighIn__user}>admin: Sincere@april.biz</p>
+              </div>
             </form>
           )}
         </div>

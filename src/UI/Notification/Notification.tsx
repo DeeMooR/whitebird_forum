@@ -11,12 +11,18 @@ interface INotification {
   clearMessage?: () => void,
 }
 
-export const Notification:FC<INotification> = ({type, message, displayTime = 3500, clearMessage}) => {
+export const Notification:FC<INotification> = ({type, message, displayTime = 3000, clearMessage}) => {
   const { icon, style } = NotificationData[type];
   const [isVisible, setIsVisible] = useState(true);
+  const [isRendered, setIsRendered] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true);
+    // чтобы сработал transition
+    const showModal = async () => {
+      await setIsVisible(true);
+      await setIsRendered(true);
+    }
+    showModal();
     const timer = setTimeout(closeModal, displayTime);
     return () => clearTimeout(timer);
   }, []);
@@ -26,9 +32,11 @@ export const Notification:FC<INotification> = ({type, message, displayTime = 350
     if (clearMessage) clearMessage();
   }
 
-  const notificationStyle = cn(cls.notification, cls[style]);
+  const notificationStyle = cn(cls.notification, cls[style], {
+    [cls.isOpen]: isRendered,
+  });
 
-  return !isVisible ? null : (
+  return isVisible ? (
     <div className={notificationStyle}>
       <div className={cls.notification__wrapper}>
         <div className={cls.notification__icon}>{icon}</div>
@@ -38,5 +46,5 @@ export const Notification:FC<INotification> = ({type, message, displayTime = 350
         </div>
       </div>
     </div>
-  )
+  ): null;
 }

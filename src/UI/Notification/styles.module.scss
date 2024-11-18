@@ -1,13 +1,17 @@
 .notification {
   position: fixed;
-  top: 15px;
+  top: -67px;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 40px);
   max-width: 470px;
   background-color: var(--background);
   border-radius: 6px;
-  z-index: 100;
+  z-index: 20;
+  transition: top 0.3s ease-in-out 0s;
+  &.isOpen {
+    top: 15px;
+  }
   .notification__wrapper {
     position: relative;
     display: flex;

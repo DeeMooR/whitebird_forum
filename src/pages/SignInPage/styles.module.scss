@@ -16,5 +16,15 @@
         width: 100%;
       }
     }
+    .signIn__btnSend {
+      margin: 0 0 25px 0;
+    }
+    .signIn__data {
+      font-size: 14px;
+      color: var(--grey);
+      .sighIn__user {
+        margin: 0 0 3px 0;
+      }
+    }
   }
 }
