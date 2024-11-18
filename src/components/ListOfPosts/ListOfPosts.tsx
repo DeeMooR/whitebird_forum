@@ -4,6 +4,7 @@ import { getLocalIsLoadingSelector, getPostsSelector } from 'src/redux/selectors
 import { IPost } from 'src/interfaces';
 import { Card } from 'src/components';
 import { Loading } from 'src/UI';
+import { getMovingPostsId } from './config';
 import { STEP_POSTS } from 'src/config';
 import cls from './styles.module.scss';
 
@@ -35,7 +36,13 @@ export const ListOfPosts:FC<IListOfPosts> = ({posts, emptyText, withLimit, showC
           <>
             <div className={cls.listOfPosts__list}>
               {posts.slice(0, limit || posts.length).map((post) => (
-                <Card post={post} showControls={showControls} showPriority={showPriority} key={post.id} />
+                <Card 
+                  post={post} 
+                  showControls={showControls} 
+                  showPriority={showPriority} 
+                  movingPostsId={showPriority ? getMovingPostsId(posts, post.id) : null}
+                  key={post.id} 
+                />
               ))}
             </div>
             {limit && limit < posts.length &&

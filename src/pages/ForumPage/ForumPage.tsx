@@ -31,7 +31,10 @@ export const ForumPage = () => {
           <Search data='posts' />
         </div>
         {showPriority &&
-          <div className={cls.forumPage__listHeader}>Приоритет</div>
+          <div className={cls.forumPage__listHeader}>
+            <p className={cls.listHeader__priority}>Приоритет</p>
+            <p className={cls.listHeader__moving}>Передвижение</p>
+          </div>
         }
         <ListOfPosts 
           posts={sortAllPosts()}

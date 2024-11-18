@@ -14,3 +14,4 @@ export * from './PostComments/PostComments';
 export * from './Comment/Comment';
 export * from './PostsMessages/PostsMessages';
 export * from './ChangePriority/ChangePriority';
+export * from './PostMoving/PostMoving';

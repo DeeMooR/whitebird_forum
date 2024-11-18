@@ -1,0 +1,15 @@
+.postMoving {
+  min-width: 18px;
+  img {
+    padding: 4px;
+    transform: scale(1.4);
+    cursor: pointer;
+    &.isDisabled {
+      opacity: 0.2;
+      cursor: default;
+    }
+    &:first-child {
+      margin: 0 0 12px 0;
+    }
+  }
+}

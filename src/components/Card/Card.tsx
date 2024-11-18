@@ -1,21 +1,25 @@
 import React, { FC, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostsSelector, getUserSelector } from 'src/redux/selectors';
 import { deleteLocalPost, deletePost, updateUserFavoritePosts } from 'src/redux/slices';
 import { basketIcon, favoriteFillIcon, favoriteIcon, pencilIcon } from 'src/assets';
-import { ChangePriority, ModalConfirm, ModalManage } from 'src/components';
+import { ChangePriority, ModalConfirm, ModalManage, PostMoving } from 'src/components';
 import { getTextPluralComments, getUsernameById } from 'src/config';
 import { IPost } from 'src/interfaces';
 import cls from './styles.module.scss';
-import { useNavigate } from 'react-router-dom';
 
 interface ICard {
   post: IPost,
   showControls?: boolean,
-  showPriority?: boolean
+  showPriority?: boolean,
+  movingPostsId?: {
+    upPostId: number | null,
+    downPostId: number | null,
+  } | null
 }
 
-export const Card:FC<ICard> = ({ post, showControls, showPriority }) => {
+export const Card:FC<ICard> = ({ post, showControls, showPriority, movingPostsId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { users } = useSelector(getPostsSelector);
@@ -63,10 +67,13 @@ export const Card:FC<ICard> = ({ post, showControls, showPriority }) => {
           <p className={cls.comments__text}>{getTextPluralComments(comments_number || 0)}</p>
         </div>
         {showControls &&
-          <div className={cls.card__buttons}>
+          <div className={cls.card__controls}>
             <img src={pencilIcon} onClick={() => setModalUpdate(true)} alt="pencil" />
             <img src={basketIcon} onClick={() => setModalDelete(true)} alt="basket" />
           </div>
+        }
+        {movingPostsId &&
+          <PostMoving postId={post.id} movingPostsId={movingPostsId} />
         }
       </div>
       {modalUpdate && 

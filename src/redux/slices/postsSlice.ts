@@ -21,6 +21,13 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState: initialState,
   reducers: {
+    setSwapPosts: (state, { payload }) => {
+      const arrCopy = [...state.posts];
+      const index1 = arrCopy.findIndex(item => item.id === payload[0]);
+      const index2 = arrCopy.findIndex(item => item.id === payload[1]);
+      [arrCopy[index1], arrCopy[index2]] = [arrCopy[index2], arrCopy[index1]];
+      state.posts = arrCopy;
+    },
     setPostsSearch: (state, { payload }) => {
       state.search = payload;
     },
@@ -104,6 +111,7 @@ export const postsSlice = createSlice({
 })
 
 export const {
+  setSwapPosts,
   setPostsSearch,
   updatePostPriority,
   setPostsSuccessMessage,
