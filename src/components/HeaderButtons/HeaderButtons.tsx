@@ -14,12 +14,12 @@ export const HeaderButtons = () => {
   const btnSignInStyle = cn('btnBorder', 'btnSmall', cls.headerButtons__btnSignIn);
   
   return (
-    <div className={cls.headerButtons}>
+    <div className={cls.headerButtons} data-testId='headerButtons'>
       {role === ROLES.UNAUTHORIZED ? (
         <button type='button' className={btnSignInStyle} onClick={() => navigate('/sign-in')}>Войти</button>
       ) : (
         <>
-          <img src={favoriteWhiteIcon} onClick={() => navigate('/favorites')} alt="favourite" />
+          <img src={favoriteWhiteIcon} onClick={() => navigate('/favorites')} alt="favorite" />
           <img src={myPostsIcon} className={cls.btnMyPosts} onClick={() => navigate('/myPosts')} alt="myPosts" />
           <img src={accountIcon} onClick={() => navigate('/account')} alt="account" />
         </>

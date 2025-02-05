@@ -20,7 +20,7 @@ export const ModalConfirm:FC<IModalConfirm> = ({action, clickApply, closeModal})
 
   return (
     <ModalTemplate closeModal={closeModal} className={isDelete ? 'isDelete' : ''}>
-      <div className={cls.modalConfirm}>
+      <div className={cls.modalConfirm} data-testId='modalConfirm'>
         <h3>{title}</h3>
         <div className={cls.modalConfirm__buttons}>
           <button className={cls.btnCancel} onClick={closeModal}>Нет, оставить</button>

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer should render Footer 1`] = `
+<footer
+  class="footer"
+>
+  <div
+    class="wrapper footer__wrapper"
+  >
+    <p
+      class="footer__email"
+    >
+      info@whitebird.io
+    </p>
+    <p
+      class="footer__copyright"
+    >
+      © 2020–2024 Whitebird
+    </p>
+  </div>
+</footer>
+`;

@@ -77,7 +77,7 @@ export const Card:FC<ICard> = ({ post, showControls, showPriority, movingPostsId
           <PostMoving postId={post.id} movingPostsId={movingPostsId} />
         }
       </div>
-      {modalUpdate && 
+      {modalUpdate &&
         <ModalManage 
           id={isLocalPost ? 'localPosts_update' : 'posts_update'}
           defaultObj={post} 

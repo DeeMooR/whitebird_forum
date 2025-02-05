@@ -16,7 +16,7 @@ export const Loading:FC<ILoading> = ({ delay = 0 }) => {
   }, [delay]);
 
   return isActive ? (
-    <div className={cls.loading}>
+    <div className={cls.loading} role='status'>
       <div className={cls.loading__spinner} />
     </div>
   ) : null;

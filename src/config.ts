@@ -1,5 +1,5 @@
 import { UseFormSetError } from "react-hook-form";
-import { IComment, IPost, IUser } from "./interfaces";
+import { IComment, IPost } from "./interfaces";
 
 export enum ROLES {
   UNAUTHORIZED = 'unauthorized',

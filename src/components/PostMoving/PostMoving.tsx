@@ -31,7 +31,7 @@ export const PostMoving:FC<IPostMoving> = ({ postId, movingPostsId }) => {
   });
 
   return (
-    <div className={cls.postMoving}>
+    <div className={cls.postMoving} data-testId='postMoving'>
       <img src={arrowUpIcon} className={btnUpStyle} onClick={handleSwapWithUp} alt="arrowUp" />
       <img src={arrowDownIcon} className={btnDownStyle} onClick={handleSwapWithDown} alt="arrowDown" />
     </div>
