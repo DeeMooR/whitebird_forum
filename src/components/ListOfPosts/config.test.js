@@ -1,5 +1,5 @@
 import { getMovingPostsId } from './config';
-import { mockMovingPostsId } from '../__mocks__';
+import { mockMovingPostsId } from '../__mocks__/movingPostsId.mock';
 
 describe('getMovingPostsId', () => {
   it.each(mockMovingPostsId)

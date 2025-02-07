@@ -1,5 +1,5 @@
 import React, { FC, ReactNode, useEffect } from 'react'
-import { displayScroll, hiddenScroll } from './config';
+import { displayScroll, hiddenScroll } from 'src/utils';
 import { crossIcon } from 'src/assets';
 import cn from 'classnames';
 import cls from './styles.module.scss';
@@ -25,8 +25,8 @@ export const ModalTemplate:FC<IModalTemplate> = ({ closeModal, children, classNa
   });
 
   return (
-    <div className={cls.modal__background} onClick={(e) => clickBackground(e)}>
-      <div className={modalStyle}>
+    <div className={cls.modal__background} onClick={(e) => clickBackground(e)} data-testId="modalBackground">
+      <div className={modalStyle} role="dialog">
         <div className={cls.modal__content}>
           <img src={crossIcon} className={cls.modal__cross} onClick={closeModal} alt="cross" />
           {children}

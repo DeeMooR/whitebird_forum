@@ -90,7 +90,7 @@ export const modalFields: IModalFields = {
 export const modalManageText = {
   user: {
     add: {
-      title: 'Добавление пользователя',
+      title: 'Создание пользователя',
       btnText: 'Добавить'
     },
     update: {
