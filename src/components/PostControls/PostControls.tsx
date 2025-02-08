@@ -12,7 +12,7 @@ import cls from './styles.module.scss';
 export const PostControls = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { post} = useSelector(getPostSelector);
+  const { post } = useSelector(getPostSelector);
   const { favoritePosts, user, role } = useSelector(getUserSelector);
   const { likeUserIds, dislikeUserIds } = useSelector(getControlsInPostSelector);
   const isAuthorized = role !== ROLES.UNAUTHORIZED;
@@ -49,25 +49,25 @@ export const PostControls = () => {
   return (
     <div className={cls.controls}>
       <div className={cls.controls__feedback}>
-        <div className={feedbackStyle} onClick={handleClickLike}>
+        <div className={feedbackStyle} onClick={handleClickLike} data-testid='btnLike'>
           {user.id && likeUserIds.includes(user.id) 
             ? <img src={likeFillIcon} alt="likeFill" />
             : <img src={likeIcon} alt="like" />
           }
-          <p className={cls.feedback__counter}>{likeUserIds.length}</p>
+          <p className={cls.feedback__counter} data-testId='likesCounter'>{likeUserIds.length}</p>
         </div>
         <div className={cls.feedback__verticalLine}></div>
-        <div className={feedbackStyle} onClick={handleClickDislike}>
+        <div className={feedbackStyle} onClick={handleClickDislike} data-testid='btnDislike'>
           {user.id && dislikeUserIds.includes(user.id) 
             ? <img src={dislikeFillIcon} alt="dislikeFill" />
             : <img src={dislikeIcon} alt="dislike" />
           }
-          <p className={cls.feedback__counter}>{dislikeUserIds.length}</p>
+          <p className={cls.feedback__counter} data-testId='dislikesCounter'>{dislikeUserIds.length}</p>
         </div>
       </div>
       {isAuthorized &&
         <>
-        <div className={cls.controls__favorite} onClick={handleClickFavorite}>
+        <div className={cls.controls__favorite} onClick={handleClickFavorite} data-testid='btnFavorite'>
           {post && favoritePosts.includes(post.id) 
             ? <img src={favoriteFillIcon} alt="favoriteFill" />
             : <img src={favoriteIcon} alt="favorite" />

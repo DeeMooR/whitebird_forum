@@ -63,7 +63,7 @@ export const PostComments = () => {
               placeholder='Текст'
               error={errors.body?.message}
             />
-            <button className={cn(cls.comment__btnSend, 'btnSmall')}>Сохранить</button>
+            <button type='submit' className={cn(cls.comment__btnSend, 'btnSmall')}>Сохранить</button>
           </form>
         </div>
       }
