@@ -28,7 +28,10 @@ jest.mock('react-hook-form', () => ({
   ...jest.requireActual('react-hook-form'),
   useForm: () => ({
     ...jest.requireActual('react-hook-form').useForm(),
-    handleSubmit: jest.fn((fn) => fn(mockData)),
+    handleSubmit: jest.fn((fn) => (e) => {
+      e.preventDefault();
+      fn(mockData);
+    }),
     reset: mockReset,
   }),
 }));

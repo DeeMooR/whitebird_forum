@@ -13,3 +13,13 @@ export const renderWithProviders = (component, { store, ...options } = {}) => {
 
   return render(component, { wrapper: Wrapper, ...options });
 };
+
+export const renderWithMemoryRouter = (component, { ...options } = {}) => {
+  const Wrapper = ({ children }) => (
+    <MemoryRouter {...options}>
+      {children}
+    </MemoryRouter>
+  );
+
+  return render(component, { wrapper: Wrapper, ...options });
+};
