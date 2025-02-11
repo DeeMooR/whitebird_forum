@@ -37,7 +37,7 @@ export const Notification:FC<INotification> = ({type, message, displayTime = 200
   });
 
   return isVisible ? (
-    <div className={notificationStyle}>
+    <div className={notificationStyle} role='status'>
       <div className={cls.notification__wrapper}>
         <div className={cls.notification__icon}>{icon}</div>
         <p className={cls.notification__text}>{message}</p>

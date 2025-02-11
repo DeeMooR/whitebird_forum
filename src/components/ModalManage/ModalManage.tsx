@@ -40,7 +40,7 @@ export const ModalManage:FC<IModalManage> = ({id, defaultObj, type, action, clos
 
   return (
     <ModalTemplate closeModal={closeModal}>
-      <form className={cls.modalManage} onSubmit={handleSubmit(onSubmit)}>
+      <form className={cls.modalManage} onSubmit={handleSubmit(onSubmit)} data-testId='modalManage'>
         <h3 className={cls.modalManage__title}>{title}</h3>
         <div className={cls.modalManage__fields}>
           {modalFields[type].map(({ element, data }) => 

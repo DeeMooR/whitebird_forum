@@ -22,7 +22,7 @@ export const Input:FC<IInputBlock> = ({id, register, type, title, placeholder, d
   });
   
   return (
-    <div className={cls.inputBlock}>
+    <div className={cls.inputBlock} data-testId='inputBlock'>
       {title &&
         <p className={cls.inputBlock__title}>{title}</p>
       }

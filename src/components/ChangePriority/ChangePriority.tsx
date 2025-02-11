@@ -26,7 +26,7 @@ export const ChangePriority:FC<IChangePriority> = ({ postId, defaultValue, isLoc
   const controlDownStyle = cn(cls.changePriority__contol, { [cls.hidden]: priority <= 1 });
 
   return (
-    <div className={cls.changePriority}>
+    <div className={cls.changePriority} data-testId='changePriority'>
       <img src={arrowUpIcon} className={controlUpStyle} onClick={handleClickUp} alt="arrowUp" />
       <input 
         type="number"

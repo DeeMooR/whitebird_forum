@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from 'src/redux/slices';
-import { getLocalPostsSelector, getPostsSelector, getUserSelector } from 'src/redux/selectors';
+import { getPostsSelector, getUserSelector } from 'src/redux/selectors';
 import { PageTemplate } from 'src/pages'
 import { ListOfPosts } from 'src/components';
 import cls from './styles.module.scss';

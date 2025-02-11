@@ -28,7 +28,7 @@ export const Textarea:FC<ITextareaBlock> = ({id, register, title, placeholder, d
   });
 
   return (
-    <div className={cls.textareaBlock}>
+    <div className={cls.textareaBlock} data-testId='textareaBlock'>
       {title &&
         <p className={cls.textareaBlock__title}>{title}</p>
       }

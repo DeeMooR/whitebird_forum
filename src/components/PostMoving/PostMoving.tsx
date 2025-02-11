@@ -17,21 +17,23 @@ export const PostMoving:FC<IPostMoving> = ({ postId, movingPostsId }) => {
   const dispatch = useDispatch();
   
   const handleSwapWithUp = () => {
+    if (!movingPostsId?.upPostId) return;
     dispatch(setSwapPosts([postId, movingPostsId?.upPostId]));
   }
   const handleSwapWithDown = () => {
+    if (!movingPostsId?.downPostId) return;
     dispatch(setSwapPosts([postId, movingPostsId?.downPostId]));
   }
 
   const btnUpStyle = cn(cls.card__btnUp, { 
     [cls.isDisabled]: !movingPostsId?.upPostId,
   });
-  const btnDownStyle = cn(cls.card__btnUp, { 
+  const btnDownStyle = cn(cls.card__btnDown, { 
     [cls.isDisabled]: !movingPostsId?.downPostId,
   });
 
   return (
-    <div className={cls.postMoving}>
+    <div className={cls.postMoving} data-testId='postMoving'>
       <img src={arrowUpIcon} className={btnUpStyle} onClick={handleSwapWithUp} alt="arrowUp" />
       <img src={arrowDownIcon} className={btnDownStyle} onClick={handleSwapWithDown} alt="arrowDown" />
     </div>

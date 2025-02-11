@@ -17,7 +17,7 @@ export const Header = () => {
   return (
     <header className={cls.header}>
       <div className={headerWrapperStyle}>
-        <picture className={cls.header__logo} onClick={() => navigate('/forum')}>
+        <picture className={cls.header__logo} onClick={() => navigate('/forum')} data-testId='headerLogo'>
           <source srcSet={logoShortIcon} media="(max-width: 800px)" />
           <img src={logoIcon} alt="WHITEBIRD" />
         </picture>
