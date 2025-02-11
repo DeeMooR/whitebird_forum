@@ -40,6 +40,7 @@
 ### **Стек технологий**: 
 - React, TypeScript, Redux-Saga
 - Axios, react-hook-form
+- Jest, React Testing Library
 - SCSS, HTML
 
 ---
